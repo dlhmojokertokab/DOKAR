@@ -6074,6 +6074,201 @@
       }
     }
 
+
+    /* ==================================================
+       V38 — PAGE TURN NAVIGATION
+       Service switch moves to the page edges so the hero gets the full canvas.
+       ARSIP → burgundy arrow on the right. IZIN → green arrow on the left.
+    ================================================== */
+
+    /* Retire the old top switch band completely. */
+    .app-mode-switch-wrap,
+    .app-mode-switch {
+      display: none !important;
+    }
+
+    .page-turn-nav {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      pointer-events: none;
+    }
+
+    .page-turn-arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 68px;
+      height: 128px;
+      border: 1px solid rgba(255,255,255,.34);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 8px;
+      box-shadow: 0 18px 40px rgba(42,31,25,.18);
+      cursor: pointer;
+      pointer-events: auto;
+      z-index: 81;
+      transition:
+        width .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease,
+        filter .18s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .page-turn-arrow svg {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+    }
+
+    .page-turn-label {
+      font-size: 9px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .page-turn-izin {
+      right: 0;
+      border-right: 0;
+      border-radius: 24px 0 0 24px;
+      background:
+        linear-gradient(145deg, rgba(139,46,59,.97), rgba(110,31,42,.98));
+    }
+
+    .page-turn-arsip {
+      left: 0;
+      border-left: 0;
+      border-radius: 0 24px 24px 0;
+      background:
+        linear-gradient(145deg, rgba(55,125,82,.97), rgba(47,107,69,.98));
+    }
+
+    .page-turn-arrow:hover {
+      width: 78px;
+      box-shadow: 0 22px 48px rgba(42,31,25,.24);
+      filter: saturate(1.05);
+    }
+
+    .page-turn-izin:hover {
+      transform: translateY(-50%) translateX(-4px);
+    }
+
+    .page-turn-arsip:hover {
+      transform: translateY(-50%) translateX(4px);
+    }
+
+    .page-turn-arrow:focus-visible {
+      outline: 3px solid rgba(255,255,255,.95);
+      outline-offset: -6px;
+    }
+
+    /* Mirrored page-turn behavior: only the destination is shown. */
+    body:not(.mode-izin) .page-turn-arsip {
+      display: none;
+    }
+
+    body.mode-izin .page-turn-izin {
+      display: none;
+    }
+
+    body:not(.mode-izin) .page-turn-izin,
+    body.mode-izin .page-turn-arsip {
+      display: flex;
+    }
+
+
+
+    /* Outside the homepage, keep it as a tiny navigation tab so it never steals table width. */
+    body:not(.landing-idle) .page-turn-arrow {
+      width: 46px;
+      height: 62px;
+      gap: 0;
+    }
+
+    body:not(.landing-idle) .page-turn-arrow:hover {
+      width: 50px;
+    }
+
+    body:not(.landing-idle) .page-turn-arrow svg {
+      width: 27px;
+      height: 27px;
+    }
+
+    body:not(.landing-idle) .page-turn-label {
+      display: none;
+    }
+
+        /* With the top mode band gone, the hero can use that space again. */
+    @media (min-width: 981px) {
+      .split-landing,
+      .izin-landing {
+        min-height: calc(100svh - 108px);
+      }
+
+      body.landing-idle .top-unified-card .hero {
+        flex: 0 0 108px;
+      }
+
+      body.landing-idle .split-landing,
+      body.landing-idle .izin-landing {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .page-turn-arrow {
+        width: 54px;
+        height: 92px;
+        gap: 4px;
+      }
+
+      .page-turn-arrow:hover {
+        width: 54px;
+      }
+
+      .page-turn-arrow svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .page-turn-label {
+        font-size: 8px;
+        letter-spacing: .08em;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .page-turn-arrow {
+        top: 48%;
+        width: 46px;
+        height: 76px;
+        border-radius: 16px 0 0 16px;
+      }
+
+      .page-turn-arsip {
+        border-radius: 0 16px 16px 0;
+      }
+
+      .page-turn-arrow svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      .page-turn-label {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -6166,18 +6361,20 @@
 
         </header>
 
-      <div class="app-mode-switch-wrap">
-        <div class="app-mode-switch" role="group" aria-label="Pilih layanan LEMARI">
-          <button id="modeArsipBtn" type="button" data-mode="arsip" class="active" aria-pressed="true">
-            <span class="mode-switch-dot"></span>
-            ARSIP
-          </button>
-          <button id="modeIzinBtn" type="button" data-mode="izin" aria-pressed="false">
-            <span class="mode-switch-dot"></span>
-            IZIN LINGKUNGAN
-          </button>
-        </div>
-      </div>
+      <nav class="page-turn-nav" aria-label="Pindah layanan LEMARI">
+        <button id="modeArsipBtn" class="page-turn-arrow page-turn-arsip" type="button" data-mode="arsip" aria-pressed="true" aria-label="Buka Arsip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+          <span class="page-turn-label">ARSIP</span>
+        </button>
+        <button id="modeIzinBtn" class="page-turn-arrow page-turn-izin" type="button" data-mode="izin" aria-pressed="false" aria-label="Buka Izin Lingkungan">
+          <span class="page-turn-label">IZIN</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </nav>
 
 
       <section id="archiveLanding" class="split-landing archive-mode-shell">
