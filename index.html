@@ -4747,6 +4747,255 @@
       }
     }
 
+
+    /* ==================================================
+       V31 — MOBILE REBUILD
+    ================================================== */
+
+    .mobile-results-list,
+    .mobile-filter-toggle {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+
+      /* HP: foto kantor tidak lagi memanjangkan homepage. */
+      .split-visual {
+        display: none !important;
+      }
+
+      .split-copy {
+        padding-bottom: 28px;
+      }
+
+      /* HP: hasil langsung terlihat; filter opsional. */
+      .mobile-filter-toggle {
+        width: 100%;
+        min-height: 44px;
+        margin: 0 0 12px;
+        padding: 9px 12px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1px solid rgba(47,107,69,.17);
+        border-radius: 12px;
+        background: rgba(244,249,245,.84);
+        color: var(--primary-dark);
+        font-size: 12px;
+        font-weight: 850;
+        cursor: pointer;
+      }
+
+      .mobile-filter-toggle:not([hidden]) {
+        display: flex;
+      }
+
+      .mobile-filter-chevron {
+        font-size: 18px;
+        line-height: 1;
+        transition: transform .15s ease;
+      }
+
+      .mobile-filter-toggle.is-open .mobile-filter-chevron {
+        transform: rotate(180deg);
+      }
+
+      #filterPanel {
+        display: none;
+        margin: 0 0 14px;
+        padding: 14px;
+        border: 1px solid rgba(87,71,58,.12);
+        border-radius: 16px;
+        background: rgba(255,253,250,.78);
+      }
+
+      #filterPanel.mobile-open {
+        display: block;
+      }
+
+      .filter-panel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px !important;
+      }
+
+      .filter-panel-grid > :last-child {
+        grid-column: 1 / -1 !important;
+      }
+
+      /* HP: gunakan cards khusus, jangan paksa tabel desktop. */
+      #resultsTableWrap {
+        display: none !important;
+      }
+
+      .mobile-results-list {
+        gap: 12px;
+        margin-top: 4px;
+      }
+
+      .mobile-results-list:not([hidden]) {
+        display: grid;
+      }
+
+      .mobile-archive-card {
+        overflow: hidden;
+        border: 1px solid rgba(87,71,58,.13);
+        border-radius: 17px;
+        background: rgba(255,253,250,.98);
+        box-shadow: 0 9px 24px rgba(58,42,31,.07);
+      }
+
+      .mobile-archive-head {
+        padding: 14px 14px 12px;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(236,245,238,.84),
+            rgba(255,253,250,.98)
+          );
+      }
+
+      .mobile-archive-title {
+        margin: 0;
+        color: #241f1b;
+        font-size: 16px;
+        font-weight: 900;
+        line-height: 1.35;
+      }
+
+      .mobile-archive-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 8px;
+      }
+
+      .mobile-archive-badges .badge {
+        padding: 5px 7px;
+        font-size: 8.5px;
+      }
+
+      .mobile-archive-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-top: 1px solid rgba(87,71,58,.08);
+      }
+
+      .mobile-meta-block {
+        min-width: 0;
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(87,71,58,.08);
+      }
+
+      .mobile-meta-wide {
+        grid-column: 1 / -1;
+      }
+
+      .mobile-meta-label {
+        display: block;
+        margin-bottom: 4px;
+        color: #8a7f75;
+        font-size: 8.5px;
+        font-weight: 900;
+        letter-spacing: .07em;
+        text-transform: uppercase;
+      }
+
+      .mobile-meta-value,
+      .mobile-meta-code {
+        display: block;
+        color: #2b2622;
+        font-size: 11.5px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+      }
+
+      .mobile-meta-code {
+        color: var(--primary-dark);
+      }
+
+      .mobile-meta-mono {
+        font-size: 11px;
+      }
+
+      .mobile-meta-sub {
+        display: block;
+        margin-top: 3px;
+        color: #756b62;
+        font-size: 9.5px;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+      }
+
+      .mobile-archive-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) repeat(2, 42px);
+        gap: 7px;
+        padding: 10px 12px 12px;
+      }
+
+      .mobile-action-primary,
+      .mobile-action-icon {
+        min-height: 42px;
+        border: 1px solid rgba(47,107,69,.17);
+        border-radius: 11px;
+        cursor: pointer;
+      }
+
+      .mobile-action-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 8px 12px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 850;
+      }
+
+      .mobile-action-primary .ic,
+      .mobile-action-icon .ic {
+        width: 17px;
+        height: 17px;
+      }
+
+      .mobile-action-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        color: var(--primary-dark);
+      }
+
+      .mobile-action-danger {
+        color: #9d3f34;
+      }
+
+      .pagination-bar {
+        margin-top: 12px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .filter-panel-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .filter-panel-grid > :last-child {
+        grid-column: 1 !important;
+      }
+
+      .mobile-archive-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-meta-wide,
+      .mobile-meta-block {
+        grid-column: 1 !important;
+        border-left: 0 !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -4989,6 +5238,17 @@
 
         </div>
 
+        <button
+          id="mobileFilterToggle"
+          class="mobile-filter-toggle"
+          type="button"
+          aria-expanded="false"
+          hidden
+        >
+          <span>☰ Filter Arsip</span>
+          <span class="mobile-filter-chevron">⌄</span>
+        </button>
+
 
         <div
           id="loadingState"
@@ -5126,6 +5386,13 @@
         </div>
 
       </section>
+
+        <div
+          id="mobileResultsList"
+          class="mobile-results-list"
+          hidden
+        ></div>
+
 
         <div
           id="resultsTableWrap"
@@ -7383,6 +7650,12 @@
       $("resultsTableWrap").hidden =
         true;
 
+      $("mobileResultsList").hidden =
+        true;
+
+      $("mobileFilterToggle").hidden =
+        true;
+
       $("paginationBar").hidden =
         true;
     }
@@ -7468,6 +7741,9 @@
       hideAllStates();
 
       $("resultsTableBody").innerHTML =
+        "";
+
+      $("mobileResultsList").innerHTML =
         "";
 
       $("paginationInfo").textContent =
@@ -7978,8 +8254,282 @@
         }
       );
 
+      renderMobileArchive(
+        items
+      );
+
       bindArchiveActions();
     }
+
+
+    function renderMobileArchive(
+      items
+    ) {
+      const list =
+        $("mobileResultsList");
+
+      list.innerHTML =
+        "";
+
+      items.forEach(
+        item => {
+
+          const isNonLetter =
+            item.tipeArsip ===
+              "Dokumen Non-Surat";
+
+          const hasMeta =
+            Boolean(
+              item.metadataKearsipan &&
+              item.nomorDokumen
+            );
+
+          const nomorDokumen =
+            hasMeta
+              ? item.nomorDokumen
+              : "—";
+
+          const tahun =
+            item.tahunSurat ||
+            item.tahun ||
+            "—";
+
+          const kode =
+            hasMeta
+              ? (
+                  item.kodeKlasifikasi ||
+                  "—"
+                )
+              : "—";
+
+          const uraian =
+            hasMeta
+              ? (
+                  item.uraianKlasifikasi ||
+                  "Klasifikasi belum terisi"
+                )
+              : (
+                  isNonLetter
+                    ? "Tidak menggunakan klasifikasi surat"
+                    : `Arsip lama • ${item.kategori || "Tanpa kategori"}`
+                );
+
+          const jenisUtama =
+            item.jenisSurat ||
+            item.jenisDokumen ||
+            (
+              isNonLetter
+                ? "Dokumen Non-Surat"
+                : "—"
+            );
+
+          const jenisSub =
+            item.jenisAgenda ||
+            (
+              isNonLetter
+                ? "Dokumen Non-Surat"
+                : ""
+            );
+
+          const card =
+            document.createElement(
+              "article"
+            );
+
+          card.className =
+            "mobile-archive-card";
+
+          card.innerHTML =
+            `
+              <div class="mobile-archive-head">
+                <h3 class="mobile-archive-title">
+                  ${escapeHtml(item.judul)}
+                </h3>
+
+                <div class="mobile-archive-badges">
+                  <span class="badge ${item.sensitif ? "badge-restricted" : "badge-open"}">
+                    ${escapeHtml(
+                      item.aksesLabel ||
+                      (
+                        item.sensitif
+                          ? "Terbatas"
+                          : "Viewer by Link"
+                      )
+                    )}
+                  </span>
+
+                  ${
+                    item.tipeArsip
+                      ? `
+                        <span class="badge badge-version">
+                          ${escapeHtml(item.tipeArsip)}
+                        </span>
+                      `
+                      : ""
+                  }
+
+                  <span class="badge badge-version">
+                    v${escapeHtml(item.versiTerbaru || 1)}
+                  </span>
+                </div>
+              </div>
+
+
+              <div class="mobile-archive-meta">
+
+                <div class="mobile-meta-block mobile-meta-wide">
+                  <span class="mobile-meta-label">
+                    Nomor Dokumen
+                  </span>
+
+                  <strong class="mobile-meta-value mobile-meta-mono">
+                    ${escapeHtml(nomorDokumen)}
+                  </strong>
+
+                  <span class="mobile-meta-sub">
+                    ${
+                      item.nomorSurat
+                        ? `Nomor Surat ${escapeHtml(item.nomorSurat)} • Tahun ${escapeHtml(tahun)}`
+                        : `Tahun ${escapeHtml(tahun)}`
+                    }
+                  </span>
+                </div>
+
+
+                <div class="mobile-meta-block mobile-meta-wide">
+                  <span class="mobile-meta-label">
+                    Klasifikasi
+                  </span>
+
+                  <strong class="mobile-meta-code">
+                    ${escapeHtml(kode)}
+                  </strong>
+
+                  <span class="mobile-meta-sub">
+                    ${escapeHtml(uraian)}
+                  </span>
+                </div>
+
+
+                <div class="mobile-meta-block">
+                  <span class="mobile-meta-label">
+                    Bidang
+                  </span>
+
+                  <strong class="mobile-meta-value">
+                    ${escapeHtml(item.bidang || "—")}
+                  </strong>
+                </div>
+
+
+                <div class="mobile-meta-block">
+                  <span class="mobile-meta-label">
+                    Arah
+                  </span>
+
+                  <strong class="mobile-meta-value">
+                    ${escapeHtml(item.arahAgenda || "—")}
+                  </strong>
+                </div>
+
+
+                <div class="mobile-meta-block mobile-meta-wide">
+                  <span class="mobile-meta-label">
+                    Jenis
+                  </span>
+
+                  <strong class="mobile-meta-value">
+                    ${escapeHtml(jenisUtama)}
+                  </strong>
+
+                  ${
+                    jenisSub
+                      ? `
+                        <span class="mobile-meta-sub">
+                          ${escapeHtml(jenisSub)}
+                        </span>
+                      `
+                      : ""
+                  }
+                </div>
+
+              </div>
+
+
+              <div class="mobile-archive-actions">
+
+                <button
+                  class="mobile-action-primary"
+                  type="button"
+                  data-open="${escapeHtml(item.link)}"
+                >
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                  </svg>
+                  Buka Arsip
+                </button>
+
+                <button
+                  class="mobile-action-icon"
+                  type="button"
+                  data-share="${escapeHtml(item.link)}"
+                  title="Salin link"
+                >
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M8 12l-2 2a3 3 0 0 0 4 4l2-2"/>
+                    <path d="M16 12l2-2a3 3 0 0 0-4-4l-2 2"/>
+                    <path d="M9.5 14.5l5-5"/>
+                  </svg>
+                </button>
+
+                <button
+                  class="mobile-action-icon"
+                  type="button"
+                  data-version="${escapeHtml(item.id)}"
+                  title="Riwayat versi"
+                >
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 7v5l3 2"/>
+                  </svg>
+                </button>
+
+                ${
+                  isAdmin
+                    ? `
+                      <button
+                        class="mobile-action-icon"
+                        type="button"
+                        data-edit="${escapeHtml(item.id)}"
+                        title="Edit arsip"
+                      >
+                        ✎
+                      </button>
+
+                      <button
+                        class="mobile-action-icon mobile-action-danger"
+                        type="button"
+                        data-delete="${escapeHtml(item.id)}"
+                        title="Hapus arsip"
+                      >
+                        🗑
+                      </button>
+                    `
+                    : ""
+                }
+
+              </div>
+            `;
+
+          list.appendChild(
+            card
+          );
+
+        }
+      );
+    }
+
 
     function bindArchiveActions() {
       document
@@ -8452,6 +9002,12 @@
 
 
         $("resultsTableWrap").hidden =
+          false;
+
+        $("mobileResultsList").hidden =
+          false;
+
+        $("mobileFilterToggle").hidden =
           false;
 
         $("paginationBar").hidden =
@@ -12244,6 +12800,30 @@
           1;
 
         loadArchives();
+
+      };
+
+
+    $("mobileFilterToggle").onclick =
+      function() {
+
+        const panel =
+          $("filterPanel");
+
+        const open =
+          panel.classList.toggle(
+            "mobile-open"
+          );
+
+        this.setAttribute(
+          "aria-expanded",
+          String(open)
+        );
+
+        this.classList.toggle(
+          "is-open",
+          open
+        );
 
       };
 
