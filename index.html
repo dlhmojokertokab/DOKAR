@@ -6453,6 +6453,122 @@
       .izin-page-btn { flex: 1; }
     }
 
+  
+    /* ==================================================
+       V40 — HOVER PAGE TURN + BROWSE CTA ABOVE THE FOLD
+       Edge navigation stays tucked away on desktop and
+       slides out only when the pointer approaches it.
+    ================================================== */
+
+    /* Keep “Lihat Semua Izin” directly under the primary search so it
+       remains visible on common laptop/desktop viewports. */
+    .izin-browse-all {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+
+    .show-all-izin-btn {
+      min-height: 40px;
+      padding: 8px 13px;
+      box-shadow: 0 8px 22px rgba(110,31,42,.08);
+    }
+
+    /* Desktop/mouse: only a slim 28px page edge is visible at rest.
+       Hover/focus reveals the complete destination tab. */
+    @media (hover: hover) and (pointer: fine) {
+      .page-turn-arrow,
+      body:not(.landing-idle) .page-turn-arrow {
+        width: 110px;
+        height: 56px;
+        padding: 8px 10px;
+        gap: 8px;
+        flex-direction: row-reverse;
+        border-radius: 16px;
+        overflow: hidden;
+        transition:
+          transform .22s cubic-bezier(.2,.75,.25,1),
+          box-shadow .18s ease,
+          filter .18s ease;
+      }
+
+      .page-turn-izin,
+      body:not(.landing-idle) .page-turn-izin {
+        right: 0;
+        border-right: 0;
+        border-radius: 16px 0 0 16px;
+        transform: translate(82px,-50%);
+      }
+
+      .page-turn-arsip,
+      body:not(.landing-idle) .page-turn-arsip {
+        left: 0;
+        border-left: 0;
+        border-radius: 0 16px 16px 0;
+        transform: translate(-82px,-50%);
+      }
+
+      .page-turn-arrow svg,
+      body:not(.landing-idle) .page-turn-arrow svg {
+        width: 26px;
+        height: 26px;
+        flex: 0 0 26px;
+      }
+
+      .page-turn-label,
+      body:not(.landing-idle) .page-turn-label {
+        display: inline-block;
+        opacity: 0;
+        transform: translateX(5px);
+        transition: opacity .14s ease, transform .18s ease;
+        font-size: 9px;
+        letter-spacing: .08em;
+      }
+
+      .page-turn-izin:hover,
+      .page-turn-izin:focus-visible,
+      body:not(.landing-idle) .page-turn-izin:hover,
+      body:not(.landing-idle) .page-turn-izin:focus-visible {
+        width: 110px;
+        transform: translate(-4px,-50%);
+      }
+
+      .page-turn-arsip:hover,
+      .page-turn-arsip:focus-visible,
+      body:not(.landing-idle) .page-turn-arsip:hover,
+      body:not(.landing-idle) .page-turn-arsip:focus-visible {
+        width: 110px;
+        transform: translate(4px,-50%);
+      }
+
+      .page-turn-arrow:hover .page-turn-label,
+      .page-turn-arrow:focus-visible .page-turn-label {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Touch screens cannot hover: keep a compact but usable handle. */
+    @media (hover: none), (pointer: coarse) {
+      .page-turn-arrow,
+      body:not(.landing-idle) .page-turn-arrow {
+        width: 38px;
+        height: 64px;
+        padding: 6px;
+        gap: 0;
+      }
+
+      .page-turn-arrow svg,
+      body:not(.landing-idle) .page-turn-arrow svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .page-turn-label,
+      body:not(.landing-idle) .page-turn-label {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
@@ -6703,15 +6819,6 @@
             <button id="izinSearchBtn" class="izin-search-btn" type="button">Cari Izin</button>
           </div>
 
-          <div class="izin-search-note">Ketik kata kunci lalu tekan Enter atau klik Cari Izin.</div>
-
-          <div class="izin-hints" aria-label="Contoh pencarian izin">
-            <button type="button" class="izin-hint-chip" data-izin-chip="Ngoro">Ngoro</button>
-            <button type="button" class="izin-hint-chip" data-izin-chip="Jetis">Jetis</button>
-            <button type="button" class="izin-hint-chip" data-izin-chip="Pungging">Pungging</button>
-            <button type="button" class="izin-hint-chip" data-izin-chip="2019">2019</button>
-          </div>
-
           <div class="izin-browse-all">
             <button id="showAllIzinBtn" class="show-all-izin-btn" type="button">
               <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -6723,6 +6830,16 @@
               <span aria-hidden="true">→</span>
             </button>
           </div>
+
+          <div class="izin-search-note">Ketik kata kunci lalu tekan Enter atau klik Cari Izin.</div>
+
+          <div class="izin-hints" aria-label="Contoh pencarian izin">
+            <button type="button" class="izin-hint-chip" data-izin-chip="Ngoro">Ngoro</button>
+            <button type="button" class="izin-hint-chip" data-izin-chip="Jetis">Jetis</button>
+            <button type="button" class="izin-hint-chip" data-izin-chip="Pungging">Pungging</button>
+            <button type="button" class="izin-hint-chip" data-izin-chip="2019">2019</button>
+          </div>
+
 
           <div class="izin-caption">Database relasional: perusahaan induk → objek/lokasi usaha → dokumen izin.</div>
         </div>
