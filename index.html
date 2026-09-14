@@ -6269,6 +6269,190 @@
       }
     }
 
+  
+
+    /* ==================================================
+       V39 — BROWSE ALL IZIN + FILTERS
+    ================================================== */
+    .izin-browse-all {
+      position: relative;
+      z-index: 4;
+      margin-top: 16px;
+    }
+
+    .show-all-izin-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid rgba(110,31,42,.20);
+      border-radius: 12px;
+      background: rgba(255,249,247,.88);
+      color: #6e1f2a;
+      font-size: 12px;
+      font-weight: 850;
+      cursor: pointer;
+      transition: .15s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .show-all-izin-btn:hover {
+      border-color: rgba(110,31,42,.38);
+      background: #f8ecee;
+      transform: translateY(-1px);
+    }
+
+    .show-all-izin-btn .ic {
+      width: 16px;
+      height: 16px;
+    }
+
+    .izin-mobile-filter-toggle {
+      display: none;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 0 12px;
+      padding: 11px 13px;
+      border: 1px solid rgba(110,31,42,.14);
+      border-radius: 12px;
+      background: #fff;
+      color: #6e1f2a;
+      font-size: 11px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .izin-filter-panel {
+      margin: 0 0 20px;
+      padding: 16px;
+      border: 1px solid rgba(110,31,42,.12);
+      border-radius: 16px;
+      background: linear-gradient(180deg,#fffafa 0%,#fff 100%);
+    }
+
+    .izin-filter-heading h3 {
+      margin: 0;
+      color: #4f1720;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .izin-filter-heading p {
+      margin: 4px 0 0;
+      color: #8d797c;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .izin-filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr)) auto;
+      gap: 10px;
+      align-items: end;
+      margin-top: 13px;
+    }
+
+    .izin-filter-field label {
+      display: block;
+      margin: 0 0 6px;
+      color: #765d62;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .izin-filter-select {
+      width: 100%;
+      height: 42px;
+      padding: 0 34px 0 11px;
+      border: 1px solid rgba(110,31,42,.14);
+      border-radius: 11px;
+      background: #fff;
+      color: #4b3438;
+      font: inherit;
+      font-size: 11px;
+      outline: none;
+    }
+
+    .izin-filter-select:focus {
+      border-color: rgba(110,31,42,.48);
+      box-shadow: 0 0 0 3px rgba(110,31,42,.07);
+    }
+
+    .izin-filter-reset {
+      height: 42px;
+      padding: 0 14px;
+      border: 1px solid rgba(110,31,42,.16);
+      border-radius: 11px;
+      background: #fff;
+      color: #6e1f2a;
+      font-size: 11px;
+      font-weight: 850;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .izin-pagination-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border: 1px solid rgba(110,31,42,.10);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .izin-pagination-info {
+      color: #826d71;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .izin-pagination-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .izin-page-size,
+    .izin-page-btn {
+      height: 36px;
+      border: 1px solid rgba(110,31,42,.14);
+      border-radius: 10px;
+      background: #fff;
+      color: #6e1f2a;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .izin-page-size { padding: 0 28px 0 9px; }
+    .izin-page-btn { padding: 0 11px; cursor: pointer; }
+    .izin-page-btn:disabled { opacity: .4; cursor: default; }
+
+    @media (max-width: 980px) {
+      .izin-filter-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .izin-filter-grid > :last-child { grid-column: 1 / -1; }
+      .izin-filter-reset { width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .izin-mobile-filter-toggle { display: flex; }
+      .izin-filter-panel.mobile-collapsed { display: none; }
+      .izin-filter-grid { grid-template-columns: 1fr; }
+      .izin-filter-grid > :last-child { grid-column: auto; }
+      .izin-pagination-bar { align-items: stretch; flex-direction: column; }
+      .izin-pagination-actions { justify-content: space-between; }
+      .izin-page-size { flex: 1; }
+      .izin-page-btn { flex: 1; }
+    }
+
   </style>
 </head>
 
@@ -6528,6 +6712,18 @@
             <button type="button" class="izin-hint-chip" data-izin-chip="2019">2019</button>
           </div>
 
+          <div class="izin-browse-all">
+            <button id="showAllIzinBtn" class="show-all-izin-btn" type="button">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+                <path d="M8 12h8"/>
+                <path d="M8 15h5"/>
+              </svg>
+              Lihat Semua Izin
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
           <div class="izin-caption">Database relasional: perusahaan induk → objek/lokasi usaha → dokumen izin.</div>
         </div>
 
@@ -6587,10 +6783,53 @@
           <div id="izinResultCount" class="izin-result-count" hidden>0 perusahaan</div>
         </div>
 
+        <button id="izinMobileFilterToggle" class="izin-mobile-filter-toggle" type="button" aria-expanded="false" hidden>
+          <span>☰ Filter Izin</span><span>⌄</span>
+        </button>
+
+        <section id="izinFilterPanel" class="izin-filter-panel" hidden>
+          <div class="izin-filter-heading">
+            <h3>Filter Izin Lingkungan</h3>
+            <p>Saring database berdasarkan kecamatan, desa/kelurahan, tahun izin, atau jenis usaha.</p>
+          </div>
+          <div class="izin-filter-grid">
+            <div class="izin-filter-field">
+              <label for="izinKecamatanFilter">Kecamatan</label>
+              <select id="izinKecamatanFilter" class="izin-filter-select"><option value="">Semua Kecamatan</option></select>
+            </div>
+            <div class="izin-filter-field">
+              <label for="izinDesaFilter">Desa / Kelurahan</label>
+              <select id="izinDesaFilter" class="izin-filter-select"><option value="">Semua Desa / Kelurahan</option></select>
+            </div>
+            <div class="izin-filter-field">
+              <label for="izinTahunFilter">Tahun Izin</label>
+              <select id="izinTahunFilter" class="izin-filter-select"><option value="">Semua Tahun</option></select>
+            </div>
+            <div class="izin-filter-field">
+              <label for="izinJenisUsahaFilter">Jenis Usaha</label>
+              <select id="izinJenisUsahaFilter" class="izin-filter-select"><option value="">Semua Jenis Usaha</option></select>
+            </div>
+            <div><button id="izinResetFilterBtn" class="izin-filter-reset" type="button">↺ Reset</button></div>
+          </div>
+        </section>
+
         <div id="izinLoadingState" class="izin-result-state">Membuka database izin...</div>
         <div id="izinErrorState" class="izin-result-state">Database izin belum dapat dibuka.</div>
         <div id="izinEmptyState" class="izin-result-state">Tidak ada data yang cocok.</div>
         <div id="izinCompanyList" class="izin-company-list"></div>
+
+        <div id="izinPaginationBar" class="izin-pagination-bar" hidden>
+          <div id="izinPaginationInfo" class="izin-pagination-info">0 perusahaan</div>
+          <div class="izin-pagination-actions">
+            <select id="izinPageSizeSelect" class="izin-page-size" aria-label="Jumlah perusahaan per halaman">
+              <option value="25">25 / halaman</option>
+              <option value="50" selected>50 / halaman</option>
+              <option value="100">100 / halaman</option>
+            </select>
+            <button id="izinPrevPageBtn" class="izin-page-btn" type="button">← Sebelumnya</button>
+            <button id="izinNextPageBtn" class="izin-page-btn" type="button">Berikutnya →</button>
+          </div>
+        </div>
       </section>
 
 
@@ -14396,6 +14635,11 @@
       loading: false,
       healthLoaded: false,
       items: [],
+      sourceItems: [],
+      filteredItems: [],
+      browseAll: false,
+      page: 1,
+      pageSize: 50,
     };
 
     function formatIzinNumber(value) {
@@ -14562,6 +14806,184 @@
       }
     }
 
+
+    function izinUniqueSorted(values, numeric = false) {
+      const list = [...new Set(values.map(v => String(v || "").trim()).filter(Boolean))];
+      return list.sort((a,b) => numeric
+        ? Number(b) - Number(a)
+        : a.localeCompare(b, "id", { sensitivity: "base" })
+      );
+    }
+
+    function fillIzinSelect(id, values, firstLabel, numeric = false) {
+      const select = $(id);
+      const previous = select.value;
+      select.innerHTML = "";
+      const first = document.createElement("option");
+      first.value = "";
+      first.textContent = firstLabel;
+      select.appendChild(first);
+      izinUniqueSorted(values, numeric).forEach(value => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+      if ([...select.options].some(o => o.value === previous)) select.value = previous;
+    }
+
+    function buildIzinFilterOptions(items) {
+      const kecamatan = [];
+      const desa = [];
+      const tahun = [];
+      const jenisUsaha = [];
+      (items || []).forEach(company => {
+        (company.objek || []).forEach(obj => {
+          if (obj.kecamatan) kecamatan.push(obj.kecamatan);
+          if (obj.desa_kelurahan) desa.push(obj.desa_kelurahan);
+          if (obj.jenis_usaha) jenisUsaha.push(obj.jenis_usaha);
+          (obj.dokumen || []).forEach(doc => { if (doc.tahun) tahun.push(doc.tahun); });
+        });
+      });
+      fillIzinSelect("izinKecamatanFilter", kecamatan, "Semua Kecamatan");
+      fillIzinSelect("izinDesaFilter", desa, "Semua Desa / Kelurahan");
+      fillIzinSelect("izinTahunFilter", tahun, "Semua Tahun", true);
+      fillIzinSelect("izinJenisUsahaFilter", jenisUsaha, "Semua Jenis Usaha");
+    }
+
+    function resetIzinFilters(silent = false) {
+      ["izinKecamatanFilter","izinDesaFilter","izinTahunFilter","izinJenisUsahaFilter"].forEach(id => {
+        if ($(id)) $(id).value = "";
+      });
+      if (!silent) applyIzinFilters(true);
+    }
+
+    function filterIzinDataset(items) {
+      const kecamatan = $("izinKecamatanFilter").value;
+      const desa = $("izinDesaFilter").value;
+      const tahun = $("izinTahunFilter").value;
+      const jenisUsaha = $("izinJenisUsahaFilter").value;
+
+      return (items || []).map(company => {
+        const objects = (company.objek || []).map(obj => {
+          if (kecamatan && String(obj.kecamatan || "") !== kecamatan) return null;
+          if (desa && String(obj.desa_kelurahan || "") !== desa) return null;
+          if (jenisUsaha && String(obj.jenis_usaha || "") !== jenisUsaha) return null;
+
+          let docs = Array.isArray(obj.dokumen) ? obj.dokumen : [];
+          if (tahun) docs = docs.filter(doc => String(doc.tahun || "") === tahun);
+          if (tahun && !docs.length) return null;
+
+          return {
+            ...obj,
+            dokumen: docs,
+            jumlah_dokumen: docs.length,
+          };
+        }).filter(Boolean);
+
+        if (!objects.length) return null;
+        return {
+          ...company,
+          objek: objects,
+          jumlah_objek: objects.length,
+          jumlah_dokumen: objects.reduce((sum,obj) => sum + (obj.dokumen || []).length, 0),
+        };
+      }).filter(Boolean);
+    }
+
+    function izinFilteredStats(items) {
+      return {
+        companies: items.length,
+        objects: items.reduce((sum,c) => sum + (c.objek || []).length, 0),
+        docs: items.reduce((sum,c) => sum + (c.objek || []).reduce((n,o)=>n+(o.dokumen || []).length,0), 0),
+      };
+    }
+
+    function renderIzinPage() {
+      const total = izinState.filteredItems.length;
+      const totalPages = Math.max(1, Math.ceil(total / izinState.pageSize));
+      if (izinState.page > totalPages) izinState.page = totalPages;
+      const start = (izinState.page - 1) * izinState.pageSize;
+      const pageItems = izinState.filteredItems.slice(start, start + izinState.pageSize);
+      renderIzinResults(pageItems);
+
+      const bar = $("izinPaginationBar");
+      bar.hidden = total === 0;
+      if (!total) return;
+      const end = Math.min(start + izinState.pageSize, total);
+      $("izinPaginationInfo").textContent = `Menampilkan ${formatIzinNumber(start + 1)}–${formatIzinNumber(end)} dari ${formatIzinNumber(total)} perusahaan`;
+      $("izinPrevPageBtn").disabled = izinState.page <= 1;
+      $("izinNextPageBtn").disabled = izinState.page >= totalPages;
+      $("izinPageSizeSelect").value = String(izinState.pageSize);
+    }
+
+    function applyIzinFilters(resetPage = true) {
+      if (resetPage) izinState.page = 1;
+      izinState.filteredItems = filterIzinDataset(izinState.sourceItems);
+      const stats = izinFilteredStats(izinState.filteredItems);
+      $("izinResultCount").textContent = `${formatIzinNumber(stats.companies)} perusahaan`;
+      $("izinResultCount").hidden = false;
+
+      const hasFilter = ["izinKecamatanFilter","izinDesaFilter","izinTahunFilter","izinJenisUsahaFilter"].some(id => $(id).value);
+      const context = izinState.browseAll
+        ? "database izin"
+        : `hasil pencarian “${izinState.q}”`;
+      $("izinResultsSubtitle").textContent = `${formatIzinNumber(stats.companies)} perusahaan • ${formatIzinNumber(stats.objects)} objek • ${formatIzinNumber(stats.docs)} dokumen${hasFilter ? " setelah filter" : ""} pada ${context}.`;
+
+      if (!izinState.filteredItems.length) {
+        renderIzinResults([]);
+        $("izinPaginationBar").hidden = true;
+        setIzinStateView("empty");
+      } else {
+        setIzinStateView("ready");
+        renderIzinPage();
+      }
+    }
+
+    function prepareIzinDataset(items, browseAll = false) {
+      izinState.sourceItems = items || [];
+      izinState.browseAll = browseAll;
+      izinState.page = 1;
+      buildIzinFilterOptions(izinState.sourceItems);
+      resetIzinFilters(true);
+      $("izinFilterPanel").hidden = false;
+      $("izinMobileFilterToggle").hidden = false;
+      $("izinFilterPanel").classList.toggle("mobile-collapsed", window.innerWidth <= 640);
+      $("izinMobileFilterToggle").setAttribute("aria-expanded", String(window.innerWidth > 640));
+      applyIzinFilters(true);
+    }
+
+    async function showAllIzin() {
+      if (izinState.loading) return;
+      izinState.q = "";
+      izinState.browseAll = true;
+      $("izinSearchInput").value = "";
+      $("izinCompanyList").innerHTML = "";
+      $("izinResultCount").hidden = true;
+      $("izinFilterPanel").hidden = true;
+      $("izinMobileFilterToggle").hidden = true;
+      $("izinPaginationBar").hidden = true;
+
+      izinState.loading = true;
+      setLandingIdle(false);
+      $("izinResultsSection").hidden = false;
+      setIzinStateView("loading");
+      $("izinResultsTitle").textContent = "Semua Izin Lingkungan";
+      $("izinResultsSubtitle").textContent = "Membuka seluruh perusahaan, objek pengawasan, dan riwayat dokumen izin...";
+      scrollToIzinResults();
+
+      try {
+        const response = await fetch(buildApiUrl("/api/izin/search", { all: 1, limit: 2000 }), { cache: "no-store" });
+        const data = await response.json();
+        if (!response.ok || !data.ok) throw new Error(data.error || "Gagal membuka seluruh database izin.");
+        prepareIzinDataset(data.items || [], true);
+      } catch (error) {
+        setIzinStateView("error", error.message || "Gagal membuka seluruh database izin.");
+      } finally {
+        izinState.loading = false;
+      }
+    }
+
     function scrollToIzinResults() {
       const section = $("izinResultsSection");
       if (!section || section.hidden) return;
@@ -14571,8 +14993,12 @@
     async function runIzinSearch() {
       const q = $("izinSearchInput").value.trim();
       izinState.q = q;
+      izinState.browseAll = false;
       $("izinCompanyList").innerHTML = "";
       $("izinResultCount").hidden = true;
+      $("izinFilterPanel").hidden = true;
+      $("izinMobileFilterToggle").hidden = true;
+      $("izinPaginationBar").hidden = true;
 
       if (!q) {
         $("izinResultsSection").hidden = true;
@@ -14590,23 +15016,19 @@
       scrollToIzinResults();
 
       try {
-        const response = await fetch(buildApiUrl("/api/izin/search", { q, limit: 100 }), { cache: "no-store" });
+        const response = await fetch(buildApiUrl("/api/izin/search", { q, limit: 200 }), { cache: "no-store" });
         const data = await response.json();
         if (!response.ok || !data.ok) throw new Error(data.error || "Gagal mengambil database izin.");
 
         const items = data.items || [];
-        $("izinResultCount").textContent = `${formatIzinNumber(data.totalPerusahaan || 0)} perusahaan`;
-        $("izinResultCount").hidden = false;
-        $("izinResultsSubtitle").textContent = items.length
-          ? `${formatIzinNumber(data.totalPerusahaan || 0)} perusahaan • ${formatIzinNumber(data.totalObjek || 0)} objek • ${formatIzinNumber(data.totalDokumen || 0)} dokumen cocok untuk “${q}”.`
-          : `Tidak ada data yang cocok untuk “${q}”.`;
-
         if (!items.length) {
+          izinState.sourceItems = [];
+          izinState.filteredItems = [];
           renderIzinResults([]);
           setIzinStateView("empty");
+          $("izinResultsSubtitle").textContent = `Tidak ada data yang cocok untuk “${q}”.`;
         } else {
-          setIzinStateView("ready");
-          renderIzinResults(items);
+          prepareIzinDataset(items, false);
         }
       } catch (error) {
         setIzinStateView("error", error.message || "Gagal membuka database izin.");
@@ -14619,6 +15041,34 @@
       $("modeArsipBtn").onclick = () => setAppMode("arsip");
       $("modeIzinBtn").onclick = () => setAppMode("izin");
       $("izinSearchBtn").onclick = () => runIzinSearch();
+      $("showAllIzinBtn").onclick = () => showAllIzin();
+      ["izinKecamatanFilter","izinDesaFilter","izinTahunFilter","izinJenisUsahaFilter"].forEach(id => {
+        $(id).onchange = () => applyIzinFilters(true);
+      });
+      $("izinResetFilterBtn").onclick = () => resetIzinFilters(false);
+      $("izinPageSizeSelect").onchange = () => {
+        izinState.pageSize = Number($("izinPageSizeSelect").value || 50);
+        izinState.page = 1;
+        renderIzinPage();
+      };
+      $("izinPrevPageBtn").onclick = () => {
+        if (izinState.page <= 1) return;
+        izinState.page--;
+        renderIzinPage();
+        scrollToIzinResults();
+      };
+      $("izinNextPageBtn").onclick = () => {
+        const pages = Math.max(1, Math.ceil(izinState.filteredItems.length / izinState.pageSize));
+        if (izinState.page >= pages) return;
+        izinState.page++;
+        renderIzinPage();
+        scrollToIzinResults();
+      };
+      $("izinMobileFilterToggle").onclick = () => {
+        const panel = $("izinFilterPanel");
+        const collapsed = panel.classList.toggle("mobile-collapsed");
+        $("izinMobileFilterToggle").setAttribute("aria-expanded", String(!collapsed));
+      };
       $("izinSearchInput").addEventListener("keydown", event => {
         if (event.key !== "Enter") return;
         event.preventDefault();
