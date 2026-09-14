@@ -4996,9 +4996,337 @@
       }
     }
 
+  
+
+    /* ==================================================
+       V32 — ADMIN REVIEW DUPLIKAT IZIN
+    ================================================== */
+
+    .settings-box-wide {
+      grid-column: 1 / -1;
+    }
+
+    .izin-review-settings-box {
+      border-color: rgba(110,31,42,.18);
+      background:
+        linear-gradient(145deg, rgba(255,249,247,.96), rgba(247,239,239,.88));
+    }
+
+    .izin-review-settings-box h3 {
+      color: #6e1f2a;
+    }
+
+    .izin-review-settings-copy {
+      margin: 0 0 12px;
+      color: #756465;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .btn-burgundy {
+      border: 1px solid rgba(110,31,42,.22);
+      background: #6e1f2a;
+      color: #fff;
+    }
+
+    .btn-burgundy:hover {
+      background: #5d1823;
+      border-color: #5d1823;
+    }
+
+    .duplicate-review-modal-card {
+      width: min(1120px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+      background:
+        linear-gradient(145deg, #fffdfb, #fbf2f3);
+      border-color: rgba(110,31,42,.18);
+    }
+
+    .duplicate-review-head {
+      background:
+        linear-gradient(90deg, rgba(110,31,42,.06), rgba(255,253,250,.86));
+    }
+
+    .duplicate-review-head .modal-title {
+      color: #6e1f2a;
+    }
+
+    .duplicate-review-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .duplicate-stat {
+      padding: 12px 13px;
+      border: 1px solid rgba(110,31,42,.13);
+      border-radius: 14px;
+      background: rgba(255,255,255,.80);
+    }
+
+    .duplicate-stat-label {
+      display: block;
+      margin-bottom: 4px;
+      color: #8a7275;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .duplicate-stat-value {
+      color: #3d2a2c;
+      font-size: 22px;
+      font-weight: 950;
+    }
+
+    .duplicate-review-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .duplicate-review-note {
+      margin: 0;
+      color: #7b6b6c;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .duplicate-review-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .duplicate-card {
+      overflow: hidden;
+      border: 1px solid rgba(110,31,42,.14);
+      border-radius: 17px;
+      background: rgba(255,255,255,.88);
+      box-shadow: 0 8px 24px rgba(74,37,42,.06);
+    }
+
+    .duplicate-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(110,31,42,.10);
+      background: rgba(247,239,239,.62);
+    }
+
+    .duplicate-card-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: #5d1823;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .duplicate-confidence {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 950;
+      letter-spacing: .04em;
+    }
+
+    .duplicate-confidence.high {
+      background: #f6dfe3;
+      color: #6e1f2a;
+    }
+
+    .duplicate-confidence.medium {
+      background: #f5ead5;
+      color: #77571d;
+    }
+
+    .duplicate-card-reason {
+      color: #8a7275;
+      font-size: 10px;
+      font-weight: 750;
+      text-align: right;
+    }
+
+    .duplicate-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 0;
+    }
+
+    .duplicate-company {
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .duplicate-company + .duplicate-company {
+      border-left: 1px solid rgba(110,31,42,.10);
+    }
+
+    .duplicate-side-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 26px;
+      height: 26px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background: #6e1f2a;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 950;
+    }
+
+    .duplicate-company-name {
+      margin: 0 0 9px;
+      color: #302425;
+      font-size: 15px;
+      font-weight: 950;
+      line-height: 1.35;
+    }
+
+    .duplicate-meta {
+      display: grid;
+      gap: 6px;
+      color: #6f6263;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .duplicate-meta-row {
+      display: grid;
+      grid-template-columns: 82px minmax(0,1fr);
+      gap: 8px;
+    }
+
+    .duplicate-meta-label {
+      color: #9a8688;
+      font-weight: 800;
+    }
+
+    .duplicate-years {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 10px;
+    }
+
+    .duplicate-year-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 4px 7px;
+      border: 1px solid rgba(110,31,42,.12);
+      border-radius: 999px;
+      background: #fff8f8;
+      color: #6e1f2a;
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .duplicate-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid rgba(110,31,42,.10);
+      background: rgba(255,250,249,.75);
+    }
+
+    .btn-duplicate-different {
+      border-color: #d8cbc9;
+      background: #fff;
+      color: #5f5353;
+    }
+
+    .btn-duplicate-merge {
+      border-color: rgba(110,31,42,.20);
+      background: #6e1f2a;
+      color: #fff;
+    }
+
+    .duplicate-review-empty,
+    .duplicate-review-loading,
+    .duplicate-review-error {
+      padding: 30px 18px;
+      border: 1px dashed rgba(110,31,42,.18);
+      border-radius: 16px;
+      background: rgba(255,255,255,.66);
+      color: #746466;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .duplicate-review-error {
+      color: #8d2736;
+      border-color: rgba(141,39,54,.25);
+      background: #fff5f6;
+    }
+
+    .duplicate-load-more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 760px) {
+      .duplicate-review-modal-card {
+        width: 100%;
+        max-height: 92svh;
+      }
+
+      .duplicate-review-summary {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .duplicate-review-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .duplicate-compare-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .duplicate-company + .duplicate-company {
+        border-left: 0;
+        border-top: 1px solid rgba(110,31,42,.10);
+      }
+
+      .duplicate-card-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .duplicate-card-reason {
+        text-align: left;
+      }
+
+      .duplicate-card-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .duplicate-card-actions .btn {
+        width: 100%;
+      }
+    }
+
   </style>
 </head>
 
+<!-- LEMARI UI V32: Admin Review Duplikat Izin -->
 <body class="landing-idle">
 
   <div class="app">
@@ -6321,6 +6649,27 @@
 
           </section>
 
+          <section class="settings-box settings-box-wide izin-review-settings-box">
+
+            <h3>
+              Review Duplikat Izin
+            </h3>
+
+            <p class="izin-review-settings-copy">
+              Tinjau kandidat objek pengawasan yang kemungkinan tercatat ganda. Data tidak akan digabung otomatis — keputusan tetap di tangan admin.
+            </p>
+
+            <button
+              id="openDuplicateReviewBtn"
+              class="btn btn-burgundy"
+              type="button"
+            >
+              Review Kandidat Duplikat
+            </button>
+
+          </section>
+
+
         </div>
 
 
@@ -6350,6 +6699,84 @@
           </button>
 
         </section>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =================================================
+       V32 — REVIEW DUPLIKAT IZIN
+  ================================================== -->
+
+  <div
+    id="duplicateReviewModal"
+    class="modal-backdrop"
+  >
+
+    <div class="modal-card duplicate-review-modal-card">
+
+      <div class="modal-head duplicate-review-head">
+
+        <div>
+          <h2 class="modal-title">Review Duplikat Izin</h2>
+          <p class="modal-desc">
+            Bandingkan objek pengawasan sebelum memutuskan apakah datanya sama atau memang lokasi berbeda.
+          </p>
+        </div>
+
+        <button
+          class="close-btn"
+          type="button"
+          data-close="duplicateReviewModal"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div
+          id="duplicateReviewSummary"
+          class="duplicate-review-summary"
+        ></div>
+
+        <div class="duplicate-review-toolbar">
+          <p class="duplicate-review-note">
+            Nama yang sama belum tentu objek yang sama. Kecamatan, desa, alamat, jenis usaha, dan riwayat izin tetap perlu dilihat bersama.
+          </p>
+
+          <button
+            id="refreshDuplicateReviewBtn"
+            class="btn btn-secondary"
+            type="button"
+          >
+            ↻ Muat Ulang
+          </button>
+        </div>
+
+        <div
+          id="duplicateReviewList"
+          class="duplicate-review-list"
+        ></div>
+
+        <div
+          id="duplicateLoadMoreWrap"
+          class="duplicate-load-more-wrap"
+          hidden
+        >
+          <button
+            id="duplicateLoadMoreBtn"
+            class="btn btn-secondary"
+            type="button"
+          >
+            Tampilkan 20 Lagi
+          </button>
+        </div>
 
       </div>
 
@@ -6476,6 +6903,14 @@
 
     let isAdmin =
       false;
+
+
+    const duplicateReviewState = {
+      candidates: [],
+      visible: 20,
+      summary: null,
+      loading: false,
+    };
 
 
     let currentItems =
@@ -6704,6 +7139,530 @@
         response,
         data,
       };
+    }
+
+
+
+    async function adminGet(
+      pathname
+    ) {
+      const response =
+        await fetch(
+          API_URL + pathname,
+          {
+            headers: {
+              "Authorization":
+                "Bearer " +
+                adminToken,
+            },
+          }
+        );
+
+      const data =
+        await response
+          .json()
+          .catch(
+            () => ({
+              ok: false,
+              error: "Respons server tidak dapat dibaca.",
+            })
+          );
+
+      if (
+        response.status ===
+          401
+      ) {
+        clearAdminSession();
+      }
+
+      return {
+        response,
+        data,
+      };
+    }
+
+
+    function duplicateText(
+      value,
+      fallback = "—"
+    ) {
+      const text =
+        String(
+          value ?? ""
+        ).trim();
+
+      return escapeHtml(
+        text || fallback
+      );
+    }
+
+
+    function duplicateYearsHtml(
+      company
+    ) {
+      const years =
+        Array.isArray(
+          company &&
+          company.tahun_izin
+        )
+          ? company.tahun_izin
+          : [];
+
+      if (
+        !years.length
+      ) {
+        return '<span class="duplicate-year-chip">Tahun belum terisi</span>';
+      }
+
+      return years
+        .map(
+          year =>
+            `<span class="duplicate-year-chip">${escapeHtml(year)}</span>`
+        )
+        .join("");
+    }
+
+
+    function duplicateCompanyHtml(
+      company,
+      side
+    ) {
+      return `
+        <article class="duplicate-company">
+          <span class="duplicate-side-label">${side}</span>
+          <h4 class="duplicate-company-name">${duplicateText(company.nama_industri)}</h4>
+
+          <div class="duplicate-meta">
+            <div class="duplicate-meta-row">
+              <span class="duplicate-meta-label">Kecamatan</span>
+              <span>${duplicateText(company.kecamatan)}</span>
+            </div>
+            <div class="duplicate-meta-row">
+              <span class="duplicate-meta-label">Desa</span>
+              <span>${duplicateText(company.desa_kelurahan)}</span>
+            </div>
+            <div class="duplicate-meta-row">
+              <span class="duplicate-meta-label">Alamat</span>
+              <span>${duplicateText(company.alamat)}</span>
+            </div>
+            <div class="duplicate-meta-row">
+              <span class="duplicate-meta-label">Jenis usaha</span>
+              <span>${duplicateText(company.jenis_usaha)}</span>
+            </div>
+            <div class="duplicate-meta-row">
+              <span class="duplicate-meta-label">Jumlah izin</span>
+              <span><b>${Number(company.jumlah_dokumen || 0)}</b> dokumen</span>
+            </div>
+          </div>
+
+          <div class="duplicate-years">
+            ${duplicateYearsHtml(company)}
+          </div>
+        </article>
+      `;
+    }
+
+
+    function renderDuplicateReviewSummary() {
+      const summary =
+        duplicateReviewState.summary || {};
+
+      const high =
+        duplicateReviewState.candidates.filter(
+          item =>
+            item.keyakinan ===
+            "TINGGI"
+        ).length;
+
+      const medium =
+        duplicateReviewState.candidates.filter(
+          item =>
+            item.keyakinan ===
+            "SEDANG"
+        ).length;
+
+      $("duplicateReviewSummary").innerHTML = `
+        <div class="duplicate-stat">
+          <span class="duplicate-stat-label">Kandidat Aktif</span>
+          <span class="duplicate-stat-value">${Number(summary.totalGrup || duplicateReviewState.candidates.length || 0)}</span>
+        </div>
+        <div class="duplicate-stat">
+          <span class="duplicate-stat-label">Keyakinan Tinggi</span>
+          <span class="duplicate-stat-value">${high}</span>
+        </div>
+        <div class="duplicate-stat">
+          <span class="duplicate-stat-label">Keyakinan Sedang</span>
+          <span class="duplicate-stat-value">${medium}</span>
+        </div>
+        <div class="duplicate-stat">
+          <span class="duplicate-stat-label">Beda Lokasi Tersaring</span>
+          <span class="duplicate-stat-value">${Number(summary.totalPasanganBedaLokasi || 0)}</span>
+        </div>
+      `;
+    }
+
+
+    function renderDuplicateReview() {
+      renderDuplicateReviewSummary();
+
+      const list =
+        $("duplicateReviewList");
+
+      const candidates =
+        duplicateReviewState.candidates;
+
+      if (
+        !candidates.length
+      ) {
+        list.innerHTML = `
+          <div class="duplicate-review-empty">
+            Tidak ada kandidat duplikat aktif. Database objek pengawasan terlihat bersih untuk aturan detector saat ini.
+          </div>
+        `;
+
+        $("duplicateLoadMoreWrap").hidden =
+          true;
+
+        return;
+      }
+
+      const shown =
+        candidates.slice(
+          0,
+          duplicateReviewState.visible
+        );
+
+      list.innerHTML =
+        shown
+          .map(
+            (candidate, index) => {
+              const a =
+                candidate.perusahaan &&
+                candidate.perusahaan[0]
+                  ? candidate.perusahaan[0]
+                  : {};
+
+              const b =
+                candidate.perusahaan &&
+                candidate.perusahaan[1]
+                  ? candidate.perusahaan[1]
+                  : {};
+
+              const confidenceClass =
+                candidate.keyakinan ===
+                "TINGGI"
+                  ? "high"
+                  : "medium";
+
+              const reasons =
+                Array.isArray(
+                  candidate.alasan
+                )
+                  ? candidate.alasan
+                      .map(
+                        value =>
+                          String(value || "")
+                            .replaceAll("_", " ")
+                      )
+                      .join(" • ")
+                  : "";
+
+              return `
+                <section class="duplicate-card" data-duplicate-index="${index}">
+                  <div class="duplicate-card-head">
+                    <div class="duplicate-card-title">
+                      Kandidat #${index + 1}
+                      <span class="duplicate-confidence ${confidenceClass}">
+                        ${escapeHtml(candidate.keyakinan || "SEDANG")}
+                      </span>
+                    </div>
+                    <div class="duplicate-card-reason">
+                      ${escapeHtml(reasons || "Perlu review manual")}
+                    </div>
+                  </div>
+
+                  <div class="duplicate-compare-grid">
+                    ${duplicateCompanyHtml(a, "A")}
+                    ${duplicateCompanyHtml(b, "B")}
+                  </div>
+
+                  <div class="duplicate-card-actions">
+                    <button
+                      class="btn btn-duplicate-different"
+                      type="button"
+                      data-duplicate-action="different"
+                      data-duplicate-index="${index}"
+                    >
+                      ✕ Objek Berbeda
+                    </button>
+
+                    <button
+                      class="btn btn-duplicate-merge"
+                      type="button"
+                      data-duplicate-action="merge-a"
+                      data-duplicate-index="${index}"
+                    >
+                      Gabungkan · Pertahankan A
+                    </button>
+
+                    <button
+                      class="btn btn-duplicate-merge"
+                      type="button"
+                      data-duplicate-action="merge-b"
+                      data-duplicate-index="${index}"
+                    >
+                      Gabungkan · Pertahankan B
+                    </button>
+                  </div>
+                </section>
+              `;
+            }
+          )
+          .join("");
+
+      $("duplicateLoadMoreWrap").hidden =
+        duplicateReviewState.visible >=
+        candidates.length;
+    }
+
+
+    async function loadDuplicateReview() {
+      if (
+        duplicateReviewState.loading
+      ) {
+        return;
+      }
+
+      duplicateReviewState.loading =
+        true;
+
+      $("duplicateReviewList").innerHTML = `
+        <div class="duplicate-review-loading">
+          Membaca kandidat objek pengawasan…
+        </div>
+      `;
+
+      $("duplicateReviewSummary").innerHTML =
+        "";
+
+      $("duplicateLoadMoreWrap").hidden =
+        true;
+
+      try {
+        const {
+          response,
+          data,
+        } = await adminGet(
+          "/api/admin/izin/duplicates"
+        );
+
+        if (
+          !response.ok ||
+          !data.ok
+        ) {
+          throw new Error(
+            data.error ||
+            "Gagal membaca kandidat duplikat."
+          );
+        }
+
+        duplicateReviewState.candidates =
+          Array.isArray(
+            data.candidates
+          )
+            ? data.candidates
+            : [];
+
+        duplicateReviewState.visible =
+          20;
+
+        duplicateReviewState.summary =
+          data;
+
+        renderDuplicateReview();
+      }
+
+      catch (error) {
+        $("duplicateReviewList").innerHTML = `
+          <div class="duplicate-review-error">
+            ${escapeHtml(error.message || "Gagal memuat review duplikat.")}
+          </div>
+        `;
+      }
+
+      finally {
+        duplicateReviewState.loading =
+          false;
+      }
+    }
+
+
+    async function openDuplicateReview() {
+      if (
+        !isAdmin
+      ) {
+        await Swal.fire({
+          icon: "warning",
+          title: "Mode Admin diperlukan",
+          text: "Aktifkan Mode Admin untuk membuka review duplikat izin.",
+        });
+        return;
+      }
+
+      closeModal(
+        "settingsModal"
+      );
+
+      openModal(
+        "duplicateReviewModal"
+      );
+
+      await loadDuplicateReview();
+    }
+
+
+    async function markDuplicateAsDifferent(
+      candidate
+    ) {
+      const a =
+        candidate.perusahaan[0];
+      const b =
+        candidate.perusahaan[1];
+
+      const result =
+        await Swal.fire({
+          icon: "question",
+          title: "Tandai sebagai objek berbeda?",
+          html:
+            `<b>${escapeHtml(a.nama_industri)}</b><br>` +
+            `${escapeHtml(a.kecamatan || "—")} ↔ ${escapeHtml(b.kecamatan || "—")}<br><br>` +
+            `Pasangan ini tidak akan muncul lagi sebagai kandidat duplikat.`,
+          showCancelButton: true,
+          confirmButtonText: "Ya, Objek Berbeda",
+          cancelButtonText: "Batal",
+          confirmButtonColor: "#6e1f2a",
+        });
+
+      if (
+        !result.isConfirmed
+      ) {
+        return;
+      }
+
+      const {
+        response,
+        data,
+      } = await adminPost(
+        "/api/admin/izin/duplicates/not-duplicate",
+        {
+          perusahaanAId: a.id,
+          perusahaanBId: b.id,
+          catatan:
+            "Ditandai sebagai objek berbeda melalui panel Review Duplikat LEMARI.",
+        }
+      );
+
+      if (
+        !response.ok ||
+        !data.ok
+      ) {
+        await Swal.fire({
+          icon: "error",
+          title: "Gagal menyimpan keputusan",
+          text: data.error || "Terjadi kesalahan.",
+        });
+        return;
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Disimpan",
+        text: "Pasangan ditandai sebagai objek berbeda.",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+
+      await loadDuplicateReview();
+    }
+
+
+    async function mergeDuplicateCandidate(
+      candidate,
+      keepSide
+    ) {
+      const a =
+        candidate.perusahaan[0];
+      const b =
+        candidate.perusahaan[1];
+
+      const keep =
+        keepSide === "A"
+          ? a
+          : b;
+
+      const merge =
+        keepSide === "A"
+          ? b
+          : a;
+
+      const result =
+        await Swal.fire({
+          icon: "warning",
+          title: "Gabungkan objek ini?",
+          html:
+            `Data yang dipertahankan:<br><b>${escapeHtml(keep.nama_industri)}</b><br>` +
+            `${escapeHtml(keep.alamat || "Alamat belum terisi")}<br><br>` +
+            `Semua <b>${Number(merge.jumlah_dokumen || 0)} dokumen izin</b> dari:<br>` +
+            `<b>${escapeHtml(merge.nama_industri)}</b><br>` +
+            `akan dipindahkan ke data di atas. Baris sumber kemudian dikosongkan.<br><br>` +
+            `<b>Tindakan ini tidak punya tombol undo otomatis.</b>`,
+          showCancelButton: true,
+          confirmButtonText: "Gabungkan Sekarang",
+          cancelButtonText: "Batal",
+          confirmButtonColor: "#6e1f2a",
+        });
+
+      if (
+        !result.isConfirmed
+      ) {
+        return;
+      }
+
+      const {
+        response,
+        data,
+      } = await adminPost(
+        "/api/admin/izin/company/merge",
+        {
+          keepId: keep.id,
+          mergeIds: [merge.id],
+          catatan:
+            "Digabung melalui panel Review Duplikat LEMARI.",
+        }
+      );
+
+      if (
+        !response.ok ||
+        !data.ok
+      ) {
+        await Swal.fire({
+          icon: "error",
+          title: "Merge gagal",
+          text: data.error || "Terjadi kesalahan saat merge.",
+        });
+        return;
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Berhasil digabung",
+        html:
+          `<b>${Number(data.jumlahDokumenDipindah || 0)}</b> dokumen izin dipindahkan.<br>` +
+          `Objek utama: <b>${escapeHtml(data.perusahaanTujuan && data.perusahaanTujuan.nama_industri || keep.nama_industri)}</b>`,
+        confirmButtonColor: "#6e1f2a",
+      });
+
+      await loadDuplicateReview();
     }
 
 
@@ -12023,6 +12982,88 @@
     $("settingsBtn").onclick =
       () =>
         openSettings();
+
+
+
+    $("openDuplicateReviewBtn").onclick =
+      () =>
+        openDuplicateReview();
+
+
+    $("refreshDuplicateReviewBtn").onclick =
+      () =>
+        loadDuplicateReview();
+
+
+    $("duplicateLoadMoreBtn").onclick =
+      () => {
+        duplicateReviewState.visible +=
+          20;
+
+        renderDuplicateReview();
+      };
+
+
+    $("duplicateReviewList").onclick =
+      async event => {
+        const button =
+          event.target.closest(
+            "[data-duplicate-action]"
+          );
+
+        if (
+          !button
+        ) {
+          return;
+        }
+
+        const index =
+          Number(
+            button.dataset.duplicateIndex
+          );
+
+        const candidate =
+          duplicateReviewState.candidates[
+            index
+          ];
+
+        if (
+          !candidate
+        ) {
+          return;
+        }
+
+        const action =
+          button.dataset.duplicateAction;
+
+        if (
+          action === "different"
+        ) {
+          await markDuplicateAsDifferent(
+            candidate
+          );
+          return;
+        }
+
+        if (
+          action === "merge-a"
+        ) {
+          await mergeDuplicateCandidate(
+            candidate,
+            "A"
+          );
+          return;
+        }
+
+        if (
+          action === "merge-b"
+        ) {
+          await mergeDuplicateCandidate(
+            candidate,
+            "B"
+          );
+        }
+      };
 
 
     $("addBidangBtn").onclick =
