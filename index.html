@@ -4996,598 +4996,720 @@
       }
     }
 
-  
 
     /* ==================================================
-       V32 — ADMIN REVIEW DUPLIKAT IZIN
+       V34 — MODE SWITCH ARSIP ↔ IZIN LINGKUNGAN
+       Burgundy mirror UI + company > object > document search
     ================================================== */
 
-    .settings-box-wide {
-      grid-column: 1 / -1;
+    .app-mode-switch-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 14px 22px 0;
+      background: #f7f2e9;
     }
 
-    .izin-review-settings-box {
-      border-color: rgba(110,31,42,.18);
-      background:
-        linear-gradient(145deg, rgba(255,249,247,.96), rgba(247,239,239,.88));
+    .app-mode-switch {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      padding: 5px;
+      border: 1px solid rgba(83,65,51,.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 8px 24px rgba(54,39,28,.07);
     }
 
-    .izin-review-settings-box h3 {
-      color: #6e1f2a;
+    .app-mode-switch button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 180px;
+      min-height: 42px;
+      padding: 9px 18px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #74695f;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .025em;
+      cursor: pointer;
+      transition: .18s ease;
     }
 
-    .izin-review-settings-copy {
-      margin: 0 0 12px;
-      color: #756465;
-      font-size: 11px;
-      line-height: 1.55;
+    .app-mode-switch button[data-mode="arsip"].active {
+      background: #2f6b45;
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(47,107,69,.20);
     }
 
-    .btn-burgundy {
-      border: 1px solid rgba(110,31,42,.22);
+    .app-mode-switch button[data-mode="izin"].active {
       background: #6e1f2a;
       color: #fff;
+      box-shadow: 0 8px 18px rgba(110,31,42,.20);
     }
 
-    .btn-burgundy:hover {
-      background: #5d1823;
-      border-color: #5d1823;
+    .mode-switch-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .85;
     }
 
-    .duplicate-review-modal-card {
-      width: min(1120px, calc(100vw - 32px));
-      max-height: calc(100vh - 32px);
-      background:
-        linear-gradient(145deg, #fffdfb, #fbf2f3);
-      border-color: rgba(110,31,42,.18);
+    #izinLanding,
+    #izinResultsSection {
+      display: none;
     }
 
-    .duplicate-review-head {
-      background:
-        linear-gradient(90deg, rgba(110,31,42,.06), rgba(255,253,250,.86));
+    body.mode-izin #archiveLanding,
+    body.mode-izin #archiveResultsSection {
+      display: none !important;
     }
 
-    .duplicate-review-head .modal-title {
-      color: #6e1f2a;
-    }
-
-    .duplicate-review-summary {
+    body.mode-izin #izinLanding {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 10px;
-      margin-bottom: 14px;
     }
 
-    .duplicate-stat {
-      padding: 12px 13px;
-      border: 1px solid rgba(110,31,42,.13);
-      border-radius: 14px;
-      background: rgba(255,255,255,.80);
-    }
-
-    .duplicate-stat-label {
+    body.mode-izin #izinResultsSection:not([hidden]) {
       display: block;
-      margin-bottom: 4px;
-      color: #8a7275;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .04em;
+    }
+
+    body.mode-izin {
+      background:
+        radial-gradient(circle at 12% 12%, rgba(110,31,42,.055), transparent 30%),
+        linear-gradient(180deg, #faf5f3 0%, #f7efef 100%);
+    }
+
+    body.mode-izin .top-unified-card {
+      border-color: rgba(110,31,42,.15);
+      box-shadow: 0 24px 70px rgba(78,31,36,.10);
+    }
+
+    body.mode-izin .app-mode-switch-wrap {
+      background: #f7efef;
+    }
+
+    body.mode-izin #uploadBtn,
+    body.mode-izin #exportLettersBtn,
+    body.mode-izin #settingsBtn {
+      display: none !important;
+    }
+
+    /* Desktop mirror: ARSIP visual left, content right. Mobile keeps content first. */
+    @media (min-width: 981px) {
+      #archiveLanding .split-visual { order: 1; }
+      #archiveLanding .split-copy { order: 2; }
+      #archiveLanding .split-copy::after {
+        right: auto;
+        left: -58px;
+        border-radius: 52% 0 0 52% / 48% 0 0 52%;
+        box-shadow: -22px 0 32px rgba(51,38,29,.05);
+      }
+    }
+
+    .izin-landing {
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+      min-height: 590px;
+      overflow: hidden;
+      background: #f7efef;
+    }
+
+    .izin-copy {
+      position: relative;
+      z-index: 2;
+      padding: clamp(48px, 6vw, 88px) clamp(34px, 5vw, 76px);
+      background:
+        radial-gradient(circle at 10% 14%, rgba(110,31,42,.07), transparent 26%),
+        linear-gradient(180deg, #fff9f7 0%, #f7efef 100%);
+    }
+
+    .izin-copy::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: -58px;
+      bottom: 0;
+      width: 116px;
+      z-index: 3;
+      background: #f7efef;
+      border-radius: 0 52% 52% 0 / 0 48% 52% 0;
+      box-shadow: 22px 0 32px rgba(78,31,36,.05);
+      pointer-events: none;
+    }
+
+    .izin-kicker,
+    .izin-heading,
+    .izin-lead,
+    .izin-search-wrap,
+    .izin-search-note,
+    .izin-hints,
+    .izin-stats,
+    .izin-caption {
+      position: relative;
+      z-index: 4;
+    }
+
+    .izin-kicker {
+      color: #6e1f2a;
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: .13em;
       text-transform: uppercase;
     }
 
-    .duplicate-stat-value {
-      color: #3d2a2c;
-      font-size: 22px;
-      font-weight: 950;
-    }
-
-    .duplicate-review-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .duplicate-review-note {
-      margin: 0;
-      color: #7b6b6c;
-      font-size: 11px;
-      line-height: 1.5;
-    }
-
-    .duplicate-review-list {
+    .izin-heading {
       display: grid;
-      gap: 12px;
-    }
-
-    .duplicate-card {
-      overflow: hidden;
-      border: 1px solid rgba(110,31,42,.14);
-      border-radius: 17px;
-      background: rgba(255,255,255,.88);
-      box-shadow: 0 8px 24px rgba(74,37,42,.06);
-    }
-
-    .duplicate-card-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(110,31,42,.10);
-      background: rgba(247,239,239,.62);
-    }
-
-    .duplicate-card-title {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
       gap: 8px;
-      color: #5d1823;
-      font-size: 12px;
-      font-weight: 950;
+      margin-top: 22px;
+      max-width: 760px;
     }
 
-    .duplicate-confidence {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      font-size: 9px;
-      font-weight: 950;
-      letter-spacing: .04em;
-    }
-
-    .duplicate-confidence.high {
-      background: #f6dfe3;
+    .izin-heading-main {
       color: #6e1f2a;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(45px, 4.8vw, 76px);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -.052em;
     }
 
-    .duplicate-confidence.medium {
-      background: #f5ead5;
-      color: #77571d;
+    .izin-heading-accent {
+      width: fit-content;
+      max-width: 690px;
+      color: #2d2323;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(29px, 3vw, 50px);
+      font-style: italic;
+      font-weight: 600;
+      line-height: 1.06;
+      letter-spacing: -.025em;
+      background: linear-gradient(180deg, transparent 62%, rgba(139,46,59,.13) 62%);
     }
 
-    .duplicate-card-reason {
-      color: #8a7275;
-      font-size: 10px;
-      font-weight: 750;
-      text-align: right;
-    }
-
-    .duplicate-compare-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 0;
-    }
-
-    .duplicate-company {
-      padding: 14px;
-      min-width: 0;
-    }
-
-    .duplicate-company + .duplicate-company {
-      border-left: 1px solid rgba(110,31,42,.10);
-    }
-
-    .duplicate-side-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 26px;
-      height: 26px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      background: #6e1f2a;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 950;
-    }
-
-    .duplicate-company-name {
-      margin: 0 0 9px;
-      color: #302425;
+    .izin-lead {
+      max-width: 700px;
+      margin: 20px 0 0;
+      color: #69595b;
       font-size: 15px;
-      font-weight: 950;
-      line-height: 1.35;
+      line-height: 1.72;
     }
 
-    .duplicate-meta {
-      display: grid;
-      gap: 6px;
-      color: #6f6263;
-      font-size: 11px;
-      line-height: 1.45;
-    }
-
-    .duplicate-meta-row {
-      display: grid;
-      grid-template-columns: 82px minmax(0,1fr);
-      gap: 8px;
-    }
-
-    .duplicate-meta-label {
-      color: #9a8688;
-      font-weight: 800;
-    }
-
-    .duplicate-years {
+    .izin-stats {
       display: flex;
       flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 18px;
     }
 
-    .duplicate-year-chip {
+    .izin-stat-pill {
       display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 4px 7px;
-      border: 1px solid rgba(110,31,42,.12);
+      align-items: baseline;
+      gap: 6px;
+      padding: 7px 10px;
+      border: 1px solid rgba(110,31,42,.14);
       border-radius: 999px;
-      background: #fff8f8;
+      background: rgba(255,255,255,.76);
+      color: #655255;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .izin-stat-pill strong {
       color: #6e1f2a;
-      font-size: 9px;
+      font-size: 13px;
       font-weight: 900;
     }
 
-    .duplicate-card-actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 8px;
-      padding: 12px 14px;
-      border-top: 1px solid rgba(110,31,42,.10);
-      background: rgba(255,250,249,.75);
+    .izin-search-wrap {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      width: min(770px, 100%);
+      margin-top: 23px;
+      padding: 8px 9px 8px 15px;
+      border: 1px solid rgba(110,31,42,.18);
+      border-radius: 18px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 15px 34px rgba(78,31,36,.10);
     }
 
-    .btn-duplicate-different {
-      border-color: #d8cbc9;
-      background: #fff;
-      color: #5f5353;
+    .izin-search-icon {
+      width: 22px;
+      height: 22px;
+      color: #8b6870;
     }
 
-    .btn-duplicate-merge {
-      border-color: rgba(110,31,42,.20);
+    .izin-search-input {
+      width: 100%;
+      min-width: 0;
+      height: 52px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: #2d2323;
+      font-size: 17px;
+    }
+
+    .izin-search-input::placeholder { color: #a18d91; }
+
+    .izin-search-btn {
+      min-height: 46px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 13px;
       background: #6e1f2a;
       color: #fff;
+      font-weight: 850;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(110,31,42,.20);
     }
 
-    .duplicate-review-empty,
-    .duplicate-review-loading,
-    .duplicate-review-error {
-      padding: 30px 18px;
-      border: 1px dashed rgba(110,31,42,.18);
-      border-radius: 16px;
-      background: rgba(255,255,255,.66);
-      color: #746466;
-      text-align: center;
-      font-size: 12px;
-      line-height: 1.6;
+    .izin-search-btn:hover { background: #8b2e3b; }
+
+    .izin-search-note {
+      margin-top: 7px;
+      color: #8b767a;
+      font-size: 10px;
     }
 
-    .duplicate-review-error {
-      color: #8d2736;
-      border-color: rgba(141,39,54,.25);
-      background: #fff5f6;
-    }
-
-    .duplicate-load-more-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 14px;
-    }
-
-    @media (max-width: 760px) {
-      .duplicate-review-modal-card {
-        width: 100%;
-        max-height: 92svh;
-      }
-
-      .duplicate-review-summary {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-      }
-
-      .duplicate-review-toolbar {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .duplicate-compare-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .duplicate-company + .duplicate-company {
-        border-left: 0;
-        border-top: 1px solid rgba(110,31,42,.10);
-      }
-
-      .duplicate-card-head {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .duplicate-card-reason {
-        text-align: left;
-      }
-
-      .duplicate-card-actions {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .duplicate-card-actions .btn {
-        width: 100%;
-      }
-    }
-
-  </style>
-
-  <style>
-    /* =================================================
-       V33 — REVIEW KELOMPOK PERUSAHAAN
-       ================================================= */
-    .company-group-card {
-      border: 1px solid rgba(110, 31, 42, .16);
-      border-radius: 22px;
-      background: #fffaf8;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(62, 32, 35, .06);
-    }
-
-    .company-group-card + .company-group-card {
-      margin-top: 16px;
-    }
-
-    .company-group-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 18px 18px 14px;
-      background: linear-gradient(135deg, rgba(110,31,42,.08), rgba(247,239,239,.55));
-      border-bottom: 1px solid rgba(110, 31, 42, .10);
-    }
-
-    .company-group-title {
-      min-width: 0;
-    }
-
-    .company-group-title strong {
-      display: block;
-      font-size: 17px;
-      color: #4f1720;
-      line-height: 1.25;
-    }
-
-    .company-group-normalized {
-      margin-top: 4px;
-      font-size: 12px;
-      color: #7f6a6c;
-      overflow-wrap: anywhere;
-    }
-
-    .company-group-badges {
+    .izin-hints {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 6px;
+      gap: 8px;
+      margin-top: 12px;
     }
 
-    .company-group-badge {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 5px 9px;
+    .izin-hint-chip {
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid rgba(110,31,42,.15);
       border-radius: 999px;
-      background: #fff;
-      border: 1px solid rgba(110,31,42,.14);
+      background: rgba(255,255,255,.78);
       color: #6e1f2a;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .company-group-members {
-      display: grid;
-      gap: 10px;
-      padding: 14px;
-    }
-
-    .company-member {
-      position: relative;
-      display: grid;
-      grid-template-columns: 34px minmax(0, 1fr);
-      gap: 12px;
-      padding: 14px;
-      border: 1px solid rgba(110,31,42,.12);
-      border-radius: 16px;
-      background: #fff;
       cursor: pointer;
-      transition: .16s ease;
     }
 
-    .company-member:hover {
-      transform: translateY(-1px);
+    .izin-hint-chip:hover {
+      background: #fff;
       border-color: rgba(110,31,42,.28);
     }
 
-    .company-member:has(input:checked) {
-      border-color: #6e1f2a;
-      box-shadow: inset 0 0 0 1px #6e1f2a, 0 8px 20px rgba(110,31,42,.08);
-      background: #fff8f6;
+    .izin-caption {
+      margin-top: 24px;
+      color: #8b767a;
+      font-size: 10px;
+      font-weight: 650;
     }
 
-    .company-member-radio {
+    .izin-visual {
+      position: relative;
+      min-width: 0;
+      display: grid;
+      place-items: center;
+      padding: clamp(34px, 5vw, 70px);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 70% 18%, rgba(255,255,255,.16), transparent 24%),
+        linear-gradient(145deg, #6e1f2a 0%, #551722 58%, #3f121a 100%);
+    }
+
+    .izin-visual::before,
+    .izin-visual::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .izin-visual::before {
+      width: 380px;
+      height: 380px;
+      right: -150px;
+      top: -120px;
+    }
+
+    .izin-visual::after {
+      width: 260px;
+      height: 260px;
+      left: -100px;
+      bottom: -90px;
+    }
+
+    .izin-illustration-card {
+      position: relative;
+      z-index: 2;
+      width: min(460px, 100%);
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,.19);
+      border-radius: 28px;
+      background: rgba(255,249,247,.10);
+      box-shadow: 0 30px 70px rgba(34,8,12,.24);
+      backdrop-filter: blur(8px);
+    }
+
+    .izin-illustration-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    .izin-visual-label {
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 3px;
-    }
-
-    .company-member-radio input {
-      width: 18px;
-      height: 18px;
-      accent-color: #6e1f2a;
-      cursor: pointer;
-    }
-
-    .company-member-name-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
       align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      color: #fff9f7;
     }
 
-    .company-member-name {
-      margin: 0;
+    .izin-visual-label strong {
+      display: block;
       font-size: 16px;
-      color: #2d2323;
-      line-height: 1.3;
     }
 
-    .company-member-keep {
-      display: inline-flex;
-      align-items: center;
-      min-height: 24px;
-      padding: 3px 8px;
+    .izin-visual-label span {
+      display: block;
+      margin-top: 3px;
+      color: rgba(255,249,247,.70);
+      font-size: 10px;
+    }
+
+    .izin-visual-badge {
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.24);
       border-radius: 999px;
-      background: #6e1f2a;
+      background: rgba(255,255,255,.10);
       color: #fff;
       font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-    }
-
-    .company-member-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-      color: #6d5d5e;
-      font-size: 12px;
-    }
-
-    .company-member-stat {
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: #f7efef;
-      border: 1px solid rgba(110,31,42,.08);
-    }
-
-    .company-object-list {
-      display: grid;
-      gap: 7px;
-      margin-top: 10px;
-    }
-
-    .company-object-item {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 10px;
-      align-items: center;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: #faf6f3;
-      border: 1px dashed rgba(110,31,42,.12);
-      font-size: 12px;
-      color: #55494a;
-    }
-
-    .company-object-place {
-      min-width: 0;
-      overflow-wrap: anywhere;
-    }
-
-    .company-object-docs {
       font-weight: 800;
-      color: #6e1f2a;
-      white-space: nowrap;
     }
 
-    .company-group-actions {
+    /* IZIN results */
+    #izinResultsSection {
+      padding: 30px clamp(18px, 3vw, 36px) 40px;
+      border-top: 1px solid rgba(110,31,42,.10);
+      background: #fffaf8;
+    }
+
+    .izin-results-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(110,31,42,.10);
+    }
+
+    .izin-results-head h2 {
+      margin: 0;
+      color: #4f1720;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(27px, 3vw, 38px);
+      line-height: 1.1;
+    }
+
+    .izin-results-head p {
+      margin: 7px 0 0;
+      color: #806c70;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .izin-result-count {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: #f1dfe1;
+      color: #6e1f2a;
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .izin-result-state {
+      display: none;
+      padding: 34px 20px;
+      border: 1px dashed rgba(110,31,42,.20);
+      border-radius: 18px;
+      background: #fff;
+      color: #7f6a6e;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .izin-result-state.active { display: block; }
+
+    .izin-company-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .izin-company-card {
+      overflow: hidden;
+      border: 1px solid rgba(110,31,42,.14);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(78,31,36,.065);
+    }
+
+    .izin-company-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px;
+      background: linear-gradient(180deg, #fffafa 0%, #fbf2f2 100%);
+      border-bottom: 1px solid rgba(110,31,42,.10);
+    }
+
+    .izin-company-name {
+      margin: 0;
+      color: #3d141b;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1.28;
+    }
+
+    .izin-company-meta {
+      margin-top: 5px;
+      color: #8c777a;
+      font-size: 10px;
+    }
+
+    .izin-company-badges {
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
-      gap: 10px;
-      padding: 14px 18px 18px;
-      border-top: 1px solid rgba(110,31,42,.08);
-      background: #fff;
+      gap: 6px;
     }
 
-    .btn-company-separate {
-      background: #fff;
-      border: 1px solid rgba(110,31,42,.28);
-      color: #6e1f2a;
-    }
-
-    .btn-company-merge {
-      background: #6e1f2a;
-      border: 1px solid #6e1f2a;
-      color: #fff;
-    }
-
-    .btn-company-merge:hover {
-      background: #8b2e3b;
-      border-color: #8b2e3b;
-    }
-
-    .company-review-explainer {
-      display: grid;
-      gap: 4px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: #fff8f4;
+    .izin-company-badge {
+      padding: 6px 9px;
       border: 1px solid rgba(110,31,42,.12);
-      color: #5f5051;
-      font-size: 12px;
+      border-radius: 999px;
+      background: #fff;
+      color: #6e1f2a;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .izin-object-list {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    details.izin-object-card {
+      border: 1px solid rgba(110,31,42,.11);
+      border-radius: 15px;
+      background: #fffdfc;
+    }
+
+    details.izin-object-card[open] {
+      border-color: rgba(110,31,42,.20);
+      box-shadow: inset 3px 0 0 #6e1f2a;
+    }
+
+    .izin-object-summary {
+      list-style: none;
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 15px;
+      cursor: pointer;
+    }
+
+    .izin-object-summary::-webkit-details-marker { display: none; }
+
+    .izin-object-place {
+      color: #4a272c;
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.4;
+    }
+
+    .izin-object-address {
+      margin-top: 3px;
+      color: #8a777a;
+      font-size: 10px;
       line-height: 1.5;
     }
 
-    .company-review-explainer strong {
+    .izin-object-count {
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #f5e6e8;
       color: #6e1f2a;
+      font-size: 10px;
+      font-weight: 850;
+      white-space: nowrap;
     }
 
-    @media (max-width: 720px) {
-      .company-group-head {
-        display: grid;
-      }
+    .izin-doc-list {
+      display: grid;
+      gap: 0;
+      padding: 0 15px 12px;
+    }
 
-      .company-group-badges {
-        justify-content: flex-start;
-      }
+    .izin-doc-row {
+      display: grid;
+      grid-template-columns: minmax(90px,.55fr) minmax(0,1.45fr) minmax(105px,.65fr);
+      gap: 12px;
+      align-items: start;
+      padding: 11px 2px;
+      border-top: 1px solid rgba(110,31,42,.08);
+    }
 
-      .company-group-members {
-        padding: 10px;
-      }
+    .izin-doc-year {
+      color: #6e1f2a;
+      font-size: 11px;
+      font-weight: 900;
+    }
 
-      .company-member {
-        grid-template-columns: 28px minmax(0, 1fr);
-        padding: 12px;
-      }
+    .izin-doc-number {
+      color: #48363a;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
 
-      .company-object-item {
+    .izin-doc-date {
+      color: #8d797c;
+      font-size: 10px;
+      text-align: right;
+    }
+
+    @media (max-width: 980px) {
+      .izin-landing {
         grid-template-columns: 1fr;
-        gap: 4px;
+      }
+      .izin-copy::after { display: none; }
+      .izin-visual { min-height: 360px; }
+    }
+
+    @media (max-width: 760px) {
+      .app-mode-switch-wrap { padding: 9px 12px 0; }
+      .app-mode-switch { width: 100%; }
+      .app-mode-switch button {
+        min-width: 0;
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 10px;
       }
 
-      .company-group-actions {
-        display: grid;
-        padding: 12px;
-      }
+      #archiveLanding .split-copy { order: 1; }
+      #archiveLanding .split-visual { order: 2; }
 
-      .company-group-actions .btn {
+      .izin-landing {
+        display: flex !important;
+        flex-direction: column;
+        min-height: 0;
+      }
+      body:not(.mode-izin) .izin-landing { display: none !important; }
+      .izin-copy {
+        order: 1;
+        padding: 28px 18px 22px;
+      }
+      .izin-kicker {
+        font-size: 9px;
+        line-height: 1.5;
+        letter-spacing: .10em;
+      }
+      .izin-heading { margin-top: 14px; gap: 7px; }
+      .izin-heading-main {
+        font-size: clamp(39px, 11vw, 52px);
+        line-height: .98;
+      }
+      .izin-heading-accent {
+        font-size: clamp(26px, 7.5vw, 34px);
+        line-height: 1.08;
+      }
+      .izin-lead {
+        margin-top: 14px;
+        font-size: 13px;
+        line-height: 1.62;
+      }
+      .izin-stats { margin-top: 14px; gap: 6px; }
+      .izin-stat-pill { padding: 6px 9px; font-size: 9px; }
+      .izin-stat-pill strong { font-size: 12px; }
+      .izin-search-wrap {
+        grid-template-columns: 38px minmax(0,1fr);
+        gap: 4px 7px;
+        margin-top: 17px;
+        padding: 7px;
+        border-radius: 16px;
+      }
+      .izin-search-icon { width: 19px; height: 19px; margin-left: 7px; }
+      .izin-search-input { height: 46px; font-size: 16px; }
+      .izin-search-btn {
+        grid-column: 1 / -1;
         width: 100%;
+        min-height: 46px;
+        border-radius: 12px;
+        font-size: 13px;
+      }
+      .izin-hints { gap: 7px; }
+      .izin-hint-chip { min-height: 34px; padding: 7px 11px; font-size: 10px; }
+      .izin-caption { margin-top: 18px; font-size: 9px; }
+      .izin-visual {
+        order: 2;
+        min-height: 0;
+        padding: 14px 14px 18px;
+        background: #5d1b25;
+      }
+      .izin-illustration-card {
+        width: min(390px,100%);
+        padding: 16px;
+        border-radius: 20px;
+      }
+      .izin-illustration-card svg { max-height: 210px; }
+      .izin-visual-label strong { font-size: 13px; }
+      .izin-visual-label span { font-size: 9px; }
+      #izinResultsSection { padding: 22px 12px 30px; }
+      .izin-results-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+      }
+      .izin-results-head h2 { font-size: 24px; }
+      .izin-company-head {
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 15px;
+      }
+      .izin-company-badges { justify-content: flex-start; }
+      .izin-object-list { padding: 10px; }
+      .izin-object-summary {
+        grid-template-columns: 1fr;
+        padding: 13px;
+      }
+      .izin-object-count { width: fit-content; }
+      .izin-doc-row {
+        grid-template-columns: 82px minmax(0,1fr);
+        gap: 7px 10px;
+      }
+      .izin-doc-date {
+        grid-column: 1 / -1;
+        text-align: left;
+        padding-left: 92px;
       }
     }
-  </style>
 
+  </style>
 </head>
 
-<!-- LEMARI UI V32: Admin Review Duplikat Izin -->
 <body class="landing-idle">
 
   <div class="app">
@@ -5677,8 +5799,21 @@
 
         </header>
 
+      <div class="app-mode-switch-wrap">
+        <div class="app-mode-switch" role="group" aria-label="Pilih layanan LEMARI">
+          <button id="modeArsipBtn" type="button" data-mode="arsip" class="active" aria-pressed="true">
+            <span class="mode-switch-dot"></span>
+            ARSIP
+          </button>
+          <button id="modeIzinBtn" type="button" data-mode="izin" aria-pressed="false">
+            <span class="mode-switch-dot"></span>
+            IZIN LINGKUNGAN
+          </button>
+        </div>
+      </div>
 
-      <section class="split-landing">
+
+      <section id="archiveLanding" class="split-landing archive-mode-shell">
 
         <div class="split-copy">
 
@@ -5788,6 +5923,110 @@
 
         </div>
 
+      </section>
+
+
+      <section id="izinLanding" class="izin-landing" aria-label="Database Izin Lingkungan DLH">
+        <div class="izin-copy">
+          <div class="izin-kicker">DATABASE IZIN • DINAS LINGKUNGAN HIDUP KABUPATEN MOJOKERTO</div>
+
+          <div class="izin-heading">
+            <span class="izin-heading-main">IZIN LINGKUNGAN</span>
+            <span class="izin-heading-accent">Satu perusahaan. Banyak lokasi. Riwayat tetap utuh.</span>
+          </div>
+
+          <p class="izin-lead">
+            Cari perusahaan, lokasi usaha, kecamatan, jenis usaha, nomor surat, label, atau tahun izin.
+            Hasil langsung disusun menjadi perusahaan → objek pengawasan → dokumen.
+          </p>
+
+          <div class="izin-stats" aria-label="Ringkasan database izin">
+            <span class="izin-stat-pill"><strong id="izinStatCompanies">—</strong> perusahaan</span>
+            <span class="izin-stat-pill"><strong id="izinStatObjects">—</strong> objek pengawasan</span>
+            <span class="izin-stat-pill"><strong id="izinStatDocs">—</strong> dokumen izin</span>
+          </div>
+
+          <div class="izin-search-wrap">
+            <svg class="izin-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="M20 20l-3.6-3.6"></path>
+            </svg>
+            <input id="izinSearchInput" class="izin-search-input" type="search" placeholder="Contoh: Toyota, Ngoro, 2019, nomor surat..." autocomplete="off">
+            <button id="izinSearchBtn" class="izin-search-btn" type="button">Cari Izin</button>
+          </div>
+
+          <div class="izin-search-note">Ketik kata kunci lalu tekan Enter atau klik Cari Izin.</div>
+
+          <div class="izin-hints" aria-label="Contoh pencarian izin">
+            <button type="button" class="izin-hint-chip" data-izin-chip="Ngoro">Ngoro</button>
+            <button type="button" class="izin-hint-chip" data-izin-chip="Jetis">Jetis</button>
+            <button type="button" class="izin-hint-chip" data-izin-chip="Pungging">Pungging</button>
+            <button type="button" class="izin-hint-chip" data-izin-chip="2019">2019</button>
+          </div>
+
+          <div class="izin-caption">Database relasional: perusahaan induk → objek/lokasi usaha → dokumen izin.</div>
+        </div>
+
+        <div class="izin-visual" aria-label="Ilustrasi database izin lingkungan">
+          <div class="izin-illustration-card">
+            <svg viewBox="0 0 520 360" role="img" aria-label="Ilustrasi perusahaan, lokasi, dan dokumen izin">
+              <defs>
+                <filter id="izinSketchShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#26070d" flood-opacity=".28"/>
+                </filter>
+              </defs>
+              <g fill="none" stroke="#fff8f5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".96">
+                <path d="M70 278h372" opacity=".55"/>
+                <path d="M105 276V154l76-42 78 42v122"/>
+                <path d="M125 276v-72h45v72M190 180h42M190 210h42" opacity=".82"/>
+                <path d="M272 276V116h126v160"/>
+                <path d="M292 147h28M346 147h28M292 181h28M346 181h28M292 215h28M346 215h28" opacity=".82"/>
+                <path d="M303 276v-31h66v31"/>
+                <path d="M150 92c10-18 27-28 49-28 24 0 43 12 54 33" opacity=".6"/>
+                <path d="M390 90c20 0 36 16 36 36" opacity=".6"/>
+              </g>
+              <g filter="url(#izinSketchShadow)">
+                <rect x="64" y="35" width="178" height="82" rx="18" fill="#fff9f7"/>
+                <path d="M91 62h79M91 80h114M91 98h92" stroke="#6e1f2a" stroke-width="6" stroke-linecap="round" opacity=".86"/>
+                <circle cx="211" cy="60" r="12" fill="#8b2e3b"/>
+                <path d="M206 60l4 4 8-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <g transform="translate(328 40) rotate(5)" filter="url(#izinSketchShadow)">
+                <path d="M0 18c0-10 8-18 18-18h100c10 0 18 8 18 18v118c0 10-8 18-18 18H18c-10 0-18-8-18-18z" fill="#f7e7e7"/>
+                <path d="M0 38h136" stroke="#8b2e3b" stroke-width="5" opacity=".55"/>
+                <path d="M20 62h70M20 82h94M20 102h82" stroke="#6e1f2a" stroke-width="6" stroke-linecap="round" opacity=".8"/>
+                <circle cx="107" cy="125" r="18" fill="#6e1f2a"/>
+                <path d="M99 125l6 6 12-15" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <g fill="#fff9f7">
+                <circle cx="84" cy="309" r="7"/><circle cx="168" cy="319" r="5"/><circle cx="432" cy="310" r="6"/>
+              </g>
+            </svg>
+
+            <div class="izin-visual-label">
+              <div>
+                <strong>Database Izin Lingkungan</strong>
+                <span>Perusahaan • Lokasi • Riwayat dokumen</span>
+              </div>
+              <div class="izin-visual-badge">DLH Mojokerto</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="izinResultsSection" hidden>
+        <div class="izin-results-head">
+          <div>
+            <h2 id="izinResultsTitle">Hasil Pencarian Izin</h2>
+            <p id="izinResultsSubtitle">Pilih perusahaan untuk melihat lokasi dan riwayat dokumennya.</p>
+          </div>
+          <div id="izinResultCount" class="izin-result-count" hidden>0 perusahaan</div>
+        </div>
+
+        <div id="izinLoadingState" class="izin-result-state">Membuka database izin...</div>
+        <div id="izinErrorState" class="izin-result-state">Database izin belum dapat dibuka.</div>
+        <div id="izinEmptyState" class="izin-result-state">Tidak ada data yang cocok.</div>
+        <div id="izinCompanyList" class="izin-company-list"></div>
       </section>
 
 
@@ -6910,27 +7149,6 @@
 
           </section>
 
-          <section class="settings-box settings-box-wide izin-review-settings-box">
-
-            <h3>
-              Rapikan Perusahaan Ganda
-            </h3>
-
-            <p class="izin-review-settings-copy">
-              Gabungkan baris perusahaan yang sebenarnya satu identitas. Lokasi usaha tetap menjadi objek pengawasan terpisah dan dokumen izin tidak dilebur.
-            </p>
-
-            <button
-              id="openDuplicateReviewBtn"
-              class="btn btn-burgundy"
-              type="button"
-            >
-              Review Kelompok Perusahaan
-            </button>
-
-          </section>
-
-
         </div>
 
 
@@ -6960,85 +7178,6 @@
           </button>
 
         </section>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- =================================================
-       V33 — REVIEW KELOMPOK PERUSAHAAN
-  ================================================== -->
-
-  <div
-    id="duplicateReviewModal"
-    class="modal-backdrop"
-  >
-
-    <div class="modal-card duplicate-review-modal-card">
-
-      <div class="modal-head duplicate-review-head">
-
-        <div>
-          <h2 class="modal-title">Review Kelompok Perusahaan</h2>
-          <p class="modal-desc">
-            Rapikan identitas perusahaan tanpa menggabungkan lokasi usaha maupun dokumen izinnya.
-          </p>
-        </div>
-
-        <button
-          class="close-btn"
-          type="button"
-          data-close="duplicateReviewModal"
-        >
-          ×
-        </button>
-
-      </div>
-
-      <div class="modal-body">
-
-        <div
-          id="duplicateReviewSummary"
-          class="duplicate-review-summary"
-        ></div>
-
-        <div class="duplicate-review-toolbar">
-          <div class="company-review-explainer">
-            <strong>Yang digabung hanya PERUSAHAAN.</strong>
-            <span>Setiap OBJEK_USAHA tetap berdiri sendiri. DOKUMEN_IZIN tetap menunjuk objek yang sama seperti sebelum merge.</span>
-          </div>
-
-          <button
-            id="refreshDuplicateReviewBtn"
-            class="btn btn-secondary"
-            type="button"
-          >
-            ↻ Muat Ulang
-          </button>
-        </div>
-
-        <div
-          id="duplicateReviewList"
-          class="duplicate-review-list"
-        ></div>
-
-        <div
-          id="duplicateLoadMoreWrap"
-          class="duplicate-load-more-wrap"
-          hidden
-        >
-          <button
-            id="duplicateLoadMoreBtn"
-            class="btn btn-secondary"
-            type="button"
-          >
-            Tampilkan 10 Lagi
-          </button>
-        </div>
 
       </div>
 
@@ -7165,14 +7304,6 @@
 
     let isAdmin =
       false;
-
-
-    const duplicateReviewState = {
-      candidates: [],
-      visible: 10,
-      summary: null,
-      loading: false,
-    };
 
 
     let currentItems =
@@ -7401,549 +7532,6 @@
         response,
         data,
       };
-    }
-
-
-
-    async function adminGet(
-      pathname
-    ) {
-      const response =
-        await fetch(
-          API_URL + pathname,
-          {
-            headers: {
-              "Authorization":
-                "Bearer " +
-                adminToken,
-            },
-          }
-        );
-
-      const data =
-        await response
-          .json()
-          .catch(
-            () => ({
-              ok: false,
-              error: "Respons server tidak dapat dibaca.",
-            })
-          );
-
-      if (
-        response.status ===
-          401
-      ) {
-        clearAdminSession();
-      }
-
-      return {
-        response,
-        data,
-      };
-    }
-
-
-    function duplicateText(
-      value,
-      fallback = "—"
-    ) {
-      const text =
-        String(
-          value ?? ""
-        ).trim();
-
-      return escapeHtml(
-        text || fallback
-      );
-    }
-
-
-    function companyObjectLocationText(
-      object
-    ) {
-      const parts = [
-        object && object.desa_kelurahan,
-        object && object.kecamatan,
-        object && object.alamat,
-      ]
-        .map(value => String(value || "").trim())
-        .filter(Boolean);
-
-      return parts.length
-        ? parts.join(" · ")
-        : "Lokasi belum lengkap";
-    }
-
-
-    function companyObjectListHtml(
-      company
-    ) {
-      const objects =
-        Array.isArray(
-          company && company.objek
-        )
-          ? company.objek
-          : [];
-
-      if (!objects.length) {
-        return `
-          <div class="company-object-list">
-            <div class="company-object-item">
-              <span class="company-object-place">Belum memiliki objek usaha aktif.</span>
-              <span class="company-object-docs">0 dokumen</span>
-            </div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="company-object-list">
-          ${objects.map(object => `
-            <div class="company-object-item">
-              <span class="company-object-place">${duplicateText(companyObjectLocationText(object))}</span>
-              <span class="company-object-docs">${Number(object.jumlah_dokumen || 0)} dokumen</span>
-            </div>
-          `).join("")}
-        </div>
-      `;
-    }
-
-
-    function companyMemberHtml(
-      company,
-      candidateIndex,
-      isDefault
-    ) {
-      const years =
-        Array.isArray(company && company.tahun_izin)
-          ? company.tahun_izin.filter(Boolean)
-          : [];
-
-      return `
-        <label class="company-member">
-          <span class="company-member-radio">
-            <input
-              type="radio"
-              name="company-group-keep-${candidateIndex}"
-              value="${escapeHtml(company.id || "")}"
-              ${isDefault ? "checked" : ""}
-            >
-          </span>
-
-          <span>
-            <span class="company-member-name-row">
-              <strong class="company-member-name">${duplicateText(company.nama_industri)}</strong>
-              ${isDefault ? '<span class="company-member-keep">Pilihan awal</span>' : ""}
-            </span>
-
-            <span class="company-member-stats">
-              <span class="company-member-stat"><b>${Number(company.jumlah_objek || 0)}</b> objek</span>
-              <span class="company-member-stat"><b>${Number(company.jumlah_dokumen || 0)}</b> dokumen</span>
-              <span class="company-member-stat">${years.length ? escapeHtml(years.join(", ")) : "Tahun belum terisi"}</span>
-            </span>
-
-            ${companyObjectListHtml(company)}
-          </span>
-        </label>
-      `;
-    }
-
-
-    function renderDuplicateReviewSummary() {
-      const summary =
-        duplicateReviewState.summary || {};
-
-      $("duplicateReviewSummary").innerHTML = `
-        <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Kelompok Kandidat</span>
-          <span class="duplicate-stat-value">${Number(summary.totalGrup || duplicateReviewState.candidates.length || 0)}</span>
-        </div>
-        <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Baris Perusahaan</span>
-          <span class="duplicate-stat-value">${Number(summary.totalPerusahaanTerindikasi || 0)}</span>
-        </div>
-        <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Objek Terlibat</span>
-          <span class="duplicate-stat-value">${Number(summary.totalObjekTerlibat || 0)}</span>
-        </div>
-        <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Dokumen Terlibat</span>
-          <span class="duplicate-stat-value">${Number(summary.totalDokumenTerlibat || 0)}</span>
-        </div>
-      `;
-    }
-
-
-    function renderDuplicateReview() {
-      renderDuplicateReviewSummary();
-
-      const list =
-        $("duplicateReviewList");
-
-      const candidates =
-        duplicateReviewState.candidates;
-
-      if (!candidates.length) {
-        list.innerHTML = `
-          <div class="duplicate-review-empty">
-            Tidak ada kelompok perusahaan ganda yang perlu direview untuk aturan nama saat ini.
-          </div>
-        `;
-
-        $("duplicateLoadMoreWrap").hidden =
-          true;
-
-        return;
-      }
-
-      const shown =
-        candidates.slice(
-          0,
-          duplicateReviewState.visible
-        );
-
-      list.innerHTML =
-        shown
-          .map(
-            (candidate, index) => {
-              const companies =
-                Array.isArray(candidate.perusahaan)
-                  ? candidate.perusahaan
-                  : [];
-
-              return `
-                <section class="company-group-card" data-duplicate-index="${index}">
-                  <div class="company-group-head">
-                    <div class="company-group-title">
-                      <strong>Kelompok #${index + 1}</strong>
-                      <div class="company-group-normalized">
-                        Nama normalisasi: ${duplicateText(candidate.nama_normalisasi || candidate.key)}
-                      </div>
-                    </div>
-
-                    <div class="company-group-badges">
-                      <span class="company-group-badge">${Number(candidate.jumlah_perusahaan || companies.length || 0)} baris perusahaan</span>
-                      <span class="company-group-badge">${Number(candidate.jumlah_objek || 0)} objek</span>
-                      <span class="company-group-badge">${Number(candidate.jumlah_dokumen || 0)} dokumen</span>
-                    </div>
-                  </div>
-
-                  <div class="company-group-members">
-                    ${companies.map((company, companyIndex) =>
-                      companyMemberHtml(
-                        company,
-                        index,
-                        company.id === candidate.rekomendasi_keep_id || (!candidate.rekomendasi_keep_id && companyIndex === 0)
-                      )
-                    ).join("")}
-                  </div>
-
-                  <div class="company-group-actions">
-                    <button
-                      class="btn btn-company-separate"
-                      type="button"
-                      data-duplicate-action="separate-group"
-                      data-duplicate-index="${index}"
-                    >
-                      Biarkan sebagai Perusahaan Berbeda
-                    </button>
-
-                    <button
-                      class="btn btn-company-merge"
-                      type="button"
-                      data-duplicate-action="merge-group"
-                      data-duplicate-index="${index}"
-                    >
-                      Gabungkan Semua ke Pilihan
-                    </button>
-                  </div>
-                </section>
-              `;
-            }
-          )
-          .join("");
-
-      $("duplicateLoadMoreWrap").hidden =
-        duplicateReviewState.visible >=
-        candidates.length;
-    }
-
-
-    async function loadDuplicateReview() {
-      if (
-        duplicateReviewState.loading
-      ) {
-        return;
-      }
-
-      duplicateReviewState.loading =
-        true;
-
-      $("duplicateReviewList").innerHTML = `
-        <div class="duplicate-review-loading">
-          Membaca kelompok perusahaan…
-        </div>
-      `;
-
-      $("duplicateReviewSummary").innerHTML =
-        "";
-
-      $("duplicateLoadMoreWrap").hidden =
-        true;
-
-      try {
-        const {
-          response,
-          data,
-        } = await adminGet(
-          "/api/admin/izin/duplicates"
-        );
-
-        if (
-          !response.ok ||
-          !data.ok
-        ) {
-          throw new Error(
-            data.error ||
-            "Gagal membaca kelompok perusahaan."
-          );
-        }
-
-        if (
-          data.mode !==
-          "duplicate-company-group-review"
-        ) {
-          throw new Error(
-            "Backend belum memakai mode review kelompok perusahaan V20."
-          );
-        }
-
-        duplicateReviewState.candidates =
-          Array.isArray(
-            data.candidates
-          )
-            ? data.candidates
-            : [];
-
-        duplicateReviewState.visible =
-          10;
-
-        duplicateReviewState.summary =
-          data;
-
-        renderDuplicateReview();
-      }
-
-      catch (error) {
-        $("duplicateReviewList").innerHTML = `
-          <div class="duplicate-review-error">
-            ${escapeHtml(error.message || "Gagal memuat review perusahaan.")}
-          </div>
-        `;
-      }
-
-      finally {
-        duplicateReviewState.loading =
-          false;
-      }
-    }
-
-
-    async function openDuplicateReview() {
-      if (
-        !isAdmin
-      ) {
-        await Swal.fire({
-          icon: "warning",
-          title: "Mode Admin diperlukan",
-          text: "Aktifkan Mode Admin untuk membuka review kelompok perusahaan.",
-        });
-        return;
-      }
-
-      closeModal(
-        "settingsModal"
-      );
-
-      openModal(
-        "duplicateReviewModal"
-      );
-
-      await loadDuplicateReview();
-    }
-
-
-    async function markCompanyGroupSeparate(
-      candidate
-    ) {
-      const companies =
-        Array.isArray(candidate.perusahaan)
-          ? candidate.perusahaan
-          : [];
-
-      if (companies.length < 2) {
-        return;
-      }
-
-      const result =
-        await Swal.fire({
-          icon: "question",
-          title: "Biarkan sebagai perusahaan berbeda?",
-          html:
-            `Kelompok ini berisi <b>${companies.length} baris perusahaan</b> dengan nama yang terdeteksi sama.<br><br>` +
-            `Tidak ada objek atau dokumen yang diubah. Kelompok ini hanya akan dikeluarkan dari daftar review.`,
-          showCancelButton: true,
-          confirmButtonText: "Ya, Tetap Terpisah",
-          cancelButtonText: "Batal",
-          confirmButtonColor: "#6e1f2a",
-        });
-
-      if (!result.isConfirmed) {
-        return;
-      }
-
-      const {
-        response,
-        data,
-      } = await adminPost(
-        "/api/admin/izin/company-group/separate",
-        {
-          companyIds: companies.map(company => company.id),
-          catatan:
-            "Kelompok diputuskan sebagai perusahaan berbeda melalui panel Review Kelompok Perusahaan LEMARI V33.",
-        }
-      );
-
-      if (
-        !response.ok ||
-        !data.ok
-      ) {
-        await Swal.fire({
-          icon: "error",
-          title: "Gagal menyimpan keputusan",
-          text: data.error || "Terjadi kesalahan.",
-        });
-        return;
-      }
-
-      await Swal.fire({
-        icon: "success",
-        title: "Tetap dipisah",
-        text: "Kelompok dikeluarkan dari daftar kandidat aktif.",
-        timer: 1300,
-        showConfirmButton: false,
-      });
-
-      await loadDuplicateReview();
-    }
-
-
-    function selectedCompanyIdForGroup(
-      candidateIndex
-    ) {
-      const selected =
-        document.querySelector(
-          `input[name="company-group-keep-${candidateIndex}"]:checked`
-        );
-
-      return selected
-        ? String(selected.value || "")
-        : "";
-    }
-
-
-    async function mergeCompanyGroup(
-      candidate,
-      candidateIndex
-    ) {
-      const companies =
-        Array.isArray(candidate.perusahaan)
-          ? candidate.perusahaan
-          : [];
-
-      const keepId =
-        selectedCompanyIdForGroup(
-          candidateIndex
-        );
-
-      const keep =
-        companies.find(company => company.id === keepId);
-
-      if (!keep) {
-        await Swal.fire({
-          icon: "warning",
-          title: "Pilih perusahaan induk",
-          text: "Pilih satu nama perusahaan yang ingin dipertahankan.",
-        });
-        return;
-      }
-
-      const mergeIds =
-        companies
-          .filter(company => company.id !== keepId)
-          .map(company => company.id);
-
-      if (!mergeIds.length) {
-        return;
-      }
-
-      const result =
-        await Swal.fire({
-          icon: "warning",
-          title: "Gabungkan kelompok perusahaan?",
-          html:
-            `<b>${escapeHtml(keep.nama_industri)}</b> akan menjadi perusahaan induk.<br><br>` +
-            `<b>${mergeIds.length}</b> baris perusahaan lain akan dikosongkan setelah seluruh objeknya dipindahkan.<br>` +
-            `<b>${Number(candidate.jumlah_objek || 0)} objek usaha tetap berdiri sendiri.</b><br>` +
-            `<b>${Number(candidate.jumlah_dokumen || 0)} dokumen izin tidak diubah.</b><br><br>` +
-            `Tindakan merge tidak memiliki tombol undo otomatis.`,
-          showCancelButton: true,
-          confirmButtonText: "Gabungkan Sekarang",
-          cancelButtonText: "Batal",
-          confirmButtonColor: "#6e1f2a",
-        });
-
-      if (!result.isConfirmed) {
-        return;
-      }
-
-      const {
-        response,
-        data,
-      } = await adminPost(
-        "/api/admin/izin/company/merge",
-        {
-          keepId,
-          mergeIds,
-          catatan:
-            "Digabung per kelompok melalui panel Review Kelompok Perusahaan LEMARI V33.",
-        }
-      );
-
-      if (
-        !response.ok ||
-        !data.ok
-      ) {
-        await Swal.fire({
-          icon: "error",
-          title: "Merge gagal",
-          text: data.error || "Terjadi kesalahan saat merge.",
-        });
-        return;
-      }
-
-      await Swal.fire({
-        icon: "success",
-        title: "Kelompok berhasil dirapikan",
-        html:
-          `<b>${Number(data.jumlahPerusahaanDigabung || 0)}</b> baris perusahaan digabung.<br>` +
-          `<b>${Number(data.jumlahObjekDipindah || 0)}</b> objek dialihkan ke perusahaan induk.<br>` +
-          `<b>${Number(data.jumlahDokumenDiubah || 0)}</b> dokumen diubah — harus tetap 0.`,
-        confirmButtonColor: "#6e1f2a",
-      });
-
-      await loadDuplicateReview();
     }
 
 
@@ -13265,76 +12853,6 @@
         openSettings();
 
 
-
-    $("openDuplicateReviewBtn").onclick =
-      () =>
-        openDuplicateReview();
-
-
-    $("refreshDuplicateReviewBtn").onclick =
-      () =>
-        loadDuplicateReview();
-
-
-    $("duplicateLoadMoreBtn").onclick =
-      () => {
-        duplicateReviewState.visible +=
-          10;
-
-        renderDuplicateReview();
-      };
-
-
-    $("duplicateReviewList").onclick =
-      async event => {
-        const button =
-          event.target.closest(
-            "[data-duplicate-action]"
-          );
-
-        if (!button) {
-          return;
-        }
-
-        const index =
-          Number(
-            button.dataset.duplicateIndex
-          );
-
-        const candidate =
-          duplicateReviewState.candidates[
-            index
-          ];
-
-        if (!candidate) {
-          return;
-        }
-
-        const action =
-          button.dataset.duplicateAction;
-
-        if (
-          action ===
-          "separate-group"
-        ) {
-          await markCompanyGroupSeparate(
-            candidate
-          );
-          return;
-        }
-
-        if (
-          action ===
-          "merge-group"
-        ) {
-          await mergeCompanyGroup(
-            candidate,
-            index
-          );
-        }
-      };
-
-
     $("addBidangBtn").onclick =
       () =>
         addMaster(
@@ -14298,12 +13816,224 @@
         );
 
 
+
+
+    // ==================================================
+    // V34 — MODE IZIN LINGKUNGAN
+    // ==================================================
+
+    let appMode =
+      localStorage.getItem("lemariAppMode") === "izin"
+        ? "izin"
+        : "arsip";
+
+    const izinState = {
+      q: "",
+      loading: false,
+      healthLoaded: false,
+      items: [],
+    };
+
+    function formatIzinNumber(value) {
+      const n = Number(value || 0);
+      return Number.isFinite(n)
+        ? new Intl.NumberFormat("id-ID").format(n)
+        : String(value || "—");
+    }
+
+    function formatIzinDate(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return "Tanggal belum tercatat";
+      const m = raw.match(/^(\\d{4})-(\\d{2})-(\\d{2})/);
+      return m ? `${m[3]}/${m[2]}/${m[1]}` : raw;
+    }
+
+    function setIzinStateView(mode, message = "") {
+      ["izinLoadingState", "izinErrorState", "izinEmptyState"].forEach(id => {
+        $(id).classList.remove("active");
+      });
+      if (mode === "loading") $("izinLoadingState").classList.add("active");
+      if (mode === "error") {
+        $("izinErrorState").textContent = message || "Database izin belum dapat dibuka.";
+        $("izinErrorState").classList.add("active");
+      }
+      if (mode === "empty") $("izinEmptyState").classList.add("active");
+    }
+
+    async function loadIzinHealth() {
+      if (izinState.healthLoaded) return;
+      try {
+        const response = await fetch(API_URL + "/api/izin/health", { cache: "no-store" });
+        const data = await response.json();
+        if (!response.ok || !data.ok) throw new Error(data.error || "Gagal membaca ringkasan izin.");
+        $("izinStatCompanies").textContent = formatIzinNumber(data.perusahaanInduk ?? data.perusahaan);
+        $("izinStatObjects").textContent = formatIzinNumber(data.objekPengawasan ?? data.objekUsaha);
+        $("izinStatDocs").textContent = formatIzinNumber(data.dokumenIzin);
+        izinState.healthLoaded = true;
+      } catch (error) {
+        $("izinStatCompanies").textContent = "—";
+        $("izinStatObjects").textContent = "—";
+        $("izinStatDocs").textContent = "—";
+      }
+    }
+
+    function setAppMode(mode) {
+      appMode = mode === "izin" ? "izin" : "arsip";
+      localStorage.setItem("lemariAppMode", appMode);
+      const izin = appMode === "izin";
+      document.body.classList.toggle("mode-izin", izin);
+      $("modeArsipBtn").classList.toggle("active", !izin);
+      $("modeIzinBtn").classList.toggle("active", izin);
+      $("modeArsipBtn").setAttribute("aria-pressed", String(!izin));
+      $("modeIzinBtn").setAttribute("aria-pressed", String(izin));
+
+      if (izin) {
+        loadIzinHealth();
+        setLandingIdle($("izinResultsSection").hidden);
+        requestAnimationFrame(() => $("izinSearchInput").focus({ preventScroll: true }));
+      } else {
+        setLandingIdle(!hasActiveSearch());
+        requestAnimationFrame(() => $("searchInput").focus({ preventScroll: true }));
+      }
+    }
+
+    function izinObjectTitle(obj) {
+      const parts = [obj.desa_kelurahan, obj.kecamatan].filter(Boolean);
+      return parts.length ? parts.join(" • ") : (obj.alamat || "Lokasi usaha");
+    }
+
+    function renderIzinResults(items) {
+      izinState.items = items || [];
+      const root = $("izinCompanyList");
+      root.innerHTML = "";
+
+      for (const company of izinState.items) {
+        const objects = Array.isArray(company.objek) ? company.objek : [];
+        const objectHtml = objects.map((obj, index) => {
+          const docs = Array.isArray(obj.dokumen) ? obj.dokumen : [];
+          const docsHtml = docs.length
+            ? docs.map(doc => `
+                <div class="izin-doc-row">
+                  <div class="izin-doc-year">${escapeHtml(doc.tahun || "—")} · ${escapeHtml(doc.no_label ? `Label ${doc.no_label}` : "Tanpa label")}</div>
+                  <div class="izin-doc-number">${escapeHtml(doc.no_surat || "Nomor surat belum tercatat")}</div>
+                  <div class="izin-doc-date">${escapeHtml(formatIzinDate(doc.tgl_keluar))}</div>
+                </div>
+              `).join("")
+            : `<div class="izin-doc-row"><div class="izin-doc-number" style="grid-column:1/-1;color:#9a8589;">Belum ada dokumen pada objek ini.</div></div>`;
+
+          const addressBits = [obj.alamat, obj.jenis_usaha].filter(Boolean);
+          return `
+            <details class="izin-object-card" ${objects.length === 1 || index === 0 ? "open" : ""}>
+              <summary class="izin-object-summary">
+                <div>
+                  <div class="izin-object-place">📍 ${escapeHtml(izinObjectTitle(obj))}</div>
+                  <div class="izin-object-address">${escapeHtml(addressBits.join(" • ") || "Detail lokasi belum lengkap")}</div>
+                </div>
+                <div class="izin-object-count">${formatIzinNumber(obj.jumlah_dokumen ?? docs.length)} dokumen</div>
+              </summary>
+              <div class="izin-doc-list">${docsHtml}</div>
+            </details>
+          `;
+        }).join("");
+
+        const article = document.createElement("article");
+        article.className = "izin-company-card";
+        article.innerHTML = `
+          <div class="izin-company-head">
+            <div>
+              <h3 class="izin-company-name">${escapeHtml(company.nama_industri || "Perusahaan tanpa nama")}</h3>
+              <div class="izin-company-meta">ID perusahaan tersimpan • riwayat dikelompokkan berdasarkan lokasi usaha</div>
+            </div>
+            <div class="izin-company-badges">
+              <span class="izin-company-badge">${formatIzinNumber(company.jumlah_objek ?? objects.length)} objek</span>
+              <span class="izin-company-badge">${formatIzinNumber(company.jumlah_dokumen ?? objects.reduce((n,o)=>n+(Number(o.jumlah_dokumen)||0),0))} dokumen</span>
+            </div>
+          </div>
+          <div class="izin-object-list">${objectHtml || '<div class="izin-result-state active">Belum ada objek usaha terhubung.</div>'}</div>
+        `;
+        root.appendChild(article);
+      }
+    }
+
+    function scrollToIzinResults() {
+      const section = $("izinResultsSection");
+      if (!section || section.hidden) return;
+      requestAnimationFrame(() => section.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+
+    async function runIzinSearch() {
+      const q = $("izinSearchInput").value.trim();
+      izinState.q = q;
+      $("izinCompanyList").innerHTML = "";
+      $("izinResultCount").hidden = true;
+
+      if (!q) {
+        $("izinResultsSection").hidden = true;
+        setLandingIdle(true);
+        return;
+      }
+      if (izinState.loading) return;
+
+      izinState.loading = true;
+      setLandingIdle(false);
+      $("izinResultsSection").hidden = false;
+      setIzinStateView("loading");
+      $("izinResultsTitle").textContent = "Hasil Pencarian Izin";
+      $("izinResultsSubtitle").textContent = `Mencari “${q}” pada perusahaan, lokasi, dan dokumen...`;
+      scrollToIzinResults();
+
+      try {
+        const response = await fetch(buildApiUrl("/api/izin/search", { q, limit: 100 }), { cache: "no-store" });
+        const data = await response.json();
+        if (!response.ok || !data.ok) throw new Error(data.error || "Gagal mengambil database izin.");
+
+        const items = data.items || [];
+        $("izinResultCount").textContent = `${formatIzinNumber(data.totalPerusahaan || 0)} perusahaan`;
+        $("izinResultCount").hidden = false;
+        $("izinResultsSubtitle").textContent = items.length
+          ? `${formatIzinNumber(data.totalPerusahaan || 0)} perusahaan • ${formatIzinNumber(data.totalObjek || 0)} objek • ${formatIzinNumber(data.totalDokumen || 0)} dokumen cocok untuk “${q}”.`
+          : `Tidak ada data yang cocok untuk “${q}”.`;
+
+        if (!items.length) {
+          renderIzinResults([]);
+          setIzinStateView("empty");
+        } else {
+          setIzinStateView("ready");
+          renderIzinResults(items);
+        }
+      } catch (error) {
+        setIzinStateView("error", error.message || "Gagal membuka database izin.");
+      } finally {
+        izinState.loading = false;
+      }
+    }
+
+    function initIzinMode() {
+      $("modeArsipBtn").onclick = () => setAppMode("arsip");
+      $("modeIzinBtn").onclick = () => setAppMode("izin");
+      $("izinSearchBtn").onclick = () => runIzinSearch();
+      $("izinSearchInput").addEventListener("keydown", event => {
+        if (event.key !== "Enter") return;
+        event.preventDefault();
+        runIzinSearch();
+      });
+      document.querySelectorAll("[data-izin-chip]").forEach(button => {
+        button.onclick = () => {
+          $("izinSearchInput").value = button.dataset.izinChip || "";
+          runIzinSearch();
+        };
+      });
+      setAppMode(appMode);
+    }
+
+
     // ==================================================
     // INIT
     // ==================================================
 
     async function init() {
       showSearchReady();
+      initIzinMode();
 
       checkBackend();
 
