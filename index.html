@@ -6569,7 +6569,118 @@
       }
     }
 
-  </style>
+  
+
+    /* ==================================================
+       V41 — VISIBLE EDGE HANDLE + NO HOMEPAGE CLIPPING
+       Keep only the chevron visible at rest; reveal the label on hover.
+       Landing may grow beyond one viewport instead of cutting content off.
+    ================================================== */
+
+    @media (hover: hover) and (pointer: fine) {
+      .page-turn-arrow,
+      body:not(.landing-idle) .page-turn-arrow {
+        width: 96px;
+        height: 48px;
+        padding: 0;
+        gap: 0;
+        display: block;
+        overflow: hidden;
+      }
+
+      .page-turn-izin,
+      body:not(.landing-idle) .page-turn-izin {
+        transform: translate(66px,-50%); /* 30px handle remains visible */
+      }
+
+      .page-turn-arsip,
+      body:not(.landing-idle) .page-turn-arsip {
+        transform: translate(-66px,-50%); /* 30px handle remains visible */
+      }
+
+      .page-turn-arrow svg,
+      body:not(.landing-idle) .page-turn-arrow svg {
+        position: absolute;
+        top: 50%;
+        width: 24px;
+        height: 24px;
+        transform: translateY(-50%);
+        margin: 0;
+      }
+
+      .page-turn-izin svg,
+      body:not(.landing-idle) .page-turn-izin svg { left: 3px; }
+
+      .page-turn-arsip svg,
+      body:not(.landing-idle) .page-turn-arsip svg { right: 3px; }
+
+      .page-turn-label,
+      body:not(.landing-idle) .page-turn-label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        font-size: 9px;
+        letter-spacing: .07em;
+      }
+
+      .page-turn-izin .page-turn-label { left: 36px; }
+      .page-turn-arsip .page-turn-label { right: 36px; }
+
+      .page-turn-izin:hover,
+      .page-turn-izin:focus-visible,
+      body:not(.landing-idle) .page-turn-izin:hover,
+      body:not(.landing-idle) .page-turn-izin:focus-visible {
+        width: 96px;
+        transform: translate(-3px,-50%);
+      }
+
+      .page-turn-arsip:hover,
+      .page-turn-arsip:focus-visible,
+      body:not(.landing-idle) .page-turn-arsip:hover,
+      body:not(.landing-idle) .page-turn-arsip:focus-visible {
+        width: 96px;
+        transform: translate(3px,-50%);
+      }
+
+      .page-turn-arrow:hover .page-turn-label,
+      .page-turn-arrow:focus-visible .page-turn-label {
+        opacity: 1;
+        transform: translateY(-50%);
+      }
+    }
+
+    /* Never crop the bottom of the homepage. The layout still fills the
+       viewport, but can extend naturally on shorter screens / browser zoom. */
+    @media (min-width: 981px) {
+      body.landing-idle {
+        height: auto !important;
+        min-height: 100svh;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+      }
+
+      body.landing-idle .app {
+        height: auto !important;
+        min-height: 100svh;
+        overflow: visible !important;
+      }
+
+      body.landing-idle .main,
+      body.landing-idle .top-unified-card {
+        height: auto !important;
+        min-height: 100svh;
+        overflow: visible !important;
+      }
+
+      body.landing-idle .split-landing,
+      body.landing-idle .izin-landing {
+        min-height: calc(100svh - 108px) !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+    }
+</style>
 </head>
 
 <body class="landing-idle">
