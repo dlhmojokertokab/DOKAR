@@ -6816,6 +6816,15 @@
     }
 
   </style>
+
+  <style id="v43-single-destination-arrow">
+    /* V43 — only show the arrow that points to the OTHER service.
+       Later responsive rules in V41/V42 used display:block and accidentally
+       resurrected both arrows on search/result pages. These two rules are
+       intentionally last and authoritative. */
+    body:not(.mode-izin) .page-turn-arsip { display: none !important; }
+    body.mode-izin .page-turn-izin { display: none !important; }
+  </style>
 </head>
 
 <body class="landing-idle">
