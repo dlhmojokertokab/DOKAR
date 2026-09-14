@@ -5748,6 +5748,235 @@
       .izin-doc-date { font-size: 9px; }
     }
 
+
+
+    /* ==================================================
+       V36 — SPACING + BIGGER ACTIONS
+       Fix header/mode-switch collision and make actions easier to hit.
+    ================================================== */
+
+    /* Give the header real breathing room so the subtitle never kisses the divider. */
+    .top-unified-card .hero {
+      min-height: 108px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+
+    .top-unified-card .brand-subtitle-lockup {
+      margin-top: 4px;
+      padding-bottom: 2px;
+      line-height: 1.45;
+    }
+
+    /* The service switch gets its own band instead of visually colliding with header/hero. */
+    .app-mode-switch-wrap {
+      position: relative;
+      z-index: 12;
+      flex: 0 0 auto;
+      padding: 16px 22px 16px;
+      border-bottom: 1px solid rgba(83,65,51,.10);
+      background: #f7f2e9;
+    }
+
+    body.mode-izin .app-mode-switch-wrap {
+      background: #f7efef;
+      border-bottom-color: rgba(110,31,42,.10);
+    }
+
+    .app-mode-switch {
+      gap: 7px;
+      padding: 6px;
+      box-shadow: 0 10px 28px rgba(54,39,28,.09);
+    }
+
+    .app-mode-switch button {
+      min-width: 205px;
+      min-height: 50px;
+      padding: 11px 22px;
+      font-size: 12.5px;
+    }
+
+    .mode-switch-dot {
+      width: 8px;
+      height: 8px;
+    }
+
+    /* On desktop, landing height must account for BOTH header and the switch row. */
+    @media (min-width: 981px) {
+      .split-landing,
+      .izin-landing {
+        min-height: calc(100svh - 108px - 95px);
+      }
+
+      body.landing-idle .top-unified-card .hero {
+        flex: 0 0 108px;
+      }
+
+      body.landing-idle .app-mode-switch-wrap {
+        flex: 0 0 95px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+
+      body.landing-idle .split-landing,
+      body.landing-idle .izin-landing {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+    }
+
+    /* General hit targets: no more tiny utility buttons. */
+    .header-actions .btn,
+    .admin-mode-btn {
+      min-height: 44px;
+      padding: 10px 15px;
+      border-radius: 12px;
+    }
+
+    .status-pill {
+      min-height: 42px;
+      padding: 9px 14px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 11px;
+    }
+
+    .icon-btn .ic,
+    .table-actions .ic {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Result actions become compact labeled buttons instead of mystery postage stamps. */
+    .table-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      min-width: 220px;
+    }
+
+    .table-actions .icon-btn {
+      width: auto;
+      min-width: 0;
+      height: 40px;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 850;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .table-actions .icon-btn::after {
+      content: attr(title);
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: .01em;
+    }
+
+    .table-actions .icon-btn[data-open] {
+      border-color: rgba(47,107,69,.24);
+      color: #24583a;
+      background: rgba(237,247,240,.92);
+    }
+
+    .table-actions .icon-btn[data-open]:hover {
+      background: #e7f4eb;
+      border-color: rgba(47,107,69,.38);
+    }
+
+    .table-actions .icon-btn[data-share],
+    .table-actions .icon-btn[data-version] {
+      background: #fffdf9;
+    }
+
+    .table-actions .icon-btn[data-edit] {
+      color: #7b541f;
+      border-color: rgba(138,90,59,.24);
+      background: rgba(250,244,234,.95);
+    }
+
+    .table-actions .icon-btn[data-delete] {
+      color: #9a2d35;
+      border-color: rgba(154,45,53,.20);
+      background: rgba(255,242,243,.96);
+    }
+
+    .pagination-actions .btn,
+    .filter-toggle-btn,
+    .izin-search-btn,
+    .izin-results-back {
+      min-height: 42px;
+      border-radius: 11px;
+    }
+
+    @media (max-width: 980px) {
+      .top-unified-card .hero {
+        min-height: 0;
+        padding-top: 14px;
+        padding-bottom: 16px;
+      }
+
+      .app-mode-switch-wrap {
+        padding: 12px 14px 14px;
+      }
+
+      .app-mode-switch button {
+        min-width: 0;
+        min-height: 46px;
+        padding: 10px 12px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .app-mode-switch-wrap {
+        padding: 10px 12px 12px;
+      }
+
+      .app-mode-switch {
+        gap: 5px;
+        padding: 5px;
+      }
+
+      .app-mode-switch button {
+        min-height: 44px;
+        font-size: 10.5px;
+      }
+
+      .header-actions .btn,
+      .admin-mode-btn {
+        min-height: 46px;
+      }
+
+      .table-actions {
+        min-width: 0;
+        width: 100%;
+        gap: 7px;
+      }
+
+      .table-actions .icon-btn {
+        flex: 1 1 125px;
+        max-width: none;
+        min-width: 112px;
+        height: 42px;
+        padding: 0 10px;
+      }
+    }
+
   </style>
 </head>
 
