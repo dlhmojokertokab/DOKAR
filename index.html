@@ -5324,6 +5324,267 @@
     }
 
   </style>
+
+  <style>
+    /* =================================================
+       V33 — REVIEW KELOMPOK PERUSAHAAN
+       ================================================= */
+    .company-group-card {
+      border: 1px solid rgba(110, 31, 42, .16);
+      border-radius: 22px;
+      background: #fffaf8;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(62, 32, 35, .06);
+    }
+
+    .company-group-card + .company-group-card {
+      margin-top: 16px;
+    }
+
+    .company-group-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 18px 14px;
+      background: linear-gradient(135deg, rgba(110,31,42,.08), rgba(247,239,239,.55));
+      border-bottom: 1px solid rgba(110, 31, 42, .10);
+    }
+
+    .company-group-title {
+      min-width: 0;
+    }
+
+    .company-group-title strong {
+      display: block;
+      font-size: 17px;
+      color: #4f1720;
+      line-height: 1.25;
+    }
+
+    .company-group-normalized {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #7f6a6c;
+      overflow-wrap: anywhere;
+    }
+
+    .company-group-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .company-group-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(110,31,42,.14);
+      color: #6e1f2a;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .company-group-members {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .company-member {
+      position: relative;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid rgba(110,31,42,.12);
+      border-radius: 16px;
+      background: #fff;
+      cursor: pointer;
+      transition: .16s ease;
+    }
+
+    .company-member:hover {
+      transform: translateY(-1px);
+      border-color: rgba(110,31,42,.28);
+    }
+
+    .company-member:has(input:checked) {
+      border-color: #6e1f2a;
+      box-shadow: inset 0 0 0 1px #6e1f2a, 0 8px 20px rgba(110,31,42,.08);
+      background: #fff8f6;
+    }
+
+    .company-member-radio {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 3px;
+    }
+
+    .company-member-radio input {
+      width: 18px;
+      height: 18px;
+      accent-color: #6e1f2a;
+      cursor: pointer;
+    }
+
+    .company-member-name-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .company-member-name {
+      margin: 0;
+      font-size: 16px;
+      color: #2d2323;
+      line-height: 1.3;
+    }
+
+    .company-member-keep {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #6e1f2a;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .company-member-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+      color: #6d5d5e;
+      font-size: 12px;
+    }
+
+    .company-member-stat {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f7efef;
+      border: 1px solid rgba(110,31,42,.08);
+    }
+
+    .company-object-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .company-object-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: #faf6f3;
+      border: 1px dashed rgba(110,31,42,.12);
+      font-size: 12px;
+      color: #55494a;
+    }
+
+    .company-object-place {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .company-object-docs {
+      font-weight: 800;
+      color: #6e1f2a;
+      white-space: nowrap;
+    }
+
+    .company-group-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 14px 18px 18px;
+      border-top: 1px solid rgba(110,31,42,.08);
+      background: #fff;
+    }
+
+    .btn-company-separate {
+      background: #fff;
+      border: 1px solid rgba(110,31,42,.28);
+      color: #6e1f2a;
+    }
+
+    .btn-company-merge {
+      background: #6e1f2a;
+      border: 1px solid #6e1f2a;
+      color: #fff;
+    }
+
+    .btn-company-merge:hover {
+      background: #8b2e3b;
+      border-color: #8b2e3b;
+    }
+
+    .company-review-explainer {
+      display: grid;
+      gap: 4px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #fff8f4;
+      border: 1px solid rgba(110,31,42,.12);
+      color: #5f5051;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .company-review-explainer strong {
+      color: #6e1f2a;
+    }
+
+    @media (max-width: 720px) {
+      .company-group-head {
+        display: grid;
+      }
+
+      .company-group-badges {
+        justify-content: flex-start;
+      }
+
+      .company-group-members {
+        padding: 10px;
+      }
+
+      .company-member {
+        grid-template-columns: 28px minmax(0, 1fr);
+        padding: 12px;
+      }
+
+      .company-object-item {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .company-group-actions {
+        display: grid;
+        padding: 12px;
+      }
+
+      .company-group-actions .btn {
+        width: 100%;
+      }
+    }
+  </style>
+
 </head>
 
 <!-- LEMARI UI V32: Admin Review Duplikat Izin -->
@@ -6652,11 +6913,11 @@
           <section class="settings-box settings-box-wide izin-review-settings-box">
 
             <h3>
-              Review Duplikat Izin
+              Rapikan Perusahaan Ganda
             </h3>
 
             <p class="izin-review-settings-copy">
-              Tinjau kandidat objek pengawasan yang kemungkinan tercatat ganda. Data tidak akan digabung otomatis — keputusan tetap di tangan admin.
+              Gabungkan baris perusahaan yang sebenarnya satu identitas. Lokasi usaha tetap menjadi objek pengawasan terpisah dan dokumen izin tidak dilebur.
             </p>
 
             <button
@@ -6664,7 +6925,7 @@
               class="btn btn-burgundy"
               type="button"
             >
-              Review Kandidat Duplikat
+              Review Kelompok Perusahaan
             </button>
 
           </section>
@@ -6709,7 +6970,7 @@
 
 
   <!-- =================================================
-       V32 — REVIEW DUPLIKAT IZIN
+       V33 — REVIEW KELOMPOK PERUSAHAAN
   ================================================== -->
 
   <div
@@ -6722,9 +6983,9 @@
       <div class="modal-head duplicate-review-head">
 
         <div>
-          <h2 class="modal-title">Review Duplikat Izin</h2>
+          <h2 class="modal-title">Review Kelompok Perusahaan</h2>
           <p class="modal-desc">
-            Bandingkan objek pengawasan sebelum memutuskan apakah datanya sama atau memang lokasi berbeda.
+            Rapikan identitas perusahaan tanpa menggabungkan lokasi usaha maupun dokumen izinnya.
           </p>
         </div>
 
@@ -6746,9 +7007,10 @@
         ></div>
 
         <div class="duplicate-review-toolbar">
-          <p class="duplicate-review-note">
-            Nama yang sama belum tentu objek yang sama. Kecamatan, desa, alamat, jenis usaha, dan riwayat izin tetap perlu dilihat bersama.
-          </p>
+          <div class="company-review-explainer">
+            <strong>Yang digabung hanya PERUSAHAAN.</strong>
+            <span>Setiap OBJEK_USAHA tetap berdiri sendiri. DOKUMEN_IZIN tetap menunjuk objek yang sama seperti sebelum merge.</span>
+          </div>
 
           <button
             id="refreshDuplicateReviewBtn"
@@ -6774,7 +7036,7 @@
             class="btn btn-secondary"
             type="button"
           >
-            Tampilkan 20 Lagi
+            Tampilkan 10 Lagi
           </button>
         </div>
 
@@ -6907,7 +7169,7 @@
 
     const duplicateReviewState = {
       candidates: [],
-      visible: 20,
+      visible: 10,
       summary: null,
       loading: false,
     };
@@ -7197,68 +7459,93 @@
     }
 
 
-    function duplicateYearsHtml(
-      company
+    function companyObjectLocationText(
+      object
     ) {
-      const years =
-        Array.isArray(
-          company &&
-          company.tahun_izin
-        )
-          ? company.tahun_izin
-          : [];
+      const parts = [
+        object && object.desa_kelurahan,
+        object && object.kecamatan,
+        object && object.alamat,
+      ]
+        .map(value => String(value || "").trim())
+        .filter(Boolean);
 
-      if (
-        !years.length
-      ) {
-        return '<span class="duplicate-year-chip">Tahun belum terisi</span>';
-      }
-
-      return years
-        .map(
-          year =>
-            `<span class="duplicate-year-chip">${escapeHtml(year)}</span>`
-        )
-        .join("");
+      return parts.length
+        ? parts.join(" · ")
+        : "Lokasi belum lengkap";
     }
 
 
-    function duplicateCompanyHtml(
-      company,
-      side
+    function companyObjectListHtml(
+      company
     ) {
+      const objects =
+        Array.isArray(
+          company && company.objek
+        )
+          ? company.objek
+          : [];
+
+      if (!objects.length) {
+        return `
+          <div class="company-object-list">
+            <div class="company-object-item">
+              <span class="company-object-place">Belum memiliki objek usaha aktif.</span>
+              <span class="company-object-docs">0 dokumen</span>
+            </div>
+          </div>
+        `;
+      }
+
       return `
-        <article class="duplicate-company">
-          <span class="duplicate-side-label">${side}</span>
-          <h4 class="duplicate-company-name">${duplicateText(company.nama_industri)}</h4>
+        <div class="company-object-list">
+          ${objects.map(object => `
+            <div class="company-object-item">
+              <span class="company-object-place">${duplicateText(companyObjectLocationText(object))}</span>
+              <span class="company-object-docs">${Number(object.jumlah_dokumen || 0)} dokumen</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
 
-          <div class="duplicate-meta">
-            <div class="duplicate-meta-row">
-              <span class="duplicate-meta-label">Kecamatan</span>
-              <span>${duplicateText(company.kecamatan)}</span>
-            </div>
-            <div class="duplicate-meta-row">
-              <span class="duplicate-meta-label">Desa</span>
-              <span>${duplicateText(company.desa_kelurahan)}</span>
-            </div>
-            <div class="duplicate-meta-row">
-              <span class="duplicate-meta-label">Alamat</span>
-              <span>${duplicateText(company.alamat)}</span>
-            </div>
-            <div class="duplicate-meta-row">
-              <span class="duplicate-meta-label">Jenis usaha</span>
-              <span>${duplicateText(company.jenis_usaha)}</span>
-            </div>
-            <div class="duplicate-meta-row">
-              <span class="duplicate-meta-label">Jumlah izin</span>
-              <span><b>${Number(company.jumlah_dokumen || 0)}</b> dokumen</span>
-            </div>
-          </div>
 
-          <div class="duplicate-years">
-            ${duplicateYearsHtml(company)}
-          </div>
-        </article>
+    function companyMemberHtml(
+      company,
+      candidateIndex,
+      isDefault
+    ) {
+      const years =
+        Array.isArray(company && company.tahun_izin)
+          ? company.tahun_izin.filter(Boolean)
+          : [];
+
+      return `
+        <label class="company-member">
+          <span class="company-member-radio">
+            <input
+              type="radio"
+              name="company-group-keep-${candidateIndex}"
+              value="${escapeHtml(company.id || "")}"
+              ${isDefault ? "checked" : ""}
+            >
+          </span>
+
+          <span>
+            <span class="company-member-name-row">
+              <strong class="company-member-name">${duplicateText(company.nama_industri)}</strong>
+              ${isDefault ? '<span class="company-member-keep">Pilihan awal</span>' : ""}
+            </span>
+
+            <span class="company-member-stats">
+              <span class="company-member-stat"><b>${Number(company.jumlah_objek || 0)}</b> objek</span>
+              <span class="company-member-stat"><b>${Number(company.jumlah_dokumen || 0)}</b> dokumen</span>
+              <span class="company-member-stat">${years.length ? escapeHtml(years.join(", ")) : "Tahun belum terisi"}</span>
+            </span>
+
+            ${companyObjectListHtml(company)}
+          </span>
+        </label>
       `;
     }
 
@@ -7267,36 +7554,22 @@
       const summary =
         duplicateReviewState.summary || {};
 
-      const high =
-        duplicateReviewState.candidates.filter(
-          item =>
-            item.keyakinan ===
-            "TINGGI"
-        ).length;
-
-      const medium =
-        duplicateReviewState.candidates.filter(
-          item =>
-            item.keyakinan ===
-            "SEDANG"
-        ).length;
-
       $("duplicateReviewSummary").innerHTML = `
         <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Kandidat Aktif</span>
+          <span class="duplicate-stat-label">Kelompok Kandidat</span>
           <span class="duplicate-stat-value">${Number(summary.totalGrup || duplicateReviewState.candidates.length || 0)}</span>
         </div>
         <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Keyakinan Tinggi</span>
-          <span class="duplicate-stat-value">${high}</span>
+          <span class="duplicate-stat-label">Baris Perusahaan</span>
+          <span class="duplicate-stat-value">${Number(summary.totalPerusahaanTerindikasi || 0)}</span>
         </div>
         <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Keyakinan Sedang</span>
-          <span class="duplicate-stat-value">${medium}</span>
+          <span class="duplicate-stat-label">Objek Terlibat</span>
+          <span class="duplicate-stat-value">${Number(summary.totalObjekTerlibat || 0)}</span>
         </div>
         <div class="duplicate-stat">
-          <span class="duplicate-stat-label">Beda Lokasi Tersaring</span>
-          <span class="duplicate-stat-value">${Number(summary.totalPasanganBedaLokasi || 0)}</span>
+          <span class="duplicate-stat-label">Dokumen Terlibat</span>
+          <span class="duplicate-stat-value">${Number(summary.totalDokumenTerlibat || 0)}</span>
         </div>
       `;
     }
@@ -7311,12 +7584,10 @@
       const candidates =
         duplicateReviewState.candidates;
 
-      if (
-        !candidates.length
-      ) {
+      if (!candidates.length) {
         list.innerHTML = `
           <div class="duplicate-review-empty">
-            Tidak ada kandidat duplikat aktif. Database objek pengawasan terlihat bersih untuk aturan detector saat ini.
+            Tidak ada kelompok perusahaan ganda yang perlu direview untuk aturan nama saat ini.
           </div>
         `;
 
@@ -7336,82 +7607,55 @@
         shown
           .map(
             (candidate, index) => {
-              const a =
-                candidate.perusahaan &&
-                candidate.perusahaan[0]
-                  ? candidate.perusahaan[0]
-                  : {};
-
-              const b =
-                candidate.perusahaan &&
-                candidate.perusahaan[1]
-                  ? candidate.perusahaan[1]
-                  : {};
-
-              const confidenceClass =
-                candidate.keyakinan ===
-                "TINGGI"
-                  ? "high"
-                  : "medium";
-
-              const reasons =
-                Array.isArray(
-                  candidate.alasan
-                )
-                  ? candidate.alasan
-                      .map(
-                        value =>
-                          String(value || "")
-                            .replaceAll("_", " ")
-                      )
-                      .join(" • ")
-                  : "";
+              const companies =
+                Array.isArray(candidate.perusahaan)
+                  ? candidate.perusahaan
+                  : [];
 
               return `
-                <section class="duplicate-card" data-duplicate-index="${index}">
-                  <div class="duplicate-card-head">
-                    <div class="duplicate-card-title">
-                      Kandidat #${index + 1}
-                      <span class="duplicate-confidence ${confidenceClass}">
-                        ${escapeHtml(candidate.keyakinan || "SEDANG")}
-                      </span>
+                <section class="company-group-card" data-duplicate-index="${index}">
+                  <div class="company-group-head">
+                    <div class="company-group-title">
+                      <strong>Kelompok #${index + 1}</strong>
+                      <div class="company-group-normalized">
+                        Nama normalisasi: ${duplicateText(candidate.nama_normalisasi || candidate.key)}
+                      </div>
                     </div>
-                    <div class="duplicate-card-reason">
-                      ${escapeHtml(reasons || "Perlu review manual")}
+
+                    <div class="company-group-badges">
+                      <span class="company-group-badge">${Number(candidate.jumlah_perusahaan || companies.length || 0)} baris perusahaan</span>
+                      <span class="company-group-badge">${Number(candidate.jumlah_objek || 0)} objek</span>
+                      <span class="company-group-badge">${Number(candidate.jumlah_dokumen || 0)} dokumen</span>
                     </div>
                   </div>
 
-                  <div class="duplicate-compare-grid">
-                    ${duplicateCompanyHtml(a, "A")}
-                    ${duplicateCompanyHtml(b, "B")}
+                  <div class="company-group-members">
+                    ${companies.map((company, companyIndex) =>
+                      companyMemberHtml(
+                        company,
+                        index,
+                        company.id === candidate.rekomendasi_keep_id || (!candidate.rekomendasi_keep_id && companyIndex === 0)
+                      )
+                    ).join("")}
                   </div>
 
-                  <div class="duplicate-card-actions">
+                  <div class="company-group-actions">
                     <button
-                      class="btn btn-duplicate-different"
+                      class="btn btn-company-separate"
                       type="button"
-                      data-duplicate-action="different"
+                      data-duplicate-action="separate-group"
                       data-duplicate-index="${index}"
                     >
-                      ✕ Objek Berbeda
+                      Biarkan sebagai Perusahaan Berbeda
                     </button>
 
                     <button
-                      class="btn btn-duplicate-merge"
+                      class="btn btn-company-merge"
                       type="button"
-                      data-duplicate-action="merge-a"
+                      data-duplicate-action="merge-group"
                       data-duplicate-index="${index}"
                     >
-                      Gabungkan · Pertahankan A
-                    </button>
-
-                    <button
-                      class="btn btn-duplicate-merge"
-                      type="button"
-                      data-duplicate-action="merge-b"
-                      data-duplicate-index="${index}"
-                    >
-                      Gabungkan · Pertahankan B
+                      Gabungkan Semua ke Pilihan
                     </button>
                   </div>
                 </section>
@@ -7438,7 +7682,7 @@
 
       $("duplicateReviewList").innerHTML = `
         <div class="duplicate-review-loading">
-          Membaca kandidat objek pengawasan…
+          Membaca kelompok perusahaan…
         </div>
       `;
 
@@ -7462,7 +7706,16 @@
         ) {
           throw new Error(
             data.error ||
-            "Gagal membaca kandidat duplikat."
+            "Gagal membaca kelompok perusahaan."
+          );
+        }
+
+        if (
+          data.mode !==
+          "duplicate-company-group-review"
+        ) {
+          throw new Error(
+            "Backend belum memakai mode review kelompok perusahaan V20."
           );
         }
 
@@ -7474,7 +7727,7 @@
             : [];
 
         duplicateReviewState.visible =
-          20;
+          10;
 
         duplicateReviewState.summary =
           data;
@@ -7485,7 +7738,7 @@
       catch (error) {
         $("duplicateReviewList").innerHTML = `
           <div class="duplicate-review-error">
-            ${escapeHtml(error.message || "Gagal memuat review duplikat.")}
+            ${escapeHtml(error.message || "Gagal memuat review perusahaan.")}
           </div>
         `;
       }
@@ -7504,7 +7757,7 @@
         await Swal.fire({
           icon: "warning",
           title: "Mode Admin diperlukan",
-          text: "Aktifkan Mode Admin untuk membuka review duplikat izin.",
+          text: "Aktifkan Mode Admin untuk membuka review kelompok perusahaan.",
         });
         return;
       }
@@ -7521,31 +7774,32 @@
     }
 
 
-    async function markDuplicateAsDifferent(
+    async function markCompanyGroupSeparate(
       candidate
     ) {
-      const a =
-        candidate.perusahaan[0];
-      const b =
-        candidate.perusahaan[1];
+      const companies =
+        Array.isArray(candidate.perusahaan)
+          ? candidate.perusahaan
+          : [];
+
+      if (companies.length < 2) {
+        return;
+      }
 
       const result =
         await Swal.fire({
           icon: "question",
-          title: "Tandai sebagai objek berbeda?",
+          title: "Biarkan sebagai perusahaan berbeda?",
           html:
-            `<b>${escapeHtml(a.nama_industri)}</b><br>` +
-            `${escapeHtml(a.kecamatan || "—")} ↔ ${escapeHtml(b.kecamatan || "—")}<br><br>` +
-            `Pasangan ini tidak akan muncul lagi sebagai kandidat duplikat.`,
+            `Kelompok ini berisi <b>${companies.length} baris perusahaan</b> dengan nama yang terdeteksi sama.<br><br>` +
+            `Tidak ada objek atau dokumen yang diubah. Kelompok ini hanya akan dikeluarkan dari daftar review.`,
           showCancelButton: true,
-          confirmButtonText: "Ya, Objek Berbeda",
+          confirmButtonText: "Ya, Tetap Terpisah",
           cancelButtonText: "Batal",
           confirmButtonColor: "#6e1f2a",
         });
 
-      if (
-        !result.isConfirmed
-      ) {
+      if (!result.isConfirmed) {
         return;
       }
 
@@ -7553,12 +7807,11 @@
         response,
         data,
       } = await adminPost(
-        "/api/admin/izin/duplicates/not-duplicate",
+        "/api/admin/izin/company-group/separate",
         {
-          perusahaanAId: a.id,
-          perusahaanBId: b.id,
+          companyIds: companies.map(company => company.id),
           catatan:
-            "Ditandai sebagai objek berbeda melalui panel Review Duplikat LEMARI.",
+            "Kelompok diputuskan sebagai perusahaan berbeda melalui panel Review Kelompok Perusahaan LEMARI V33.",
         }
       );
 
@@ -7576,9 +7829,9 @@
 
       await Swal.fire({
         icon: "success",
-        title: "Disimpan",
-        text: "Pasangan ditandai sebagai objek berbeda.",
-        timer: 1200,
+        title: "Tetap dipisah",
+        text: "Kelompok dikeluarkan dari daftar kandidat aktif.",
+        timer: 1300,
         showConfirmButton: false,
       });
 
@@ -7586,45 +7839,72 @@
     }
 
 
-    async function mergeDuplicateCandidate(
-      candidate,
-      keepSide
+    function selectedCompanyIdForGroup(
+      candidateIndex
     ) {
-      const a =
-        candidate.perusahaan[0];
-      const b =
-        candidate.perusahaan[1];
+      const selected =
+        document.querySelector(
+          `input[name="company-group-keep-${candidateIndex}"]:checked`
+        );
+
+      return selected
+        ? String(selected.value || "")
+        : "";
+    }
+
+
+    async function mergeCompanyGroup(
+      candidate,
+      candidateIndex
+    ) {
+      const companies =
+        Array.isArray(candidate.perusahaan)
+          ? candidate.perusahaan
+          : [];
+
+      const keepId =
+        selectedCompanyIdForGroup(
+          candidateIndex
+        );
 
       const keep =
-        keepSide === "A"
-          ? a
-          : b;
+        companies.find(company => company.id === keepId);
 
-      const merge =
-        keepSide === "A"
-          ? b
-          : a;
+      if (!keep) {
+        await Swal.fire({
+          icon: "warning",
+          title: "Pilih perusahaan induk",
+          text: "Pilih satu nama perusahaan yang ingin dipertahankan.",
+        });
+        return;
+      }
+
+      const mergeIds =
+        companies
+          .filter(company => company.id !== keepId)
+          .map(company => company.id);
+
+      if (!mergeIds.length) {
+        return;
+      }
 
       const result =
         await Swal.fire({
           icon: "warning",
-          title: "Gabungkan objek ini?",
+          title: "Gabungkan kelompok perusahaan?",
           html:
-            `Data yang dipertahankan:<br><b>${escapeHtml(keep.nama_industri)}</b><br>` +
-            `${escapeHtml(keep.alamat || "Alamat belum terisi")}<br><br>` +
-            `Semua <b>${Number(merge.jumlah_dokumen || 0)} dokumen izin</b> dari:<br>` +
-            `<b>${escapeHtml(merge.nama_industri)}</b><br>` +
-            `akan dipindahkan ke data di atas. Baris sumber kemudian dikosongkan.<br><br>` +
-            `<b>Tindakan ini tidak punya tombol undo otomatis.</b>`,
+            `<b>${escapeHtml(keep.nama_industri)}</b> akan menjadi perusahaan induk.<br><br>` +
+            `<b>${mergeIds.length}</b> baris perusahaan lain akan dikosongkan setelah seluruh objeknya dipindahkan.<br>` +
+            `<b>${Number(candidate.jumlah_objek || 0)} objek usaha tetap berdiri sendiri.</b><br>` +
+            `<b>${Number(candidate.jumlah_dokumen || 0)} dokumen izin tidak diubah.</b><br><br>` +
+            `Tindakan merge tidak memiliki tombol undo otomatis.`,
           showCancelButton: true,
           confirmButtonText: "Gabungkan Sekarang",
           cancelButtonText: "Batal",
           confirmButtonColor: "#6e1f2a",
         });
 
-      if (
-        !result.isConfirmed
-      ) {
+      if (!result.isConfirmed) {
         return;
       }
 
@@ -7634,10 +7914,10 @@
       } = await adminPost(
         "/api/admin/izin/company/merge",
         {
-          keepId: keep.id,
-          mergeIds: [merge.id],
+          keepId,
+          mergeIds,
           catatan:
-            "Digabung melalui panel Review Duplikat LEMARI.",
+            "Digabung per kelompok melalui panel Review Kelompok Perusahaan LEMARI V33.",
         }
       );
 
@@ -7655,10 +7935,11 @@
 
       await Swal.fire({
         icon: "success",
-        title: "Berhasil digabung",
+        title: "Kelompok berhasil dirapikan",
         html:
-          `<b>${Number(data.jumlahDokumenDipindah || 0)}</b> dokumen izin dipindahkan.<br>` +
-          `Objek utama: <b>${escapeHtml(data.perusahaanTujuan && data.perusahaanTujuan.nama_industri || keep.nama_industri)}</b>`,
+          `<b>${Number(data.jumlahPerusahaanDigabung || 0)}</b> baris perusahaan digabung.<br>` +
+          `<b>${Number(data.jumlahObjekDipindah || 0)}</b> objek dialihkan ke perusahaan induk.<br>` +
+          `<b>${Number(data.jumlahDokumenDiubah || 0)}</b> dokumen diubah — harus tetap 0.`,
         confirmButtonColor: "#6e1f2a",
       });
 
@@ -12998,7 +13279,7 @@
     $("duplicateLoadMoreBtn").onclick =
       () => {
         duplicateReviewState.visible +=
-          20;
+          10;
 
         renderDuplicateReview();
       };
@@ -13011,9 +13292,7 @@
             "[data-duplicate-action]"
           );
 
-        if (
-          !button
-        ) {
+        if (!button) {
           return;
         }
 
@@ -13027,9 +13306,7 @@
             index
           ];
 
-        if (
-          !candidate
-        ) {
+        if (!candidate) {
           return;
         }
 
@@ -13037,30 +13314,22 @@
           button.dataset.duplicateAction;
 
         if (
-          action === "different"
+          action ===
+          "separate-group"
         ) {
-          await markDuplicateAsDifferent(
+          await markCompanyGroupSeparate(
             candidate
           );
           return;
         }
 
         if (
-          action === "merge-a"
+          action ===
+          "merge-group"
         ) {
-          await mergeDuplicateCandidate(
+          await mergeCompanyGroup(
             candidate,
-            "A"
-          );
-          return;
-        }
-
-        if (
-          action === "merge-b"
-        ) {
-          await mergeDuplicateCandidate(
-            candidate,
-            "B"
+            index
           );
         }
       };
