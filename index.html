@@ -5504,77 +5504,112 @@
     }
 
     .izin-object-list {
-      display: grid;
-      gap: 10px;
       padding: 14px;
     }
 
-    details.izin-object-card {
-      border: 1px solid rgba(110,31,42,.11);
+    .izin-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid rgba(110,31,42,.12);
       border-radius: 15px;
-      background: #fffdfc;
+      background: #fff;
     }
 
-    details.izin-object-card[open] {
-      border-color: rgba(110,31,42,.20);
-      box-shadow: inset 3px 0 0 #6e1f2a;
+    .izin-data-table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: separate;
+      border-spacing: 0;
+      table-layout: fixed;
+      color: #48363a;
+      font-size: 11px;
     }
 
-    .izin-object-summary {
-      list-style: none;
-      display: grid;
-      grid-template-columns: minmax(0,1fr) auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px 15px;
-      cursor: pointer;
+    .izin-data-table th,
+    .izin-data-table td {
+      padding: 11px 12px;
+      border-right: 1px solid rgba(110,31,42,.08);
+      border-bottom: 1px solid rgba(110,31,42,.08);
+      vertical-align: top;
+      text-align: left;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
     }
 
-    .izin-object-summary::-webkit-details-marker { display: none; }
+    .izin-data-table th:last-child,
+    .izin-data-table td:last-child { border-right: 0; }
 
-    .izin-object-place {
+    .izin-data-table tbody tr:last-child td { border-bottom: 0; }
+
+    .izin-data-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #f8ecee;
+      color: #6e1f2a;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .izin-col-location { width: 16%; }
+    .izin-col-address { width: 27%; }
+    .izin-col-doc { width: 13%; }
+    .izin-col-number { width: 30%; }
+    .izin-col-date { width: 14%; }
+
+    .izin-location-cell {
+      background: #fffafa;
       color: #4a272c;
-      font-size: 13px;
       font-weight: 850;
+    }
+
+    .izin-location-cell .izin-location-name {
+      display: block;
+      color: #4a272c;
+      font-size: 12px;
       line-height: 1.4;
     }
 
-    .izin-object-address {
-      margin-top: 3px;
-      color: #8a777a;
-      font-size: 10px;
-      line-height: 1.5;
-    }
-
-    .izin-object-count {
-      padding: 6px 9px;
+    .izin-location-cell .izin-location-count {
+      display: inline-flex;
+      margin-top: 7px;
+      padding: 4px 7px;
       border-radius: 999px;
-      background: #f5e6e8;
+      background: #f1dfe1;
       color: #6e1f2a;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 850;
       white-space: nowrap;
     }
 
-    .izin-doc-list {
-      display: grid;
-      gap: 0;
-      padding: 0 15px 12px;
+    .izin-address-main {
+      display: block;
+      color: #5a4549;
+      font-weight: 700;
     }
 
-    .izin-doc-row {
-      display: grid;
-      grid-template-columns: minmax(90px,.55fr) minmax(0,1.45fr) minmax(105px,.65fr);
-      gap: 12px;
-      align-items: start;
-      padding: 11px 2px;
-      border-top: 1px solid rgba(110,31,42,.08);
+    .izin-address-sub {
+      display: block;
+      margin-top: 4px;
+      color: #9a8589;
+      font-size: 10px;
     }
 
     .izin-doc-year {
       color: #6e1f2a;
       font-size: 11px;
       font-weight: 900;
+    }
+
+    .izin-doc-label {
+      display: block;
+      margin-top: 3px;
+      color: #8a7478;
+      font-size: 9px;
+      font-weight: 700;
     }
 
     .izin-doc-number {
@@ -5588,7 +5623,13 @@
     .izin-doc-date {
       color: #8d797c;
       font-size: 10px;
-      text-align: right;
+      white-space: nowrap;
+    }
+
+    .izin-empty-row td {
+      color: #9a8589;
+      font-style: italic;
+      background: #fffdfc;
     }
 
     @media (max-width: 980px) {
@@ -5691,20 +5732,20 @@
       }
       .izin-company-badges { justify-content: flex-start; }
       .izin-object-list { padding: 10px; }
-      .izin-object-summary {
-        grid-template-columns: 1fr;
-        padding: 13px;
+      .izin-table-wrap {
+        border-radius: 13px;
+        -webkit-overflow-scrolling: touch;
       }
-      .izin-object-count { width: fit-content; }
-      .izin-doc-row {
-        grid-template-columns: 82px minmax(0,1fr);
-        gap: 7px 10px;
+      .izin-data-table {
+        min-width: 760px;
+        font-size: 10px;
       }
-      .izin-doc-date {
-        grid-column: 1 / -1;
-        text-align: left;
-        padding-left: 92px;
+      .izin-data-table th,
+      .izin-data-table td {
+        padding: 9px 10px;
       }
+      .izin-location-cell .izin-location-name { font-size: 11px; }
+      .izin-doc-date { font-size: 9px; }
     }
 
   </style>
@@ -6018,7 +6059,7 @@
         <div class="izin-results-head">
           <div>
             <h2 id="izinResultsTitle">Hasil Pencarian Izin</h2>
-            <p id="izinResultsSubtitle">Pilih perusahaan untuk melihat lokasi dan riwayat dokumennya.</p>
+            <p id="izinResultsSubtitle">Hasil ditampilkan dalam tabel per perusahaan, lokasi, dan dokumen.</p>
           </div>
           <div id="izinResultCount" class="izin-result-count" hidden>0 perusahaan</div>
         </div>
@@ -13909,32 +13950,58 @@
 
       for (const company of izinState.items) {
         const objects = Array.isArray(company.objek) ? company.objek : [];
-        const objectHtml = objects.map((obj, index) => {
-          const docs = Array.isArray(obj.dokumen) ? obj.dokumen : [];
-          const docsHtml = docs.length
-            ? docs.map(doc => `
-                <div class="izin-doc-row">
-                  <div class="izin-doc-year">${escapeHtml(doc.tahun || "—")} · ${escapeHtml(doc.no_label ? `Label ${doc.no_label}` : "Tanpa label")}</div>
-                  <div class="izin-doc-number">${escapeHtml(doc.no_surat || "Nomor surat belum tercatat")}</div>
-                  <div class="izin-doc-date">${escapeHtml(formatIzinDate(doc.tgl_keluar))}</div>
-                </div>
-              `).join("")
-            : `<div class="izin-doc-row"><div class="izin-doc-number" style="grid-column:1/-1;color:#9a8589;">Belum ada dokumen pada objek ini.</div></div>`;
+        const tableRows = [];
 
-          const addressBits = [obj.alamat, obj.jenis_usaha].filter(Boolean);
-          return `
-            <details class="izin-object-card" ${objects.length === 1 || index === 0 ? "open" : ""}>
-              <summary class="izin-object-summary">
-                <div>
-                  <div class="izin-object-place">📍 ${escapeHtml(izinObjectTitle(obj))}</div>
-                  <div class="izin-object-address">${escapeHtml(addressBits.join(" • ") || "Detail lokasi belum lengkap")}</div>
-                </div>
-                <div class="izin-object-count">${formatIzinNumber(obj.jumlah_dokumen ?? docs.length)} dokumen</div>
-              </summary>
-              <div class="izin-doc-list">${docsHtml}</div>
-            </details>
-          `;
-        }).join("");
+        for (const obj of objects) {
+          const docs = Array.isArray(obj.dokumen) ? obj.dokumen : [];
+          const rowCount = Math.max(1, docs.length);
+          const objectTitle = escapeHtml(izinObjectTitle(obj));
+          const objectAddress = escapeHtml(obj.alamat || "Alamat belum tercatat");
+          const objectType = escapeHtml(obj.jenis_usaha || "Jenis usaha belum tercatat");
+          const objectCount = formatIzinNumber(obj.jumlah_dokumen ?? docs.length);
+
+          if (!docs.length) {
+            tableRows.push(`
+              <tr class="izin-empty-row">
+                <td class="izin-location-cell">
+                  <span class="izin-location-name">📍 ${objectTitle}</span>
+                  <span class="izin-location-count">${objectCount} dokumen</span>
+                </td>
+                <td>
+                  <span class="izin-address-main">${objectAddress}</span>
+                  <span class="izin-address-sub">${objectType}</span>
+                </td>
+                <td>—</td>
+                <td>Belum ada dokumen pada objek ini.</td>
+                <td>—</td>
+              </tr>
+            `);
+            continue;
+          }
+
+          docs.forEach((doc, index) => {
+            tableRows.push(`
+              <tr>
+                ${index === 0 ? `
+                  <td class="izin-location-cell" rowspan="${rowCount}">
+                    <span class="izin-location-name">📍 ${objectTitle}</span>
+                    <span class="izin-location-count">${objectCount} dokumen</span>
+                  </td>
+                  <td rowspan="${rowCount}">
+                    <span class="izin-address-main">${objectAddress}</span>
+                    <span class="izin-address-sub">${objectType}</span>
+                  </td>
+                ` : ""}
+                <td>
+                  <span class="izin-doc-year">${escapeHtml(doc.tahun || "—")}</span>
+                  <span class="izin-doc-label">${escapeHtml(doc.no_label ? `Label ${doc.no_label}` : "Tanpa label")}</span>
+                </td>
+                <td class="izin-doc-number">${escapeHtml(doc.no_surat || "Nomor surat belum tercatat")}</td>
+                <td class="izin-doc-date">${escapeHtml(formatIzinDate(doc.tgl_keluar))}</td>
+              </tr>
+            `);
+          });
+        }
 
         const article = document.createElement("article");
         article.className = "izin-company-card";
@@ -13942,14 +14009,31 @@
           <div class="izin-company-head">
             <div>
               <h3 class="izin-company-name">${escapeHtml(company.nama_industri || "Perusahaan tanpa nama")}</h3>
-              <div class="izin-company-meta">ID perusahaan tersimpan • riwayat dikelompokkan berdasarkan lokasi usaha</div>
+              <div class="izin-company-meta">Riwayat izin dikelompokkan berdasarkan lokasi usaha</div>
             </div>
             <div class="izin-company-badges">
               <span class="izin-company-badge">${formatIzinNumber(company.jumlah_objek ?? objects.length)} objek</span>
               <span class="izin-company-badge">${formatIzinNumber(company.jumlah_dokumen ?? objects.reduce((n,o)=>n+(Number(o.jumlah_dokumen)||0),0))} dokumen</span>
             </div>
           </div>
-          <div class="izin-object-list">${objectHtml || '<div class="izin-result-state active">Belum ada objek usaha terhubung.</div>'}</div>
+          <div class="izin-object-list">
+            ${tableRows.length ? `
+              <div class="izin-table-wrap">
+                <table class="izin-data-table">
+                  <thead>
+                    <tr>
+                      <th class="izin-col-location">Lokasi</th>
+                      <th class="izin-col-address">Alamat / Jenis Usaha</th>
+                      <th class="izin-col-doc">Tahun / Label</th>
+                      <th class="izin-col-number">Nomor Surat</th>
+                      <th class="izin-col-date">Tanggal</th>
+                    </tr>
+                  </thead>
+                  <tbody>${tableRows.join("")}</tbody>
+                </table>
+              </div>
+            ` : '<div class="izin-result-state active">Belum ada objek usaha terhubung.</div>'}
+          </div>
         `;
         root.appendChild(article);
       }
