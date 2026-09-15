@@ -7354,6 +7354,47 @@
 
 </style>
 
+
+  <style id="v46-izin-results-scroll-fix">
+    /* V46 — IZIN results must behave like a normal scrollable workspace.
+       V44 intentionally locks the landing cover to one viewport; once a
+       search/browse result is open, explicitly release every wrapper that
+       could inherit/retain that lock. */
+    @media (min-width: 981px) {
+      html:has(body.mode-izin:not(.landing-idle)) {
+        height: auto !important;
+        min-height: 100% !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+      }
+
+      body.mode-izin:not(.landing-idle) {
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+      }
+
+      body.mode-izin:not(.landing-idle) .app,
+      body.mode-izin:not(.landing-idle) .main,
+      body.mode-izin:not(.landing-idle) .top-unified-card {
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
+      body.mode-izin:not(.landing-idle) #izinLanding,
+      body.mode-izin:not(.landing-idle) #izinResultsSection {
+        max-height: none !important;
+      }
+
+      body.mode-izin:not(.landing-idle) #izinResultsSection {
+        overflow: visible !important;
+      }
+    }
+  </style>
+
 </head>
 
 <body class="landing-idle">
