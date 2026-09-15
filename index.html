@@ -6825,6 +6825,205 @@
     body:not(.mode-izin) .page-turn-arsip { display: none !important; }
     body.mode-izin .page-turn-izin { display: none !important; }
   </style>
+
+  <style id="v44-one-screen-compact-izin">
+    /* ==================================================
+       V44 — ONE-SCREEN LANDING + COMPACT IZIN HOME
+       Landing is a cover: one viewport on desktop.
+       Search / browse results are the scrollable workspace.
+    ================================================== */
+
+    @media (min-width: 981px) {
+      /* Re-enable the original one-screen cover behaviour that V41 relaxed. */
+      body.landing-idle {
+        height: 100dvh !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+      }
+
+      body.landing-idle .app {
+        height: 100dvh !important;
+        min-height: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        overflow: hidden !important;
+      }
+
+      body.landing-idle .main {
+        height: 100% !important;
+        min-height: 0 !important;
+        margin-top: 0 !important;
+        overflow: hidden !important;
+      }
+
+      body.landing-idle .top-unified-card {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+      }
+
+      body.landing-idle .top-unified-card .hero {
+        flex: 0 0 auto !important;
+      }
+
+      body.landing-idle .split-landing,
+      body.landing-idle .izin-landing {
+        flex: 1 1 0 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+      }
+
+      /* IZIN had too much ceremonial whitespace. Compress the copy,
+         not the useful controls. */
+      body.mode-izin.landing-idle .izin-landing {
+        grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr);
+      }
+
+      body.mode-izin.landing-idle .izin-copy {
+        padding: clamp(22px, 3.2vh, 36px) clamp(34px, 4.4vw, 64px) 20px;
+        overflow: hidden;
+      }
+
+      body.mode-izin.landing-idle .izin-kicker {
+        font-size: 10px;
+        letter-spacing: .11em;
+      }
+
+      body.mode-izin.landing-idle .izin-heading {
+        gap: 4px;
+        margin-top: clamp(9px, 1.3vh, 14px);
+      }
+
+      body.mode-izin.landing-idle .izin-heading-main {
+        font-size: clamp(44px, 4.25vw, 64px);
+        line-height: .96;
+      }
+
+      body.mode-izin.landing-idle .izin-heading-accent {
+        max-width: 640px;
+        font-size: clamp(25px, 2.45vw, 37px);
+        line-height: 1.02;
+      }
+
+      body.mode-izin.landing-idle .izin-lead {
+        max-width: 690px;
+        margin-top: clamp(9px, 1.35vh, 13px);
+        font-size: 13px;
+        line-height: 1.48;
+      }
+
+      body.mode-izin.landing-idle .izin-stats {
+        gap: 6px;
+        margin-top: clamp(8px, 1.25vh, 12px);
+      }
+
+      body.mode-izin.landing-idle .izin-stat-pill {
+        padding: 5px 9px;
+        font-size: 9px;
+      }
+
+      body.mode-izin.landing-idle .izin-stat-pill strong {
+        font-size: 12px;
+      }
+
+      body.mode-izin.landing-idle .izin-search-wrap {
+        margin-top: clamp(10px, 1.45vh, 14px);
+        padding: 6px 7px 6px 13px;
+        border-radius: 16px;
+      }
+
+      body.mode-izin.landing-idle .izin-search-input {
+        height: 44px;
+        font-size: 16px;
+      }
+
+      body.mode-izin.landing-idle .izin-search-btn {
+        min-height: 42px;
+        padding: 0 17px;
+      }
+
+      body.mode-izin.landing-idle .izin-browse-all {
+        margin-top: 7px;
+      }
+
+      body.mode-izin.landing-idle .show-all-izin-btn {
+        min-height: 36px;
+        padding: 6px 11px;
+        font-size: 10px;
+      }
+
+      /* These lines repeat information already visible in the hero/search.
+         Keep the useful quick chips, remove the explanatory filler. */
+      body.mode-izin.landing-idle .izin-search-note,
+      body.mode-izin.landing-idle .izin-caption {
+        display: none !important;
+      }
+
+      body.mode-izin.landing-idle .izin-hints {
+        gap: 6px;
+        margin-top: 7px;
+      }
+
+      body.mode-izin.landing-idle .izin-hint-chip {
+        min-height: 30px;
+        padding: 5px 10px;
+        font-size: 9px;
+      }
+
+      body.mode-izin.landing-idle .izin-visual {
+        padding: clamp(20px, 3.2vw, 42px);
+      }
+
+      body.mode-izin.landing-idle .izin-illustration-card {
+        width: min(410px, 92%);
+        padding: 18px;
+        border-radius: 24px;
+      }
+
+      body.mode-izin.landing-idle .izin-illustration-card svg {
+        max-height: min(40vh, 300px);
+        margin-inline: auto;
+      }
+
+      body.mode-izin.landing-idle .izin-visual-label {
+        margin-top: 10px;
+      }
+
+      body.mode-izin.landing-idle .izin-visual-label strong {
+        font-size: 14px;
+      }
+
+      body.mode-izin.landing-idle .izin-visual-label span,
+      body.mode-izin.landing-idle .izin-visual-badge {
+        font-size: 9px;
+      }
+    }
+
+    /* Very short desktop windows: keep the cover intact by dropping only
+       optional suggestion chips, never search/browse controls. */
+    @media (min-width: 981px) and (max-height: 690px) {
+      body.mode-izin.landing-idle .izin-hints { display: none !important; }
+      body.mode-izin.landing-idle .izin-copy {
+        padding-top: 18px;
+        padding-bottom: 14px;
+      }
+      body.mode-izin.landing-idle .izin-heading-main {
+        font-size: clamp(40px, 4vw, 56px);
+      }
+      body.mode-izin.landing-idle .izin-heading-accent {
+        font-size: clamp(23px, 2.2vw, 32px);
+      }
+      body.mode-izin.landing-idle .izin-lead {
+        margin-top: 7px;
+        line-height: 1.38;
+      }
+      body.mode-izin.landing-idle .izin-visual-label span { display: none; }
+    }
+  </style>
+
 </head>
 
 <body class="landing-idle">
