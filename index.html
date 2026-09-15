@@ -7022,7 +7022,337 @@
       }
       body.mode-izin.landing-idle .izin-visual-label span { display: none; }
     }
-  </style>
+  
+
+    /* ==================================================
+       V45 — UNIFIED IZIN RESULTS
+       IZIN now uses the same visual grammar as ARSIP:
+       heading → flat filter band → one data table → pagination.
+       Fixed at 25 companies per page.
+    ================================================== */
+    body.mode-izin:not(.landing-idle) #izinResultsSection {
+      margin: 0;
+      padding: 34px max(32px, calc((100vw - 1480px) / 2 + 34px)) 48px;
+      border: 0;
+      border-bottom: 1px solid rgba(87,71,58,.14);
+      border-radius: 0;
+      background: #f7f2e9;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    #izinResultsSection { scroll-margin-top: 0; }
+
+    .izin-results-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 0 0 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(87,71,58,.14);
+    }
+
+    .izin-results-head h2 {
+      margin: 0;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .izin-results-head p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .izin-result-count {
+      align-self: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f3e4e6;
+      color: #6e1f2a;
+      font-size: 13px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .izin-filter-panel {
+      margin: 18px 0 20px;
+      padding: 18px 0 20px;
+      border: 0;
+      border-top: 1px solid rgba(87,71,58,.14);
+      border-bottom: 1px solid rgba(87,71,58,.14);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .izin-filter-heading { margin-bottom: 14px; }
+    .izin-filter-heading h3 {
+      margin: 0;
+      color: var(--text);
+      font-size: 19px;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+    .izin-filter-heading p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .izin-filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr)) auto;
+      gap: 12px;
+      align-items: end;
+      margin-top: 14px;
+    }
+    .izin-filter-field label {
+      display: block;
+      margin: 0 0 7px 2px;
+      color: #6f645b;
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .izin-filter-select,
+    .izin-filter-reset {
+      height: 52px;
+      border: 1px solid rgba(87,71,58,.18);
+      border-radius: 13px;
+      background: rgba(255,253,250,.96);
+      color: var(--text);
+      font-size: 15px;
+      box-shadow: none;
+    }
+    .izin-filter-select { padding: 0 38px 0 14px; }
+    .izin-filter-reset {
+      padding: 0 16px;
+      color: #6b5a4d;
+      font-weight: 850;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .izin-company-list { display: block; }
+    .izin-unified-table-card {
+      margin-top: 18px;
+      overflow: hidden;
+      border: 0;
+      border-top: 1px solid rgba(87,71,58,.16);
+      border-bottom: 1px solid rgba(87,71,58,.16);
+      border-radius: 0;
+      background: rgba(255,253,250,.74);
+      box-shadow: none;
+    }
+    .izin-unified-scroll {
+      width: 100%;
+      overflow-x: auto;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .izin-data-table.izin-unified-table {
+      width: 100%;
+      min-width: 1180px;
+      border-collapse: collapse;
+      table-layout: fixed;
+      color: var(--text);
+      font-size: 13px;
+    }
+    .izin-unified-table th,
+    .izin-unified-table td {
+      padding: 16px 14px;
+      border-right: 0;
+      border-bottom: 1px solid rgba(87,71,58,.10);
+      vertical-align: top;
+      text-align: left;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+    .izin-unified-table thead th {
+      position: static;
+      background: rgba(255,253,250,.82);
+      color: #6f645b;
+      border-bottom: 1px solid rgba(87,71,58,.15);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .izin-unified-table tbody tr:last-child td { border-bottom-color: rgba(87,71,58,.10); }
+
+    .izin-col-company { width: 25%; }
+    .izin-col-object { width: 28%; }
+    .izin-col-doc { width: 12%; }
+    .izin-col-number { width: 22%; }
+    .izin-col-date { width: 10%; }
+    .izin-col-action { width: 9%; }
+
+    .izin-unified-company-cell {
+      background: rgba(255,250,248,.82);
+      border-right: 1px solid rgba(110,31,42,.08) !important;
+    }
+    .izin-unified-company-name {
+      color: #3c171d;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.4;
+    }
+    .izin-unified-company-meta {
+      margin-top: 6px;
+      color: #8a756f;
+      font-size: 11px;
+      font-weight: 650;
+    }
+
+    .izin-unified-location-cell {
+      background: rgba(255,253,250,.72);
+      border-right: 1px solid rgba(87,71,58,.07) !important;
+    }
+    .izin-unified-location-name {
+      color: #4f2e31;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.4;
+    }
+    .izin-unified-address {
+      margin-top: 5px;
+      color: #77665f;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+    .izin-unified-business {
+      margin-top: 4px;
+      color: #9a8780;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+    .izin-unified-count {
+      display: inline-flex;
+      margin-top: 8px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: #f1dfe1;
+      color: #6e1f2a;
+      font-size: 9px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .izin-doc-year { color: #6e1f2a; font-size: 13px; font-weight: 900; }
+    .izin-doc-label { margin-top: 4px; color: #8b7871; font-size: 10px; font-weight: 700; }
+    .izin-doc-number { color: #523f38; font-size: 13px; font-weight: 750; }
+    .izin-doc-date { color: #806f68; font-size: 12px; white-space: nowrap; }
+
+    .izin-inline-actions,
+    .izin-doc-admin {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+    .izin-admin-btn {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      padding: 0;
+      border-radius: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .izin-admin-btn .ic { width: 20px; height: 20px; }
+    .izin-admin-cell { text-align: left; }
+
+    .izin-pagination-bar {
+      margin-top: 0;
+      padding: 16px 0 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+    .izin-pagination-info {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .izin-pagination-actions { gap: 10px; }
+    .izin-page-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 132px;
+      height: 40px;
+      padding: 0 12px;
+      border: 1px solid rgba(87,71,58,.14);
+      border-radius: 11px;
+      background: rgba(255,253,250,.86);
+      color: #6b5a4d;
+      font-size: 11px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+    .izin-page-btn {
+      height: 40px;
+      padding: 0 13px;
+      border-color: rgba(87,71,58,.16);
+      background: rgba(255,253,250,.94);
+      color: #6e1f2a;
+      font-size: 11px;
+    }
+
+    @media (max-width: 980px) {
+      body.mode-izin:not(.landing-idle) #izinResultsSection { padding: 28px 20px 38px; }
+      .izin-filter-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+      .izin-filter-grid > :last-child { grid-column: 1 / -1; }
+      .izin-filter-reset { width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      body.mode-izin:not(.landing-idle) #izinResultsSection { padding: 22px 12px 30px; }
+      .izin-results-head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px 10px;
+        align-items: start;
+        margin-bottom: 14px;
+        padding-bottom: 14px;
+      }
+      .izin-results-head h2 { font-size: 24px; }
+      .izin-results-head p { font-size: 12px; }
+      .izin-result-count { padding: 7px 10px; font-size: 10px; }
+
+      .izin-mobile-filter-toggle { display: flex; margin-bottom: 10px; }
+      .izin-filter-panel { margin-top: 10px; padding: 14px 0 16px; }
+      .izin-filter-panel.mobile-collapsed { display: none; }
+      .izin-filter-grid { grid-template-columns: 1fr; }
+      .izin-filter-grid > :last-child { grid-column: auto; }
+      .izin-filter-select, .izin-filter-reset { height: 44px; font-size: 12px; }
+
+      .izin-unified-table-card { margin-top: 14px; }
+      .izin-unified-scroll { -webkit-overflow-scrolling: touch; }
+      .izin-data-table.izin-unified-table { min-width: 980px; font-size: 11px; }
+      .izin-unified-table th, .izin-unified-table td { padding: 12px 11px; }
+      .izin-unified-company-name { font-size: 14px; }
+      .izin-unified-location-name { font-size: 12px; }
+
+      .izin-pagination-bar { align-items: stretch; flex-direction: column; gap: 9px; }
+      .izin-pagination-actions { display: grid; grid-template-columns: 1fr auto 1fr; gap: 7px; }
+      .izin-page-btn { width: 100%; padding: 0 9px; }
+      .izin-page-number { min-width: 0; padding: 0 9px; font-size: 10px; }
+    }
+
+</style>
 
 </head>
 
@@ -7392,12 +7722,8 @@
         <div id="izinPaginationBar" class="izin-pagination-bar" hidden>
           <div id="izinPaginationInfo" class="izin-pagination-info">0 perusahaan</div>
           <div class="izin-pagination-actions">
-            <select id="izinPageSizeSelect" class="izin-page-size" aria-label="Jumlah perusahaan per halaman">
-              <option value="25">25 / halaman</option>
-              <option value="50" selected>50 / halaman</option>
-              <option value="100">100 / halaman</option>
-            </select>
             <button id="izinPrevPageBtn" class="izin-page-btn" type="button">← Sebelumnya</button>
+            <span id="izinPageNumber" class="izin-page-number">Halaman 1 dari 1</span>
             <button id="izinNextPageBtn" class="izin-page-btn" type="button">Berikutnya →</button>
           </div>
         </div>
@@ -15214,7 +15540,7 @@
       filteredItems: [],
       browseAll: false,
       page: 1,
-      pageSize: 50,
+      pageSize: 25,
     };
 
     function formatIzinNumber(value) {
@@ -15289,129 +15615,123 @@
       izinState.items = items || [];
       const root = $("izinCompanyList");
       root.innerHTML = "";
+
       const editIcon = `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`;
       const trashIcon = `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v5M14 11v5"/></svg>`;
 
+      if (!izinState.items.length) return;
+
+      const rows = [];
       for (const company of izinState.items) {
         const objects = Array.isArray(company.objek) ? company.objek : [];
-        const tableRows = [];
+        const companyRows = objects.reduce((sum, obj) => {
+          const docs = Array.isArray(obj.dokumen) ? obj.dokumen : [];
+          return sum + Math.max(1, docs.length);
+        }, 0) || 1;
+
+        const companyId = escapeHtml(company.id || "");
+        const companyName = escapeHtml(company.nama_industri || "Perusahaan tanpa nama");
+        const companyObjectCount = formatIzinNumber(company.jumlah_objek ?? objects.length);
+        const companyDocCount = formatIzinNumber(
+          company.jumlah_dokumen ?? objects.reduce((n,o) => n + (Array.isArray(o.dokumen) ? o.dokumen.length : 0), 0)
+        );
+        let companyPrinted = false;
+
+        if (!objects.length) {
+          rows.push(`
+            <tr>
+              <td class="izin-unified-company-cell">
+                <div class="izin-unified-company-name">${companyName}</div>
+                <div class="izin-unified-company-meta">0 objek • 0 dokumen</div>
+                ${isAdmin ? `<div class="izin-inline-actions">
+                  <button class="izin-admin-btn" type="button" title="Edit perusahaan" data-izin-admin-action="edit-company" data-company-id="${companyId}">${editIcon}</button>
+                  <button class="izin-admin-btn danger" type="button" title="Hapus perusahaan" data-izin-admin-action="delete-company" data-company-id="${companyId}">${trashIcon}</button>
+                </div>` : ""}
+              </td>
+              <td>Belum ada lokasi usaha.</td>
+              <td>—</td><td>—</td><td>—</td>
+              ${isAdmin ? '<td class="izin-admin-cell">—</td>' : ''}
+            </tr>
+          `);
+          continue;
+        }
 
         for (const obj of objects) {
           const docs = Array.isArray(obj.dokumen) ? obj.dokumen : [];
-          const rowCount = Math.max(1, docs.length);
-          const objectTitle = escapeHtml(izinObjectTitle(obj));
-          const objectAddress = escapeHtml(obj.alamat || "Alamat belum tercatat");
-          const objectType = escapeHtml(obj.jenis_usaha || "Jenis usaha belum tercatat");
-          const objectCount = formatIzinNumber(obj.jumlah_dokumen ?? docs.length);
+          const objectRows = Math.max(1, docs.length);
           const objectId = escapeHtml(obj.objek_id || "");
-          const objectAdmin = isAdmin ? `
-            <div class="izin-location-admin">
-              <button class="izin-admin-btn" type="button" title="Edit lokasi / objek" data-izin-admin-action="edit-object" data-object-id="${objectId}">${editIcon}</button>
-              <button class="izin-admin-btn danger" type="button" title="Hapus lokasi / objek" data-izin-admin-action="delete-object" data-object-id="${objectId}">${trashIcon}</button>
-            </div>
-          ` : "";
+          const locationTitle = escapeHtml(izinObjectTitle(obj));
+          const address = escapeHtml(obj.alamat || "Alamat belum tercatat");
+          const businessType = escapeHtml(obj.jenis_usaha || "Jenis usaha belum tercatat");
+          const objectCount = formatIzinNumber(obj.jumlah_dokumen ?? docs.length);
+          const docRows = docs.length ? docs : [null];
 
-          if (!docs.length) {
-            tableRows.push(`
-              <tr class="izin-empty-row">
-                <td class="izin-location-cell">
-                  <span class="izin-location-name">📍 ${objectTitle}</span>
-                  <span class="izin-location-count">${objectCount} dokumen</span>
-                  ${objectAdmin}
-                </td>
-                <td>
-                  <span class="izin-address-main">${objectAddress}</span>
-                  <span class="izin-address-sub">${objectType}</span>
-                </td>
-                <td>—</td>
-                <td>Belum ada dokumen pada objek ini.</td>
-                <td>—</td>
-                ${isAdmin ? '<td class="izin-admin-cell">—</td>' : ''}
-              </tr>
-            `);
-            continue;
-          }
-
-          docs.forEach((doc, index) => {
-            const docId = escapeHtml(doc.id || "");
-            tableRows.push(`
+          docRows.forEach((doc, docIndex) => {
+            const firstObjectRow = docIndex === 0;
+            const docId = escapeHtml(doc?.id || "");
+            rows.push(`
               <tr>
-                ${index === 0 ? `
-                  <td class="izin-location-cell" rowspan="${rowCount}">
-                    <span class="izin-location-name">📍 ${objectTitle}</span>
-                    <span class="izin-location-count">${objectCount} dokumen</span>
-                    ${objectAdmin}
+                ${!companyPrinted ? `
+                  <td class="izin-unified-company-cell" rowspan="${companyRows}">
+                    <div class="izin-unified-company-name">${companyName}</div>
+                    <div class="izin-unified-company-meta">${companyObjectCount} objek • ${companyDocCount} dokumen</div>
+                    ${isAdmin ? `<div class="izin-inline-actions">
+                      <button class="izin-admin-btn" type="button" title="Edit perusahaan" data-izin-admin-action="edit-company" data-company-id="${companyId}">${editIcon}</button>
+                      <button class="izin-admin-btn danger" type="button" title="Hapus perusahaan" data-izin-admin-action="delete-company" data-company-id="${companyId}">${trashIcon}</button>
+                    </div>` : ""}
                   </td>
-                  <td rowspan="${rowCount}">
-                    <span class="izin-address-main">${objectAddress}</span>
-                    <span class="izin-address-sub">${objectType}</span>
+                ` : ""}
+                ${firstObjectRow ? `
+                  <td class="izin-unified-location-cell" rowspan="${objectRows}">
+                    <div class="izin-unified-location-name">📍 ${locationTitle}</div>
+                    <div class="izin-unified-address">${address}</div>
+                    <div class="izin-unified-business">${businessType}</div>
+                    <span class="izin-unified-count">${objectCount} dokumen</span>
+                    ${isAdmin ? `<div class="izin-inline-actions">
+                      <button class="izin-admin-btn" type="button" title="Edit lokasi / objek" data-izin-admin-action="edit-object" data-object-id="${objectId}">${editIcon}</button>
+                      <button class="izin-admin-btn danger" type="button" title="Hapus lokasi / objek" data-izin-admin-action="delete-object" data-object-id="${objectId}">${trashIcon}</button>
+                    </div>` : ""}
                   </td>
                 ` : ""}
                 <td>
-                  <span class="izin-doc-year">${escapeHtml(doc.tahun || "—")}</span>
-                  <span class="izin-doc-label">${escapeHtml(doc.no_label ? `Label ${doc.no_label}` : "Tanpa label")}</span>
+                  ${doc ? `<span class="izin-doc-year">${escapeHtml(doc.tahun || "—")}</span>
+                    <span class="izin-doc-label">${escapeHtml(doc.no_label ? `Label ${doc.no_label}` : "Tanpa label")}</span>` : "—"}
                 </td>
-                <td class="izin-doc-number">${escapeHtml(doc.no_surat || "Nomor surat belum tercatat")}</td>
-                <td class="izin-doc-date">${escapeHtml(formatIzinDate(doc.tgl_keluar))}</td>
-                ${isAdmin ? `
-                  <td class="izin-admin-cell">
-                    <div class="izin-doc-admin">
-                      <button class="izin-admin-btn" type="button" title="Edit dokumen izin" data-izin-admin-action="edit-document" data-doc-id="${docId}">${editIcon}</button>
-                      <button class="izin-admin-btn danger" type="button" title="Hapus dokumen izin" data-izin-admin-action="delete-document" data-doc-id="${docId}">${trashIcon}</button>
-                    </div>
-                  </td>
-                ` : ""}
+                <td class="izin-doc-number">${doc ? escapeHtml(doc.no_surat || "Nomor surat belum tercatat") : "Belum ada dokumen pada objek ini."}</td>
+                <td class="izin-doc-date">${doc ? escapeHtml(formatIzinDate(doc.tgl_keluar)) : "—"}</td>
+                ${isAdmin ? `<td class="izin-admin-cell">
+                  ${doc ? `<div class="izin-doc-admin">
+                    <button class="izin-admin-btn" type="button" title="Edit dokumen izin" data-izin-admin-action="edit-document" data-doc-id="${docId}">${editIcon}</button>
+                    <button class="izin-admin-btn danger" type="button" title="Hapus dokumen izin" data-izin-admin-action="delete-document" data-doc-id="${docId}">${trashIcon}</button>
+                  </div>` : "—"}
+                </td>` : ""}
               </tr>
             `);
+            companyPrinted = true;
           });
         }
-
-        const companyId = escapeHtml(company.id || "");
-        const article = document.createElement("article");
-        article.className = "izin-company-card";
-        article.innerHTML = `
-          <div class="izin-company-head">
-            <div>
-              <h3 class="izin-company-name">${escapeHtml(company.nama_industri || "Perusahaan tanpa nama")}</h3>
-              <div class="izin-company-meta">Riwayat izin dikelompokkan berdasarkan lokasi usaha</div>
-            </div>
-            <div class="izin-company-tools">
-              <div class="izin-company-badges">
-                <span class="izin-company-badge">${formatIzinNumber(company.jumlah_objek ?? objects.length)} objek</span>
-                <span class="izin-company-badge">${formatIzinNumber(company.jumlah_dokumen ?? objects.reduce((n,o)=>n+(Number(o.jumlah_dokumen)||0),0))} dokumen</span>
-              </div>
-              ${isAdmin ? `
-                <div class="izin-admin-actions">
-                  <button class="izin-admin-btn" type="button" data-izin-admin-action="edit-company" data-company-id="${companyId}">${editIcon}<span>Edit Perusahaan</span></button>
-                  <button class="izin-admin-btn danger" type="button" data-izin-admin-action="delete-company" data-company-id="${companyId}">${trashIcon}<span>Hapus</span></button>
-                </div>
-              ` : ""}
-            </div>
-          </div>
-          <div class="izin-object-list">
-            ${tableRows.length ? `
-              <div class="izin-table-wrap">
-                <table class="izin-data-table">
-                  <thead>
-                    <tr>
-                      <th class="izin-col-location">Lokasi</th>
-                      <th class="izin-col-address">Alamat / Jenis Usaha</th>
-                      <th class="izin-col-doc">Tahun / Label</th>
-                      <th class="izin-col-number">Nomor Surat</th>
-                      <th class="izin-col-date">Tanggal</th>
-                      ${isAdmin ? '<th class="izin-admin-cell">Aksi</th>' : ''}
-                    </tr>
-                  </thead>
-                  <tbody>${tableRows.join("")}</tbody>
-                </table>
-              </div>
-            ` : '<div class="izin-result-state active">Belum ada objek usaha terhubung.</div>'}
-          </div>
-        `;
-        root.appendChild(article);
       }
-    }
 
+      root.innerHTML = `
+        <div class="izin-unified-table-card">
+          <div class="izin-table-wrap izin-unified-scroll">
+            <table class="izin-data-table izin-unified-table">
+              <thead>
+                <tr>
+                  <th class="izin-col-company">Perusahaan</th>
+                  <th class="izin-col-object">Lokasi / Objek</th>
+                  <th class="izin-col-doc">Tahun / Label</th>
+                  <th class="izin-col-number">Nomor Surat</th>
+                  <th class="izin-col-date">Tanggal Keluar</th>
+                  ${isAdmin ? '<th class="izin-col-action">Aksi</th>' : ''}
+                </tr>
+              </thead>
+              <tbody>${rows.join("")}</tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
 
 
     function findIzinCompany(companyId) {
@@ -15806,10 +16126,10 @@
       bar.hidden = total === 0;
       if (!total) return;
       const end = Math.min(start + izinState.pageSize, total);
-      $("izinPaginationInfo").textContent = `Menampilkan ${formatIzinNumber(start + 1)}–${formatIzinNumber(end)} dari ${formatIzinNumber(total)} perusahaan`;
+      $("izinPaginationInfo").textContent = `Menampilkan ${formatIzinNumber(start + 1)}–${formatIzinNumber(end)} dari ${formatIzinNumber(total)} perusahaan • 25 per halaman`;
+      $("izinPageNumber").textContent = `Halaman ${formatIzinNumber(izinState.page)} dari ${formatIzinNumber(totalPages)}`;
       $("izinPrevPageBtn").disabled = izinState.page <= 1;
       $("izinNextPageBtn").disabled = izinState.page >= totalPages;
-      $("izinPageSizeSelect").value = String(izinState.pageSize);
     }
 
     function applyIzinFilters(resetPage = true) {
@@ -15942,11 +16262,6 @@
         $(id).onchange = () => applyIzinFilters(true);
       });
       $("izinResetFilterBtn").onclick = () => resetIzinFilters(false);
-      $("izinPageSizeSelect").onchange = () => {
-        izinState.pageSize = Number($("izinPageSizeSelect").value || 50);
-        izinState.page = 1;
-        renderIzinPage();
-      };
       $("izinPrevPageBtn").onclick = () => {
         if (izinState.page <= 1) return;
         izinState.page--;
