@@ -1,4 +1,4 @@
-const CACHE_NAME = "dokar-shell-v1";
+const CACHE_NAME = "dokar-shell-v2";
 const SHELL = [
   "./",
   "./index.html",
@@ -6,7 +6,8 @@ const SHELL = [
   "./dokar-icon.png",
   "./dokar-icon-192.png",
   "./dokar-icon-512.png",
-  "./dokar-carriage.png"
+  "./dokar-carriage.png",
+  "./dokar-dashboard-art.png"
 ];
 
 self.addEventListener("install", event => {

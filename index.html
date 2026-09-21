@@ -6884,7 +6884,7 @@
   
 
     /* ==================================================
-       DOKAR V1 — ROOT SHELL
+       DOKAR V2 — ROOT SHELL
        DOKAR is the house; LEMARI and DILAN are services.
     ================================================== */
     .dokar-brand {
@@ -7135,6 +7135,304 @@
       .dokar-home-visual { min-height: 260px; padding: 0 12px 20px; }
       .dokar-home-visual > img { width: 100%; max-height: 290px; }
       .dokar-visual-stamp { display: none; }
+    }
+
+
+    /* ==================================================
+       DOKAR V2 — DASHBOARD HOME
+       Dashboard first. Artwork is integrated as a transparent atmosphere,
+       not a pasted card.
+    ================================================== */
+    .dokar-beranda-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 0 13px;
+      border: 1px solid rgba(47,107,69,.16);
+      border-radius: 14px;
+      background: rgba(255,255,255,.72);
+      color: #2c5f3d;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-decoration: none;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+    .dokar-beranda-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(47,107,69,.3);
+      background: #fff;
+    }
+    .dokar-beranda-btn .ic { width: 15px; height: 15px; }
+
+    body.dokar-home #dokarLanding { display: block !important; }
+    .dokar-dashboard {
+      position: relative;
+      flex: 1 1 0;
+      min-height: 0;
+      overflow: hidden;
+      isolation: isolate;
+      border-top: 1px solid rgba(77,61,45,.07);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(67,117,70,.13), transparent 29%),
+        radial-gradient(circle at 82% 84%, rgba(139,90,59,.10), transparent 28%),
+        linear-gradient(135deg, #fbfaf4 0%, #f6f0e5 55%, #eee5d4 100%);
+    }
+    .dokar-dashboard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      opacity: .28;
+      background-image:
+        linear-gradient(rgba(47,107,69,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(47,107,69,.035) 1px, transparent 1px);
+      background-size: 34px 34px;
+      -webkit-mask-image: linear-gradient(90deg, #000, transparent 72%);
+      mask-image: linear-gradient(90deg, #000, transparent 72%);
+    }
+    .dokar-dashboard-art {
+      position: absolute;
+      z-index: -2;
+      right: -5.5vw;
+      bottom: -10vh;
+      width: min(67vw, 1080px);
+      aspect-ratio: 3 / 2;
+      background: url("dokar-dashboard-art.png") center / contain no-repeat;
+      opacity: .54;
+      filter: saturate(.88) contrast(.96) drop-shadow(0 24px 30px rgba(59,36,19,.10));
+      pointer-events: none;
+      transform: rotate(-.6deg);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 13%, #000 32%, #000 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 13%, #000 32%, #000 100%);
+    }
+    .dokar-dashboard::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      right: 0;
+      bottom: 0;
+      width: 54%;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(246,240,229,.96) 0%, rgba(246,240,229,.58) 23%, rgba(246,240,229,.02) 72%);
+      pointer-events: none;
+    }
+    .dokar-dashboard-inner {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, calc(100% - 48px));
+      min-height: 100%;
+      margin: 0 auto;
+      padding: clamp(28px, 5.4vh, 54px) 0 clamp(24px, 4.2vh, 42px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .dokar-dashboard-head {
+      max-width: 720px;
+    }
+    .dokar-dashboard-kicker {
+      margin-bottom: 13px;
+      color: #8a5a3b;
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .dokar-dashboard-head h1 {
+      margin: 0;
+      display: grid;
+      gap: 4px;
+      max-width: 760px;
+      line-height: .96;
+    }
+    .dokar-dashboard-head h1 span {
+      color: #234f33;
+      font-size: clamp(42px, 4.6vw, 72px);
+      font-weight: 950;
+      letter-spacing: -.055em;
+    }
+    .dokar-dashboard-head h1 em {
+      color: #7a482c;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(23px, 2.35vw, 34px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+    .dokar-dashboard-head p {
+      max-width: 660px;
+      margin: 16px 0 0;
+      color: #6b6259;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .dokar-dashboard-services {
+      width: min(760px, 100%);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
+    .dokar-module-card {
+      position: relative;
+      min-height: 224px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      overflow: hidden;
+      padding: 20px;
+      border-radius: 22px;
+      text-align: left;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .dokar-module-card::after {
+      content: "";
+      position: absolute;
+      width: 155px;
+      height: 155px;
+      right: -56px;
+      bottom: -64px;
+      border-radius: 50%;
+      opacity: .42;
+      transition: transform .22s ease;
+    }
+    .dokar-module-card:hover {
+      transform: translateY(-4px);
+    }
+    .dokar-module-card:hover::after { transform: scale(1.12); }
+    .dokar-module-card.lemari {
+      border: 1px solid rgba(47,107,69,.19);
+      background: rgba(251,253,247,.84);
+      color: #275a3a;
+      box-shadow: 0 18px 40px rgba(47,107,69,.09);
+    }
+    .dokar-module-card.lemari::after { background: rgba(73,128,79,.18); }
+    .dokar-module-card.lemari:hover {
+      border-color: rgba(47,107,69,.34);
+      box-shadow: 0 22px 46px rgba(47,107,69,.15);
+    }
+    .dokar-module-card.dilan {
+      border: 1px solid rgba(110,31,42,.17);
+      background: rgba(255,249,248,.84);
+      color: #711f2d;
+      box-shadow: 0 18px 40px rgba(110,31,42,.08);
+    }
+    .dokar-module-card.dilan::after { background: rgba(139,46,59,.14); }
+    .dokar-module-card.dilan:hover {
+      border-color: rgba(110,31,42,.31);
+      box-shadow: 0 22px 46px rgba(110,31,42,.14);
+    }
+    .dokar-module-top {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .dokar-module-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(255,255,255,.76);
+      box-shadow: inset 0 0 0 1px rgba(84,65,47,.08);
+    }
+    .dokar-module-icon img { width: 34px; height: 34px; object-fit: contain; }
+    .dokar-module-chip {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.62);
+      font-size: 8px;
+      font-weight: 950;
+      letter-spacing: .1em;
+    }
+    .dokar-module-card > strong {
+      display: block;
+      margin-top: 14px;
+      font-size: 30px;
+      font-weight: 950;
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+    .dokar-module-name {
+      margin-top: 6px;
+      max-width: 290px;
+      font-size: 11px;
+      font-weight: 850;
+      line-height: 1.34;
+    }
+    .dokar-module-desc {
+      margin-top: 8px;
+      max-width: 280px;
+      color: #746b62;
+      font-size: 10px;
+      line-height: 1.48;
+    }
+    .dokar-module-open {
+      position: relative;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: auto;
+      padding-top: 13px;
+      font-size: 10px;
+      font-weight: 950;
+    }
+    .dokar-module-open b { font-size: 16px; line-height: 1; }
+    .dokar-dashboard-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 15px;
+      color: #7b7065;
+      font-size: 9px;
+      font-weight: 750;
+    }
+    .dokar-dashboard-note img { width: 25px; height: 25px; object-fit: contain; }
+    .dokar-dashboard-note strong { color: #2b5d3b; }
+
+    body.dokar-home .top-unified-card {
+      min-height: 100dvh;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    body.dokar-home .top-unified-card .hero {
+      flex: 0 0 auto;
+      background: rgba(255,253,248,.87);
+      backdrop-filter: blur(16px);
+    }
+
+    @media (max-width: 980px) {
+      body.dokar-home .top-unified-card { height: auto; min-height: 100dvh; overflow: visible; }
+      .dokar-dashboard { min-height: calc(100dvh - 88px); overflow: hidden; }
+      .dokar-dashboard-inner { width: min(100% - 34px, 760px); justify-content: flex-start; padding-top: 34px; }
+      .dokar-dashboard-art {
+        width: 760px;
+        right: -300px;
+        bottom: -50px;
+        opacity: .24;
+      }
+      .dokar-dashboard::after { width: 100%; background: linear-gradient(90deg, rgba(246,240,229,.98), rgba(246,240,229,.72) 58%, rgba(246,240,229,.18)); }
+      .dokar-dashboard-services { max-width: 690px; }
+    }
+    @media (max-width: 720px) {
+      .dokar-beranda-btn span { display: none; }
+      .dokar-beranda-btn { width: 42px; padding: 0; justify-content: center; }
+      .dokar-dashboard-inner { width: calc(100% - 28px); padding: 25px 0 32px; }
+      .dokar-dashboard-head h1 span { font-size: 42px; }
+      .dokar-dashboard-head h1 em { font-size: 22px; }
+      .dokar-dashboard-head p { font-size: 12px; }
+      .dokar-dashboard-services { grid-template-columns: 1fr; gap: 11px; margin-top: 20px; }
+      .dokar-module-card { min-height: 194px; padding: 17px; }
+      .dokar-dashboard-art { width: 620px; right: -330px; bottom: -20px; opacity: .17; }
+      .dokar-dashboard-note { margin-bottom: 8px; }
     }
 
   </style>
@@ -7745,6 +8043,20 @@
 
       <div class="header-actions">
 
+        <a
+          class="dokar-beranda-btn"
+          href="../BERANDA/"
+          aria-label="Kembali ke BERANDA DLH"
+          title="Kembali ke BERANDA"
+        >
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 11.5 12 4l9 7.5"/>
+            <path d="M5.5 10.5V20h13v-9.5"/>
+            <path d="M9.5 20v-6h5v6"/>
+          </svg>
+          <span>BERANDA</span>
+        </a>
+
         <div
           id="backendStatus"
           class="status-pill"
@@ -7816,53 +8128,52 @@
       </nav>
 
 
-      <section id="dokarLanding" class="dokar-landing" aria-label="Beranda DOKAR">
-        <div class="dokar-home-copy">
-          <div class="dokar-kicker">DINAS LINGKUNGAN HIDUP KABUPATEN MOJOKERTO</div>
+      <section id="dokarLanding" class="dokar-dashboard" aria-label="Dashboard DOKAR">
+        <div class="dokar-dashboard-art" aria-hidden="true"></div>
 
-          <div class="dokar-title-wrap">
-            <span class="dokar-title">DOKAR</span>
-            <span class="dokar-title-accent">Pusat Dokumen, Arsip, dan Perizinan DLH</span>
+        <div class="dokar-dashboard-inner">
+          <div class="dokar-dashboard-head">
+            <div class="dokar-dashboard-kicker">DINAS LINGKUNGAN HIDUP KABUPATEN MOJOKERTO</div>
+            <h1>
+              <span>Pilih layanan.</span>
+              <em>Kerjanya tetap satu alur.</em>
+            </h1>
+            <p>
+              DOKAR menghubungkan arsip dokumen melalui LEMARI dan database izin lingkungan melalui DILAN.
+              Pilih ruang kerja yang ingin dibuka.
+            </p>
           </div>
 
-          <p class="dokar-lead">
-            Satu pintu kerja untuk dua layanan yang berbeda: arsip dokumen melalui LEMARI,
-            dan database izin lingkungan melalui DILAN. Pilih layanan yang ingin dibuka.
-          </p>
-
-          <div class="dokar-service-grid">
-            <button id="dokarOpenLemari" class="dokar-service-card lemari" type="button">
-              <span class="dokar-service-eyebrow">ARSIP DOKUMEN</span>
+          <div class="dokar-dashboard-services" aria-label="Layanan DOKAR">
+            <button id="dokarOpenLemari" class="dokar-module-card lemari" type="button">
+              <span class="dokar-module-top">
+                <span class="dokar-module-icon"><img src="dokar-icon.png" alt=""></span>
+                <span class="dokar-module-chip">ARSIP DOKUMEN</span>
+              </span>
               <strong>LEMARI</strong>
-              <span class="dokar-service-name">Layanan Elektronik Manajemen Arsip Ringkas dan Integratif</span>
-              <span class="dokar-service-desc">Cari, unggah, kelola, dan telusuri riwayat arsip DLH.</span>
-              <span class="dokar-service-action">Buka LEMARI <b>→</b></span>
+              <span class="dokar-module-name">Layanan Elektronik Manajemen Arsip Ringkas dan Integratif</span>
+              <span class="dokar-module-desc">Cari, unggah, kelola, dan telusuri riwayat arsip DLH.</span>
+              <span class="dokar-module-open">Masuk ke LEMARI <b>→</b></span>
             </button>
 
-            <button id="dokarOpenDilan" class="dokar-service-card dilan" type="button">
-              <span class="dokar-service-eyebrow">DATABASE PERIZINAN</span>
+            <button id="dokarOpenDilan" class="dokar-module-card dilan" type="button">
+              <span class="dokar-module-top">
+                <span class="dokar-module-icon"><img src="dokar-icon.png" alt=""></span>
+                <span class="dokar-module-chip">DATABASE PERIZINAN</span>
+              </span>
               <strong>DILAN</strong>
-              <span class="dokar-service-name">Database Izin Lingkungan</span>
-              <span class="dokar-service-desc">Perusahaan, lokasi/objek usaha, dan riwayat dokumen izin dalam satu alur.</span>
-              <span class="dokar-service-action">Buka DILAN <b>→</b></span>
+              <span class="dokar-module-name">Database Izin Lingkungan</span>
+              <span class="dokar-module-desc">Perusahaan, lokasi/objek usaha, dan riwayat dokumen izin dalam satu alur.</span>
+              <span class="dokar-module-open">Masuk ke DILAN <b>→</b></span>
             </button>
           </div>
 
-          <div class="dokar-mini-note">
+          <div class="dokar-dashboard-note">
             <img src="dokar-icon.png" alt="" aria-hidden="true">
-            <span>Dokumen tertata. Izin terbaca. Satu rumah: DOKAR.</span>
-          </div>
-        </div>
-
-        <div class="dokar-home-visual" aria-label="Ilustrasi DOKAR berupa kereta kuda pembawa dokumen, arsip, dan perizinan">
-          <img src="dokar-carriage.png" alt="Kereta kuda DOKAR membawa dokumen, arsip, dan perizinan">
-          <div class="dokar-visual-stamp">
-            <img src="dokar-icon.png" alt="">
-            <span><strong>DOKAR</strong><small>DLH Kabupaten Mojokerto</small></span>
+            <span><strong>DOKAR</strong> · Pusat Dokumen, Arsip, dan Perizinan DLH</span>
           </div>
         </div>
       </section>
-
 
       <section id="archiveLanding" class="split-landing archive-mode-shell">
 
