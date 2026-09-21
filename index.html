@@ -6309,6 +6309,56 @@
       height: 16px;
     }
 
+    .izin-browse-all {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .izin-new-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,.30);
+      border-radius: 12px;
+      background: #6e1f2a;
+      color: #fffaf8;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: .15s ease;
+      box-shadow: 0 8px 20px rgba(77,17,27,.16);
+    }
+
+    .izin-new-btn:hover {
+      background: #812735;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(77,17,27,.22);
+    }
+
+    .izin-new-btn.compact {
+      min-height: 36px;
+      padding: 7px 11px;
+      font-size: 11px;
+      box-shadow: none;
+    }
+
+    .izin-results-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    body:not(.admin-active) .izin-new-btn {
+      display: none !important;
+    }
+
     .izin-mobile-filter-toggle {
       display: none;
       width: 100%;
@@ -6780,6 +6830,7 @@
       text-align: left;
       margin-top: 8px;
     }
+    .swal-izin-grid.full { grid-column: 1 / -1; margin-top: 0; }
 
     .swal-izin-field { display: grid; gap: 5px; }
     .swal-izin-field.full { grid-column: 1 / -1; }
@@ -6790,7 +6841,9 @@
       letter-spacing: .02em;
       text-transform: uppercase;
     }
-    .swal-izin-field input {
+    .swal-izin-field input,
+    .swal-izin-field select,
+    .swal-izin-field textarea {
       width: 100%;
       min-height: 43px;
       border: 1px solid #dcc8c9;
@@ -6802,9 +6855,21 @@
       background: #fffdfc;
       outline: none;
     }
-    .swal-izin-field input:focus {
+    .swal-izin-field textarea {
+      min-height: 78px;
+      resize: vertical;
+    }
+    .swal-izin-field input:focus,
+    .swal-izin-field select:focus,
+    .swal-izin-field textarea:focus {
       border-color: #8b2e3b;
       box-shadow: 0 0 0 3px rgba(139,46,59,.08);
+    }
+    .swal-izin-help {
+      margin: 3px 0 0;
+      color: #8a7477;
+      font-size: 10px;
+      line-height: 1.45;
     }
 
     @media (max-width: 640px) {
@@ -7654,6 +7719,10 @@
               Lihat Semua Izin
               <span aria-hidden="true">→</span>
             </button>
+
+            <button id="izinNewBtn" class="izin-new-btn" type="button" hidden>
+              <span aria-hidden="true">＋</span> Izin Baru
+            </button>
           </div>
 
           <div class="izin-search-note">Ketik kata kunci lalu tekan Enter atau klik Cari Izin.</div>
@@ -7722,7 +7791,12 @@
             <h2 id="izinResultsTitle">Hasil Pencarian Izin</h2>
             <p id="izinResultsSubtitle">Hasil ditampilkan dalam tabel per perusahaan, lokasi, dan dokumen.</p>
           </div>
-          <div id="izinResultCount" class="izin-result-count" hidden>0 perusahaan</div>
+          <div class="izin-results-actions">
+            <div id="izinResultCount" class="izin-result-count" hidden>0 perusahaan</div>
+            <button id="izinNewResultBtn" class="izin-new-btn compact" type="button" hidden>
+              <span aria-hidden="true">＋</span> Izin Baru
+            </button>
+          </div>
         </div>
 
         <button id="izinMobileFilterToggle" class="izin-mobile-filter-toggle" type="button" aria-expanded="false" hidden>
@@ -15838,6 +15912,321 @@
       }
     }
 
+    async function fetchAllIzinForAdminCreate() {
+      const response = await fetch(
+        buildApiUrl("/api/izin/search", { all: 1, limit: 2000 }),
+        { cache: "no-store" }
+      );
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || "Gagal membuka daftar perusahaan dan lokasi.");
+      }
+      return Array.isArray(data.items) ? data.items : [];
+    }
+
+    function izinSelectOptions(items, valueKey, labelBuilder) {
+      return (items || [])
+        .map(item => {
+          const value = escapeHtml(String(item[valueKey] || ""));
+          const label = escapeHtml(labelBuilder(item));
+          return `<option value="${value}">${label}</option>`;
+        })
+        .join("");
+    }
+
+    async function createNewIzin() {
+      if (!isAdmin) return;
+
+      let allItems;
+      try {
+        Swal.fire({
+          title: "Menyiapkan formulir izin...",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          didOpen: () => Swal.showLoading(),
+        });
+        allItems = await fetchAllIzinForAdminCreate();
+        Swal.close();
+      } catch (error) {
+        await Swal.fire({
+          icon: "error",
+          title: "Form izin belum bisa dibuka",
+          text: error.message || "Gagal membaca database izin.",
+          confirmButtonColor: "#6e1f2a",
+        });
+        return;
+      }
+
+      const companies = [...allItems].sort((a, b) =>
+        String(a.nama_industri || "").localeCompare(
+          String(b.nama_industri || ""),
+          "id",
+          { sensitivity: "base" }
+        )
+      );
+
+      const companyResult = await Swal.fire({
+        title: "Izin Baru • 1/3",
+        html: `
+          <div class="swal-izin-grid">
+            <div class="swal-izin-field full">
+              <label>Perusahaan</label>
+              <select id="swalIzinCompanyMode">
+                ${companies.length ? '<option value="existing">Pilih perusahaan yang sudah ada</option>' : ''}
+                <option value="new">＋ Tambah perusahaan baru</option>
+              </select>
+              <div class="swal-izin-help">Satu badan usaha cukup satu perusahaan induk. Lokasi berbeda ditambahkan pada tahap berikutnya.</div>
+            </div>
+            <div id="swalIzinExistingCompanyWrap" class="swal-izin-field full" ${companies.length ? '' : 'hidden'}>
+              <label>Perusahaan terdaftar</label>
+              <select id="swalIzinCompanyId">
+                <option value="">— Pilih perusahaan —</option>
+                ${izinSelectOptions(companies, "id", item => item.nama_industri || item.id)}
+              </select>
+            </div>
+            <div id="swalIzinNewCompanyWrap" class="swal-izin-field full" ${companies.length ? 'hidden' : ''}>
+              <label>Nama perusahaan baru</label>
+              <input id="swalIzinCompanyName" placeholder="Contoh: PT Contoh Industri Mojokerto">
+            </div>
+          </div>
+        `,
+        width: 680,
+        showCancelButton: true,
+        confirmButtonText: "Lanjut ke Lokasi →",
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#6e1f2a",
+        focusConfirm: false,
+        didOpen: () => {
+          const mode = document.getElementById("swalIzinCompanyMode");
+          const existingWrap = document.getElementById("swalIzinExistingCompanyWrap");
+          const newWrap = document.getElementById("swalIzinNewCompanyWrap");
+          const sync = () => {
+            const isNew = mode.value === "new";
+            existingWrap.hidden = isNew;
+            newWrap.hidden = !isNew;
+          };
+          mode.addEventListener("change", sync);
+          sync();
+        },
+        preConfirm: () => {
+          const mode = document.getElementById("swalIzinCompanyMode").value;
+          if (mode === "new") {
+            const name = document.getElementById("swalIzinCompanyName").value.trim();
+            if (!name) {
+              Swal.showValidationMessage("Nama perusahaan baru wajib diisi.");
+              return false;
+            }
+            return { mode: "new", id: "", name };
+          }
+
+          const id = document.getElementById("swalIzinCompanyId").value;
+          const company = companies.find(item => String(item.id || "") === String(id || ""));
+          if (!company) {
+            Swal.showValidationMessage("Pilih perusahaan yang sudah terdaftar.");
+            return false;
+          }
+          return { mode: "existing", id: company.id, name: company.nama_industri };
+        },
+      });
+
+      if (!companyResult.isConfirmed) return;
+      const companyChoice = companyResult.value;
+      const selectedCompany = companyChoice.mode === "existing"
+        ? companies.find(item => String(item.id || "") === String(companyChoice.id || ""))
+        : null;
+      const objects = selectedCompany && Array.isArray(selectedCompany.objek)
+        ? selectedCompany.objek
+        : [];
+
+      const objectResult = await Swal.fire({
+        title: "Izin Baru • 2/3",
+        html: `
+          <div class="swal-izin-grid">
+            <div class="swal-izin-field full">
+              <label>Perusahaan</label>
+              <input value="${escapeHtml(companyChoice.name)}" disabled>
+            </div>
+            <div class="swal-izin-field full">
+              <label>Lokasi / Objek Usaha</label>
+              <select id="swalIzinObjectMode" ${companyChoice.mode === "new" ? 'disabled' : ''}>
+                ${objects.length && companyChoice.mode === "existing" ? '<option value="existing">Pilih lokasi yang sudah ada</option>' : ''}
+                <option value="new">＋ Tambah lokasi baru</option>
+              </select>
+              <div class="swal-izin-help">Izin baru pada lokasi lama sebaiknya masuk ke objek yang sama agar riwayatnya menyatu.</div>
+            </div>
+            <div id="swalIzinExistingObjectWrap" class="swal-izin-field full" ${objects.length && companyChoice.mode === "existing" ? '' : 'hidden'}>
+              <label>Lokasi terdaftar</label>
+              <select id="swalIzinObjectId">
+                <option value="">— Pilih lokasi / objek —</option>
+                ${izinSelectOptions(objects, "objek_id", item => {
+                  const title = izinObjectTitle(item);
+                  return item.alamat ? `${title} — ${item.alamat}` : title;
+                })}
+              </select>
+            </div>
+            <div id="swalIzinNewObjectWrap" class="swal-izin-grid full" ${objects.length && companyChoice.mode === "existing" ? 'hidden' : ''}>
+              <div class="swal-izin-field full">
+                <label>Alamat lokasi usaha</label>
+                <textarea id="swalIzinNewAlamat" placeholder="Alamat lengkap lokasi / objek usaha"></textarea>
+              </div>
+              <div class="swal-izin-field">
+                <label>Desa / Kelurahan</label>
+                <input id="swalIzinNewDesa" placeholder="Desa / Kelurahan">
+              </div>
+              <div class="swal-izin-field">
+                <label>Kecamatan</label>
+                <input id="swalIzinNewKecamatan" placeholder="Kecamatan">
+              </div>
+              <div class="swal-izin-field full">
+                <label>Jenis Usaha</label>
+                <input id="swalIzinNewJenisUsaha" placeholder="Jenis usaha">
+              </div>
+            </div>
+          </div>
+        `,
+        width: 720,
+        showCancelButton: true,
+        confirmButtonText: "Lanjut ke Dokumen →",
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#6e1f2a",
+        focusConfirm: false,
+        didOpen: () => {
+          const mode = document.getElementById("swalIzinObjectMode");
+          const existingWrap = document.getElementById("swalIzinExistingObjectWrap");
+          const newWrap = document.getElementById("swalIzinNewObjectWrap");
+          if (companyChoice.mode === "new" || !objects.length) mode.value = "new";
+          const sync = () => {
+            const isNew = mode.value === "new";
+            existingWrap.hidden = isNew;
+            newWrap.hidden = !isNew;
+          };
+          mode.addEventListener("change", sync);
+          sync();
+        },
+        preConfirm: () => {
+          const mode = document.getElementById("swalIzinObjectMode").value || "new";
+          if (mode === "existing") {
+            const id = document.getElementById("swalIzinObjectId").value;
+            const obj = objects.find(item => String(item.objek_id || "") === String(id || ""));
+            if (!obj) {
+              Swal.showValidationMessage("Pilih lokasi / objek yang sudah terdaftar.");
+              return false;
+            }
+            return { mode: "existing", id: obj.objek_id, obj };
+          }
+
+          const alamat = document.getElementById("swalIzinNewAlamat").value.trim();
+          if (!alamat) {
+            Swal.showValidationMessage("Alamat lokasi usaha wajib diisi.");
+            return false;
+          }
+          return {
+            mode: "new",
+            id: "",
+            alamat,
+            desa_kelurahan: document.getElementById("swalIzinNewDesa").value.trim(),
+            kecamatan: document.getElementById("swalIzinNewKecamatan").value.trim(),
+            jenis_usaha: document.getElementById("swalIzinNewJenisUsaha").value.trim(),
+          };
+        },
+      });
+
+      if (!objectResult.isConfirmed) return;
+      const objectChoice = objectResult.value;
+
+      const documentResult = await Swal.fire({
+        title: "Izin Baru • 3/3",
+        html: `
+          <div class="swal-izin-grid">
+            <div class="swal-izin-field full">
+              <label>Ringkasan tujuan</label>
+              <input value="${escapeHtml(companyChoice.name)}" disabled>
+              <div class="swal-izin-help">${escapeHtml(objectChoice.mode === "existing" ? izinObjectTitle(objectChoice.obj) : [objectChoice.desa_kelurahan, objectChoice.kecamatan].filter(Boolean).join(" • ") || objectChoice.alamat)}</div>
+            </div>
+            <div class="swal-izin-field">
+              <label>Tahun</label>
+              <input id="swalIzinCreateTahun" inputmode="numeric" placeholder="2026">
+            </div>
+            <div class="swal-izin-field">
+              <label>Nomor Label</label>
+              <input id="swalIzinCreateLabel" placeholder="Nomor label">
+            </div>
+            <div class="swal-izin-field full">
+              <label>Nomor Surat / Dokumen</label>
+              <input id="swalIzinCreateNomor" placeholder="Nomor surat / izin">
+            </div>
+            <div class="swal-izin-field full">
+              <label>Tanggal Keluar</label>
+              <input id="swalIzinCreateTanggal" type="date">
+            </div>
+          </div>
+        `,
+        width: 680,
+        showCancelButton: true,
+        confirmButtonText: "Simpan Izin",
+        cancelButtonText: "Batal",
+        confirmButtonColor: "#6e1f2a",
+        focusConfirm: false,
+        preConfirm: () => {
+          let tahun = document.getElementById("swalIzinCreateTahun").value.trim();
+          const no_label = document.getElementById("swalIzinCreateLabel").value.trim();
+          const no_surat = document.getElementById("swalIzinCreateNomor").value.trim();
+          const tgl_keluar = document.getElementById("swalIzinCreateTanggal").value;
+
+          if (!tahun && tgl_keluar) tahun = tgl_keluar.slice(0, 4);
+          if (tahun && !/^\d{4}$/.test(tahun)) {
+            Swal.showValidationMessage("Tahun harus 4 digit, misalnya 2026.");
+            return false;
+          }
+          if (!tahun && !no_label && !no_surat && !tgl_keluar) {
+            Swal.showValidationMessage("Isi minimal tahun, nomor label, nomor surat, atau tanggal keluar.");
+            return false;
+          }
+          return { tahun, no_label, no_surat, tgl_keluar };
+        },
+      });
+
+      if (!documentResult.isConfirmed) return;
+
+      const payload = {
+        company_mode: companyChoice.mode,
+        company_id: companyChoice.id || "",
+        company_name: companyChoice.name || "",
+        object_mode: objectChoice.mode,
+        object_id: objectChoice.id || "",
+        alamat: objectChoice.alamat || "",
+        desa_kelurahan: objectChoice.desa_kelurahan || "",
+        kecamatan: objectChoice.kecamatan || "",
+        jenis_usaha: objectChoice.jenis_usaha || "",
+        ...documentResult.value,
+      };
+
+      const { response, data } = await adminPost("/api/admin/izin/create", payload);
+      if (!response.ok || !data.ok) {
+        await Swal.fire({
+          icon: "error",
+          title: "Izin belum tersimpan",
+          text: data.error || "Gagal menambahkan izin baru.",
+          confirmButtonColor: "#6e1f2a",
+        });
+        return;
+      }
+
+      await Swal.fire({
+        icon: "success",
+        title: "Izin baru tersimpan",
+        html: `<b>${escapeHtml(data.nama_industri || companyChoice.name)}</b><br><span style="font-size:12px;color:#80696b">${escapeHtml(data.no_surat || data.no_label || data.tahun || data.dokumen_id || "Dokumen baru")}</span>`,
+        timer: 1700,
+        showConfirmButton: false,
+      });
+
+      izinState.healthLoaded = false;
+      await loadIzinHealth();
+      $("izinSearchInput").value = data.nama_industri || companyChoice.name;
+      await runIzinSearch();
+    }
+
+
     async function editIzinCompany(companyId) {
       const company = findIzinCompany(companyId);
       if (!company) return;
@@ -16055,6 +16444,11 @@
     }
 
     window.refreshIzinAdminUi = () => {
+      const newButton = $("izinNewBtn");
+      const newResultButton = $("izinNewResultBtn");
+      if (newButton) newButton.hidden = !isAdmin;
+      if (newResultButton) newResultButton.hidden = !isAdmin;
+
       if (!document.body.classList.contains("mode-izin")) return;
       if (izinState.filteredItems && izinState.filteredItems.length) {
         renderIzinPage();
@@ -16298,6 +16692,8 @@
       $("modeIzinBtn").onclick = () => setAppMode("izin");
       $("izinSearchBtn").onclick = () => runIzinSearch();
       $("showAllIzinBtn").onclick = () => showAllIzin();
+      $("izinNewBtn").onclick = () => createNewIzin();
+      $("izinNewResultBtn").onclick = () => createNewIzin();
       $("izinCompanyList").addEventListener("click", handleIzinAdminAction);
       ["izinKecamatanFilter","izinDesaFilter","izinTahunFilter","izinJenisUsahaFilter"].forEach(id => {
         $(id).onchange = () => applyIzinFilters(true);
