@@ -7604,11 +7604,17 @@
         font-size: 10px;
       }
 
-      /* These lines repeat information already visible in the hero/search.
-         Keep the useful quick chips, remove the explanatory filler. */
-      body.mode-izin.landing-idle .izin-search-note,
+      /* Keep these visible (mirrors LEMARI, which keeps its equivalent
+         .split-search-note and .split-caption) so DILAN doesn't read as
+         emptier than LEMARI. Just compact them a bit. */
+      body.mode-izin.landing-idle .izin-search-note {
+        margin-top: 6px;
+        font-size: 10px;
+      }
+
       body.mode-izin.landing-idle .izin-caption {
-        display: none !important;
+        margin-top: clamp(10px, 1.6vh, 16px);
+        font-size: 10px;
       }
 
       body.mode-izin.landing-idle .izin-hints {
