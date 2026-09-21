@@ -16046,14 +16046,20 @@
               <label>Perusahaan</label>
               <input value="${escapeHtml(companyChoice.name)}" disabled>
             </div>
-            <div class="swal-izin-field full">
-              <label>Lokasi / Objek Usaha</label>
-              <select id="swalIzinObjectMode" ${companyChoice.mode === "new" ? 'disabled' : ''}>
-                ${objects.length && companyChoice.mode === "existing" ? '<option value="existing">Pilih lokasi yang sudah ada</option>' : ''}
-                <option value="new">＋ Tambah lokasi baru</option>
-              </select>
-              <div class="swal-izin-help">Izin baru pada lokasi lama sebaiknya masuk ke objek yang sama agar riwayatnya menyatu.</div>
-            </div>
+            ${companyChoice.mode === "existing" && objects.length ? `
+              <div class="swal-izin-field full">
+                <label>Lokasi / Objek Usaha</label>
+                <select id="swalIzinObjectMode">
+                  <option value="existing">Pilih lokasi yang sudah ada</option>
+                  <option value="new">＋ Tambah lokasi baru</option>
+                </select>
+                <div class="swal-izin-help">Kalau izin ini untuk lokasi yang sudah terdaftar, pilih lokasi lama agar riwayat izinnya tetap menyatu.</div>
+              </div>
+            ` : companyChoice.mode === "existing" ? `
+              <div class="swal-izin-field full">
+                <div class="swal-izin-help">Perusahaan ini belum punya lokasi terdaftar. Isi lokasi usaha pertamanya di bawah.</div>
+              </div>
+            ` : ''}
             <div id="swalIzinExistingObjectWrap" class="swal-izin-field full" ${objects.length && companyChoice.mode === "existing" ? '' : 'hidden'}>
               <label>Lokasi terdaftar</label>
               <select id="swalIzinObjectId">
@@ -16094,7 +16100,16 @@
           const mode = document.getElementById("swalIzinObjectMode");
           const existingWrap = document.getElementById("swalIzinExistingObjectWrap");
           const newWrap = document.getElementById("swalIzinNewObjectWrap");
-          if (companyChoice.mode === "new" || !objects.length) mode.value = "new";
+
+          // Perusahaan baru (atau perusahaan lama yang belum punya objek)
+          // langsung mengisi lokasi baru. Dropdown pemilih lokasi hanya muncul
+          // jika memang ada lokasi lama yang bisa dipilih.
+          if (!mode) {
+            existingWrap.hidden = true;
+            newWrap.hidden = false;
+            return;
+          }
+
           const sync = () => {
             const isNew = mode.value === "new";
             existingWrap.hidden = isNew;
@@ -16104,7 +16119,8 @@
           sync();
         },
         preConfirm: () => {
-          const mode = document.getElementById("swalIzinObjectMode").value || "new";
+          const modeElement = document.getElementById("swalIzinObjectMode");
+          const mode = modeElement ? (modeElement.value || "new") : "new";
           if (mode === "existing") {
             const id = document.getElementById("swalIzinObjectId").value;
             const obj = objects.find(item => String(item.objek_id || "") === String(id || ""));
