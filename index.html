@@ -7139,9 +7139,9 @@
 
 
     /* ==================================================
-       DOKAR V2 — DASHBOARD HOME
-       Dashboard first. Artwork is integrated as a transparent atmosphere,
-       not a pasted card.
+       DOKAR V3 — DASHBOARD HOME
+       Dashboard first. Artwork now stays fully inside the canvas and blends
+       through one continuous overlay — no cropped horse, no center seam.
     ================================================== */
     .dokar-beranda-btn {
       display: inline-flex;
@@ -7195,27 +7195,34 @@
     .dokar-dashboard-art {
       position: absolute;
       z-index: -2;
-      right: -5.5vw;
-      bottom: -10vh;
-      width: min(67vw, 1080px);
+      right: clamp(22px, 2.4vw, 46px);
+      bottom: -5.5vh;
+      width: min(61vw, 980px);
       aspect-ratio: 3 / 2;
       background: url("dokar-dashboard-art.png") center / contain no-repeat;
-      opacity: .54;
+      opacity: .50;
       filter: saturate(.88) contrast(.96) drop-shadow(0 24px 30px rgba(59,36,19,.10));
       pointer-events: none;
-      transform: rotate(-.6deg);
-      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 13%, #000 32%, #000 100%);
-      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 13%, #000 32%, #000 100%);
+      transform: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.16) 8%, rgba(0,0,0,.62) 21%, #000 35%, #000 100%);
+      mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.16) 8%, rgba(0,0,0,.62) 21%, #000 35%, #000 100%);
     }
     .dokar-dashboard::after {
       content: "";
       position: absolute;
       z-index: -1;
-      right: 0;
-      bottom: 0;
-      width: 54%;
-      height: 100%;
-      background: linear-gradient(90deg, rgba(246,240,229,.96) 0%, rgba(246,240,229,.58) 23%, rgba(246,240,229,.02) 72%);
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(246,240,229,.99) 0%,
+          rgba(246,240,229,.98) 34%,
+          rgba(246,240,229,.88) 46%,
+          rgba(246,240,229,.62) 57%,
+          rgba(246,240,229,.28) 70%,
+          rgba(246,240,229,.08) 83%,
+          rgba(246,240,229,.14) 100%
+        );
       pointer-events: none;
     }
     .dokar-dashboard-inner {
@@ -7414,12 +7421,16 @@
       .dokar-dashboard { min-height: calc(100dvh - 88px); overflow: hidden; }
       .dokar-dashboard-inner { width: min(100% - 34px, 760px); justify-content: flex-start; padding-top: 34px; }
       .dokar-dashboard-art {
-        width: 760px;
-        right: -300px;
-        bottom: -50px;
+        width: min(78vw, 760px);
+        right: -36px;
+        bottom: -40px;
         opacity: .24;
       }
-      .dokar-dashboard::after { width: 100%; background: linear-gradient(90deg, rgba(246,240,229,.98), rgba(246,240,229,.72) 58%, rgba(246,240,229,.18)); }
+      .dokar-dashboard::after {
+        inset: 0;
+        width: auto;
+        background: linear-gradient(90deg, rgba(246,240,229,.99) 0%, rgba(246,240,229,.93) 52%, rgba(246,240,229,.46) 72%, rgba(246,240,229,.14) 100%);
+      }
       .dokar-dashboard-services { max-width: 690px; }
     }
     @media (max-width: 720px) {
@@ -7431,7 +7442,7 @@
       .dokar-dashboard-head p { font-size: 12px; }
       .dokar-dashboard-services { grid-template-columns: 1fr; gap: 11px; margin-top: 20px; }
       .dokar-module-card { min-height: 194px; padding: 17px; }
-      .dokar-dashboard-art { width: 620px; right: -330px; bottom: -20px; opacity: .17; }
+      .dokar-dashboard-art { width: 560px; right: -80px; bottom: -16px; opacity: .15; }
       .dokar-dashboard-note { margin-bottom: 8px; }
     }
 
