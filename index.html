@@ -8057,16 +8057,24 @@
 
     body.dokar-home .dokar-dashboard-inner {
       min-height: 100dvh;
-      padding-top: clamp(34px, 6vh, 64px);
+      padding-top: clamp(88px, 12vh, 120px);
       padding-bottom: clamp(28px, 5vh, 50px);
     }
 
+    /* Full-width top row: DOKAR brand top-left, BERANDA button top-right,
+       both on the exact same line at the same height. */
     .dokar-dashboard-brandline {
-      width: min(760px, 100%);
+      position: absolute;
+      z-index: 6;
+      top: clamp(22px, 3.5vh, 34px);
+      left: clamp(22px, 3.2vw, 52px);
+      right: clamp(22px, 3.2vw, 52px);
+      width: auto;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 18px;
-      margin-bottom: clamp(24px, 4vh, 38px);
+      margin-bottom: 0;
     }
 
     .dokar-dashboard-brand {
@@ -8106,10 +8114,7 @@
     }
 
     .dokar-dashboard-back {
-      position: absolute;
-      z-index: 6;
-      top: clamp(22px, 3.5vh, 34px);
-      right: clamp(22px, 3.2vw, 52px);
+      flex: 0 0 auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -8150,17 +8155,20 @@
 
     @media (max-width: 720px) {
       .dokar-dashboard-brandline {
-        margin-bottom: 24px;
+        top: 14px;
+        left: 14px;
+        right: 14px;
+      }
+      body.dokar-home .dokar-dashboard-inner {
+        padding-top: 76px;
       }
       .dokar-dashboard-brand > img {
-        width: 40px;
-        height: 40px;
+        width: 34px;
+        height: 34px;
       }
-      .dokar-dashboard-brand strong { font-size: 21px; }
+      .dokar-dashboard-brand strong { font-size: 18px; }
       .dokar-dashboard-brand small { display: none; }
       .dokar-dashboard-back {
-        top: 16px;
-        right: 14px;
         min-height: 40px;
         padding: 0 12px;
         border-radius: 12px;
