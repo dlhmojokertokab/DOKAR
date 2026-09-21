@@ -8,22 +8,23 @@
   >
 
   <title>
-    LEMARI DLH
+    DOKAR DLH
   </title>
 
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo/favicon-16.png">
-  <link rel="apple-touch-icon" href="assets/pwa/apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="dokar-icon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="dokar-icon.png">
+  <link rel="apple-touch-icon" href="dokar-icon.png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2f6b45">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="LEMARI">
+  <meta name="apple-mobile-web-app-title" content="DOKAR">
 
   <meta
     name="description"
-    content="Layanan Elektronik Manajemen Arsip Ringkas dan Integratif — DLH Kabupaten Mojokerto"
+    content="DOKAR — Pusat Dokumen, Arsip, dan Perizinan DLH Kabupaten Mojokerto"
   >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -6880,6 +6881,262 @@
       .swal-izin-field.full { grid-column: auto; }
     }
 
+  
+
+    /* ==================================================
+       DOKAR V1 — ROOT SHELL
+       DOKAR is the house; LEMARI and DILAN are services.
+    ================================================== */
+    .dokar-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      padding: 4px 8px 4px 2px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+    .dokar-brand:hover .dokar-brand-icon { transform: translateY(-1px) rotate(-2deg) scale(1.04); }
+    .dokar-brand-icon {
+      width: 58px;
+      height: 58px;
+      flex: 0 0 auto;
+      object-fit: contain;
+      transition: transform .2s ease;
+      filter: drop-shadow(0 6px 8px rgba(74,41,22,.12));
+    }
+    .dokar-brand-copy { display: grid; gap: 1px; min-width: 0; }
+    .dokar-brand-copy strong {
+      color: #255d38;
+      font-size: 29px;
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+    .dokar-brand-copy small {
+      color: #786b60;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    body.dokar-home .page-turn-nav,
+    body.dokar-home #archiveLanding,
+    body.dokar-home #izinLanding,
+    body.dokar-home #archiveResultsSection,
+    body.dokar-home #izinResultsSection,
+    body.dokar-home #uploadBtn,
+    body.dokar-home #exportLettersBtn,
+    body.dokar-home #settingsBtn {
+      display: none !important;
+    }
+    body:not(.dokar-home) #dokarLanding { display: none !important; }
+    body.dokar-home #dokarLanding { display: grid !important; }
+
+    .dokar-landing {
+      position: relative;
+      min-height: calc(100vh - 106px);
+      grid-template-columns: minmax(0, .95fr) minmax(480px, 1.05fr);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(83,128,69,.12), transparent 28%),
+        linear-gradient(135deg, #fffdf7 0%, #fbf7ed 56%, #f1ead9 100%);
+      overflow: hidden;
+      border-top: 1px solid rgba(77,61,45,.08);
+    }
+    .dokar-landing::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -34% 35%;
+      height: 72%;
+      border-radius: 50%;
+      background: rgba(54,101,55,.07);
+      filter: blur(1px);
+      pointer-events: none;
+    }
+    .dokar-home-copy {
+      position: relative;
+      z-index: 2;
+      align-self: center;
+      padding: clamp(38px, 5.4vw, 84px) clamp(32px, 5vw, 78px);
+    }
+    .dokar-kicker {
+      margin-bottom: 13px;
+      color: #8a5a3b;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .dokar-title-wrap { display: grid; gap: 6px; }
+    .dokar-title {
+      color: #255d38;
+      font-size: clamp(56px, 6vw, 92px);
+      font-weight: 950;
+      line-height: .9;
+      letter-spacing: -.065em;
+    }
+    .dokar-title-accent {
+      color: #7a482c;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(22px, 2.2vw, 34px);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.16;
+    }
+    .dokar-lead {
+      max-width: 720px;
+      margin: 18px 0 0;
+      color: #6c6259;
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    .dokar-service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 27px;
+    }
+    .dokar-service-card {
+      min-height: 215px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 22px;
+      border-radius: 22px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .dokar-service-card:hover { transform: translateY(-4px); }
+    .dokar-service-card.lemari {
+      border: 1px solid rgba(47,107,69,.16);
+      background: linear-gradient(155deg, rgba(240,247,237,.98), rgba(255,252,244,.96));
+      color: #245237;
+      box-shadow: 0 16px 38px rgba(47,107,69,.08);
+    }
+    .dokar-service-card.lemari:hover { box-shadow: 0 20px 44px rgba(47,107,69,.14); border-color: rgba(47,107,69,.28); }
+    .dokar-service-card.dilan {
+      border: 1px solid rgba(110,31,42,.16);
+      background: linear-gradient(155deg, rgba(252,238,239,.98), rgba(255,250,246,.96));
+      color: #6e1f2a;
+      box-shadow: 0 16px 38px rgba(110,31,42,.08);
+    }
+    .dokar-service-card.dilan:hover { box-shadow: 0 20px 44px rgba(110,31,42,.14); border-color: rgba(110,31,42,.28); }
+    .dokar-service-eyebrow {
+      font-size: 9px;
+      font-weight: 950;
+      letter-spacing: .12em;
+      opacity: .72;
+    }
+    .dokar-service-card strong {
+      display: block;
+      margin-top: 9px;
+      font-size: 31px;
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+    .dokar-service-name { margin-top: 7px; font-size: 12px; font-weight: 850; line-height: 1.35; }
+    .dokar-service-desc { margin-top: 9px; color: #756960; font-size: 11px; line-height: 1.5; }
+    .dokar-service-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: auto;
+      padding-top: 16px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .dokar-service-action b { font-size: 17px; line-height: 1; }
+    .dokar-mini-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 18px;
+      color: #7f746a;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .dokar-mini-note img { width: 28px; height: 28px; object-fit: contain; }
+
+    .dokar-home-visual {
+      position: relative;
+      z-index: 1;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 34px 38px 34px 0;
+    }
+    .dokar-home-visual > img {
+      width: min(100%, 930px);
+      max-height: 73vh;
+      object-fit: contain;
+      object-position: center;
+      filter: drop-shadow(0 26px 25px rgba(71,52,31,.12));
+      mix-blend-mode: multiply;
+    }
+    .dokar-visual-stamp {
+      position: absolute;
+      right: clamp(28px, 4vw, 72px);
+      bottom: clamp(24px, 4vw, 52px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px 8px 8px;
+      border: 1px solid rgba(56,79,51,.12);
+      border-radius: 999px;
+      background: rgba(255,253,247,.86);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 26px rgba(64,48,33,.08);
+    }
+    .dokar-visual-stamp img { width: 36px; height: 36px; object-fit: contain; }
+    .dokar-visual-stamp span { display: grid; line-height: 1.15; }
+    .dokar-visual-stamp strong { color: #275b38; font-size: 12px; }
+    .dokar-visual-stamp small { color: #8b7a6c; font-size: 8px; font-weight: 700; }
+
+    body.dokar-home .top-unified-card { min-height: 100vh; }
+    body.dokar-home .top-unified-card .hero {
+      position: relative;
+      z-index: 5;
+      border-bottom: 1px solid rgba(77,61,45,.08);
+      background: rgba(255,253,248,.94);
+      backdrop-filter: blur(12px);
+    }
+
+    /* DILAN gets its own identity but keeps the same proven workflow. */
+    body.mode-izin .izin-kicker::before {
+      content: "DILAN • ";
+      color: #6e1f2a;
+      font-weight: 950;
+    }
+
+    @media (max-width: 1080px) {
+      .dokar-landing { grid-template-columns: 1fr; }
+      .dokar-home-copy { padding-bottom: 24px; }
+      .dokar-home-visual { min-height: 350px; padding: 0 24px 30px; }
+      .dokar-home-visual > img { max-height: 48vh; }
+      .dokar-visual-stamp { right: 30px; bottom: 28px; }
+    }
+    @media (max-width: 720px) {
+      .dokar-brand-icon { width: 45px; height: 45px; }
+      .dokar-brand-copy strong { font-size: 24px; }
+      .dokar-brand-copy small { display: none; }
+      .dokar-home-copy { padding: 28px 18px 18px; }
+      .dokar-title { font-size: 54px; }
+      .dokar-title-accent { font-size: 22px; }
+      .dokar-lead { font-size: 13px; }
+      .dokar-service-grid { grid-template-columns: 1fr; }
+      .dokar-service-card { min-height: 185px; padding: 18px; }
+      .dokar-home-visual { min-height: 260px; padding: 0 12px 20px; }
+      .dokar-home-visual > img { width: 100%; max-height: 290px; }
+      .dokar-visual-stamp { display: none; }
+    }
+
   </style>
 
   <style id="v43-single-destination-arrow">
@@ -7462,7 +7719,7 @@
 
 </head>
 
-<body class="landing-idle">
+<body class="landing-idle dokar-home">
 
   <div class="app">
 
@@ -7477,21 +7734,13 @@
 
         <header class="hero">
 
-      <div class="brand brand-horizontal-lockup">
-
-        <div class="brand-logo-wrap">
-          <img
-            class="brand-logo-horizontal"
-            src="assets/logo/logo-horizontal.png"
-            alt="LEMARI DLH"
-          >
-        </div>
-
-        <p class="brand-subtitle brand-subtitle-lockup">
-          Layanan Elektronik Manajemen Arsip Ringkas dan Integratif
-        </p>
-
-      </div>
+      <button id="dokarHomeBtn" class="dokar-brand" type="button" aria-label="Kembali ke beranda DOKAR">
+        <img class="dokar-brand-icon" src="dokar-icon.png" alt="">
+        <span class="dokar-brand-copy">
+          <strong>DOKAR</strong>
+          <small>Pusat Dokumen, Arsip, dan Perizinan DLH</small>
+        </span>
+      </button>
 
 
       <div class="header-actions">
@@ -7551,20 +7800,68 @@
 
         </header>
 
-      <nav class="page-turn-nav" aria-label="Pindah layanan LEMARI">
-        <button id="modeArsipBtn" class="page-turn-arrow page-turn-arsip" type="button" data-mode="arsip" aria-pressed="true" aria-label="Buka Arsip">
+      <nav class="page-turn-nav" aria-label="Pindah layanan DOKAR">
+        <button id="modeArsipBtn" class="page-turn-arrow page-turn-arsip" type="button" data-mode="arsip" aria-pressed="true" aria-label="Buka LEMARI — Arsip Dokumen">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M15 18l-6-6 6-6"/>
           </svg>
-          <span class="page-turn-label">ARSIP</span>
+          <span class="page-turn-label">LEMARI</span>
         </button>
-        <button id="modeIzinBtn" class="page-turn-arrow page-turn-izin" type="button" data-mode="izin" aria-pressed="false" aria-label="Buka Izin Lingkungan">
-          <span class="page-turn-label">IZIN</span>
+        <button id="modeIzinBtn" class="page-turn-arrow page-turn-izin" type="button" data-mode="izin" aria-pressed="false" aria-label="Buka DILAN — Database Izin Lingkungan">
+          <span class="page-turn-label">DILAN</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M9 18l6-6-6-6"/>
           </svg>
         </button>
       </nav>
+
+
+      <section id="dokarLanding" class="dokar-landing" aria-label="Beranda DOKAR">
+        <div class="dokar-home-copy">
+          <div class="dokar-kicker">DINAS LINGKUNGAN HIDUP KABUPATEN MOJOKERTO</div>
+
+          <div class="dokar-title-wrap">
+            <span class="dokar-title">DOKAR</span>
+            <span class="dokar-title-accent">Pusat Dokumen, Arsip, dan Perizinan DLH</span>
+          </div>
+
+          <p class="dokar-lead">
+            Satu pintu kerja untuk dua layanan yang berbeda: arsip dokumen melalui LEMARI,
+            dan database izin lingkungan melalui DILAN. Pilih layanan yang ingin dibuka.
+          </p>
+
+          <div class="dokar-service-grid">
+            <button id="dokarOpenLemari" class="dokar-service-card lemari" type="button">
+              <span class="dokar-service-eyebrow">ARSIP DOKUMEN</span>
+              <strong>LEMARI</strong>
+              <span class="dokar-service-name">Layanan Elektronik Manajemen Arsip Ringkas dan Integratif</span>
+              <span class="dokar-service-desc">Cari, unggah, kelola, dan telusuri riwayat arsip DLH.</span>
+              <span class="dokar-service-action">Buka LEMARI <b>→</b></span>
+            </button>
+
+            <button id="dokarOpenDilan" class="dokar-service-card dilan" type="button">
+              <span class="dokar-service-eyebrow">DATABASE PERIZINAN</span>
+              <strong>DILAN</strong>
+              <span class="dokar-service-name">Database Izin Lingkungan</span>
+              <span class="dokar-service-desc">Perusahaan, lokasi/objek usaha, dan riwayat dokumen izin dalam satu alur.</span>
+              <span class="dokar-service-action">Buka DILAN <b>→</b></span>
+            </button>
+          </div>
+
+          <div class="dokar-mini-note">
+            <img src="dokar-icon.png" alt="" aria-hidden="true">
+            <span>Dokumen tertata. Izin terbaca. Satu rumah: DOKAR.</span>
+          </div>
+        </div>
+
+        <div class="dokar-home-visual" aria-label="Ilustrasi DOKAR berupa kereta kuda pembawa dokumen, arsip, dan perizinan">
+          <img src="dokar-carriage.png" alt="Kereta kuda DOKAR membawa dokumen, arsip, dan perizinan">
+          <div class="dokar-visual-stamp">
+            <img src="dokar-icon.png" alt="">
+            <span><strong>DOKAR</strong><small>DLH Kabupaten Mojokerto</small></span>
+          </div>
+        </div>
+      </section>
 
 
       <section id="archiveLanding" class="split-landing archive-mode-shell">
@@ -7685,8 +7982,8 @@
           <div class="izin-kicker">DATABASE IZIN • DINAS LINGKUNGAN HIDUP KABUPATEN MOJOKERTO</div>
 
           <div class="izin-heading">
-            <span class="izin-heading-main">IZIN LINGKUNGAN</span>
-            <span class="izin-heading-accent">Satu perusahaan. Banyak lokasi. Riwayat tetap utuh.</span>
+            <span class="izin-heading-main">DILAN</span>
+            <span class="izin-heading-accent">Database Izin Lingkungan</span>
           </div>
 
           <p class="izin-lead">
@@ -7776,7 +8073,7 @@
 
             <div class="izin-visual-label">
               <div>
-                <strong>Database Izin Lingkungan</strong>
+                <strong>DILAN • Database Izin Lingkungan</strong>
                 <span>Perusahaan • Lokasi • Riwayat dokumen</span>
               </div>
               <div class="izin-visual-badge">DLH Mojokerto</div>
@@ -15642,7 +15939,7 @@
     // ==================================================
 
     let appMode =
-      localStorage.getItem("lemariAppMode") === "izin"
+      (localStorage.getItem("dokarLastModule") || localStorage.getItem("lemariAppMode")) === "izin"
         ? "izin"
         : "arsip";
 
@@ -15703,7 +16000,9 @@
 
     function setAppMode(mode) {
       appMode = mode === "izin" ? "izin" : "arsip";
-      localStorage.setItem("lemariAppMode", appMode);
+      localStorage.setItem("dokarLastModule", appMode);
+      document.body.classList.remove("dokar-home");
+
       const izin = appMode === "izin";
       document.body.classList.toggle("mode-izin", izin);
       $("modeArsipBtn").classList.toggle("active", !izin);
@@ -15719,6 +16018,24 @@
         setLandingIdle(!hasActiveSearch());
         requestAnimationFrame(() => $("searchInput").focus({ preventScroll: true }));
       }
+    }
+
+    function openDokarModule(mode) {
+      if (mode === "izin") {
+        $("izinResultsSection").hidden = true;
+        izinState.browseAll = false;
+        setAppMode("izin");
+      } else {
+        showSearchReady();
+        setAppMode("arsip");
+      }
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
+    function showDokarHome() {
+      document.body.classList.add("dokar-home");
+      setLandingIdle(true);
+      window.scrollTo({ top: 0, behavior: "auto" });
     }
 
     function izinObjectTitle(obj) {
@@ -16704,8 +17021,11 @@
     }
 
     function initIzinMode() {
-      $("modeArsipBtn").onclick = () => setAppMode("arsip");
-      $("modeIzinBtn").onclick = () => setAppMode("izin");
+      $("modeArsipBtn").onclick = () => openDokarModule("arsip");
+      $("modeIzinBtn").onclick = () => openDokarModule("izin");
+      $("dokarOpenLemari").onclick = () => openDokarModule("arsip");
+      $("dokarOpenDilan").onclick = () => openDokarModule("izin");
+      $("dokarHomeBtn").onclick = () => showDokarHome();
       $("izinSearchBtn").onclick = () => runIzinSearch();
       $("showAllIzinBtn").onclick = () => showAllIzin();
       $("izinNewBtn").onclick = () => createNewIzin();
@@ -16744,7 +17064,7 @@
           runIzinSearch();
         };
       });
-      setAppMode(appMode);
+      showDokarHome();
     }
 
 
@@ -16770,7 +17090,7 @@
       catch (error) {
         showError(
           error.message ||
-          "Gagal membuka LEMARI."
+          "Gagal membuka DOKAR."
         );
       }
     }
@@ -16799,7 +17119,7 @@
 
           catch (error) {
             console.warn(
-              "Service Worker LEMARI gagal didaftarkan:",
+              "Service Worker DOKAR gagal didaftarkan:",
               error
             );
           }
